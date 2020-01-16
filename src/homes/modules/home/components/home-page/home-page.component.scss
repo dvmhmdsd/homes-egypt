@@ -1,0 +1,21 @@
+#home-page {
+    text-align: center;
+    #intro {
+        margin-bottom: 1rem;
+    }
+
+    #helpful-links {
+        margin-top: 2rem;
+
+        .heading {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        a {
+            margin-right: 1rem;
+            color: #ccc;
+            font-weight: bold;
+        }
+    }
+}

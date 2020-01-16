@@ -1,0 +1,70 @@
+.properties {
+    .properties-heading {
+        color: $mainColor;
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 6rem;
+    }
+
+    .property-item {
+        margin-bottom: 4rem; 
+        .property-header {
+            position: relative;
+            .property-img {
+                z-index: 1;
+                img {
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
+
+            .property-metadata {
+                .absolute-position {
+                    position: absolute;
+                    z-index: 2;
+                    background-color: rgba($color: #000000, $alpha: 0.6);
+                    color: #fff;
+                    padding: 0.4rem 1rem;
+                    margin-bottom: 0;
+                }
+                .property-location {
+                    left: 0;
+                    top: 0;
+                }
+
+                .property-type {
+                    top: 0;
+                    right: 0;
+                }
+
+                .property-price {
+                    left: 0;
+                    bottom: 0;
+                }
+            }
+        }
+
+        .property-body {
+            color: $mainColor;
+            font-weight: bold;
+            font-size: 1rem;
+
+            .property-rooms {
+                > * {
+                    margin: 5px;
+                }
+            }
+        }
+    }
+
+    .view-properties-btn {
+        padding: 0.5rem 1rem;
+        color: $mainColor;
+        font-size: 1.5rem;
+        transition: all 0.2s;
+        &:hover {
+            color: #fff;
+            background-color: $mainColor;
+        }
+    }
+}

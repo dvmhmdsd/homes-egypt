@@ -1,0 +1,369 @@
+<section class="searchbox d-flex flex-column justify-content-center">
+  <div class="container">
+    <!-- types buttons -->
+    <section class="types-panel d-flex justify-content-around flex-wrap">
+      <button
+        class="btn-action types-panel-btn"
+        *for="let type of this.searchForm.typesAvailable"
+        (click)="this.activateType($el, type)"
+        data-type="{{ type.value }}"
+      >
+        {{ type.label }}
+      </button>
+    </section>
+
+    <!-- Search forms -->
+    <section class="search-form">
+      <ul class="regions list-unstyled d-flex justify-content-center flex-wrap">
+        <li
+          class="region-item"
+          *for="let region of this.searchForm.featuredRegions"
+          (click)="this.searchForm.chosenRegions.push(region);"
+        >
+          {{ region.name }}
+        </li>
+      </ul>
+
+      <!-- rent / sale form-->
+      <form
+        *if="this.searchForm.type == 'rent' || this.searchForm.type == 'sale'"
+        (submit)="this.getProperties(e, $el)"
+        class="d-flex flex-wrap"
+      >
+        <div class="form-group col-md-7 col-xs-12">
+          <form-input
+            type="text"
+            list="regionsList"
+            placeholder="Search for locations"
+            name="regions"
+            class="form-control"
+          ></form-input>
+          <datalist id="regionsList">
+            <option
+              *for="let region of this.searchForm.regions"
+              value="{{ region.name }}"
+            >
+            </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-5 col-xs-12">
+          <form-input
+            type="text"
+            placeholder="#ID"
+            name="id"
+            class="form-control"
+          ></form-input>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12">
+          <form-input
+            type="text"
+            list="typesList"
+            placeholder="Type"
+            name="type"
+            class="form-control"
+          ></form-input>
+          <datalist id="typesList">
+            <option
+              *for="let type of this.searchForm.propertyTypes"
+              value="{{ type.name }}"
+            >
+            </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12">
+          <form-input
+            type="text"
+            list="minBeds"
+            placeholder="Min Beds"
+            name="min_beds"
+            class="form-control"
+          ></form-input>
+          <datalist id="minBeds">
+            <option *for="let i = 0; i <= 10; i++" value="{{ i }}"> </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12">
+          <form-input
+            type="text"
+            list="maxBeds"
+            placeholder="Max Beds"
+            name="max_beds"
+            class="form-control"
+          ></form-input>
+          <datalist id="maxBeds">
+            <option *for="let i = 0; i <= 10; i++" value="{{ i }}"> </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12">
+          <form-input
+            type="text"
+            list="currencies"
+            placeholder="{{ this.cache.get('currency') }}"
+            name="currency"
+            class="form-control"
+          ></form-input>
+          <datalist id="currencies">
+            <option
+              *for="let currency of this.searchForm.currencies"
+              value="{{ currency.code }}"
+            >
+            </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12">
+          <form-input
+            type="number"
+            placeholder="Min price"
+            name="min_price"
+            class="form-control"
+          ></form-input>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12">
+          <form-input
+            type="number"
+            placeholder="Max price"
+            name="max_price"
+            class="form-control"
+          ></form-input>
+        </div>
+
+        <div *if="this.searchForm.chosenRegions.length > 0" class="form-group col-12">
+            <ul class="list-unstyled d-flex chosen-regions">
+                <li class="chosen-region-item" *for="let region, index of this.searchForm.chosenRegions" >
+                    {{region.name}}
+                    <i class="fa fa-times" (click)="this.removeChosenRegion($el, index)"></i>
+                </li>
+            </ul>
+        </div>
+
+        <div class="form-group col-12 text-right form-actions">
+            <input type="reset" class="modal-btn btn-action mr-auto"></input>
+            <input type="submit" value="Search" class="modal-btn btn-action mr-auto"></input>
+        </div>
+      </form>
+
+      <!-- commercial form-->
+      <form *if="this.searchForm.type == 'commercial'" (submit)="this.getProperties(e, $el)" class="d-flex flex-wrap">
+        <div class="form-group col-md-7 col-xs-12">
+          <form-input
+            type="text"
+            list="regionsList"
+            placeholder="Search for locations"
+            name="regions"
+            class="form-control"
+          ></form-input>
+          <datalist id="regionsList">
+            <option
+              *for="let region of this.searchForm.regions"
+              value="{{ region.name }}"
+            >
+            </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-5 col-xs-12">
+          <form-input
+            type="text"
+            placeholder="#ID"
+            name="id"
+            class="form-control"
+          ></form-input>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12">
+          <form-input
+            type="text"
+            list="typesList"
+            placeholder="Type"
+            name="type"
+            class="form-control"
+          ></form-input>
+          <datalist id="typesList">
+            <option
+              *for="let type of this.getCommercialTypes()"
+              value="{{ type.name }}"
+            >
+            </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-2 col-xs-12">
+          <form-input
+            type="text"
+            list="roomsNum"
+            placeholder="Rooms"
+            name="rooms"
+            class="form-control"
+          ></form-input>
+          <datalist id="roomsNum">
+            <option *for="let i = 0; i <= 10; i++" value="{{ i }}"> </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12">
+          <form-input
+            type="text"
+            list="currencies"
+            placeholder="{{ this.cache.get('currency') }}"
+            name="currency"
+            class="form-control"
+          ></form-input>
+          <datalist id="currencies">
+            <option
+              *for="let currency of this.searchForm.currencies"
+              value="{{ currency.code }}"
+            >
+            </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-2 col-xs-12">
+          <form-input
+            type="number"
+            placeholder="Min price"
+            name="min_price"
+            class="form-control"
+          ></form-input>
+        </div>
+
+        <div class="form-group col-md-2 col-xs-12">
+          <form-input
+            type="number"
+            placeholder="Max price"
+            name="max_price"
+            class="form-control"
+          ></form-input>
+        </div>
+
+        <div *if="this.searchForm.chosenRegions.length > 0" class="form-group col-12">
+            <ul class="list-unstyled d-flex chosen-regions">
+                <li class="chosen-region-item" *for="let region, index of this.searchForm.chosenRegions" >
+                    {{region.name}}
+                    <i class="fa fa-times" (click)="this.removeChosenRegion($el, index)"></i>
+                </li>
+            </ul>
+        </div>
+
+        <div class="form-group col-12 text-right form-actions">
+                <input type="reset" class="modal-btn btn-action mr-auto"></input>
+                <input type="submit" value="Search" class="modal-btn btn-action mr-auto"></input>
+            </div>
+      </form>
+
+      <!-- new homes form-->
+      <form *if="this.searchForm.type == 'new_homes'" (submit)="this.getProperties(e, $el)" class="d-flex flex-wrap">
+        <div class="form-group col-md-7 col-xs-12">
+          <form-input
+            type="text"
+            list="compoundsList"
+            placeholder="Compounds"
+            name="regions"
+            class="form-control"
+          ></form-input>
+          <datalist id="compoundsList">
+            <option
+              *for="let compound of this.searchForm.compounds"
+              value="{{ compound.name }}"
+            >
+            </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-5 col-xs-12">
+          <form-input
+            type="text"
+            placeholder="#ID"
+            name="id"
+            class="form-control"
+          ></form-input>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12">
+          <form-input
+            type="text"
+            list="typesList"
+            placeholder="Type"
+            name="type"
+            class="form-control"
+          ></form-input>
+          <datalist id="typesList">
+            <option
+              *for="let type of this.getCompoundsTypes()"
+              value="{{ type.name }}"
+            >
+            </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-2 col-xs-12">
+          <form-input
+            type="text"
+            list="roomsNum"
+            placeholder="Rooms"
+            name="rooms"
+            class="form-control"
+          ></form-input>
+          <datalist id="roomsNum">
+            <option *for="let i = 0; i <= 10; i++" value="{{ i }}"> </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12">
+          <form-input
+            type="text"
+            list="currencies"
+            placeholder="{{ this.cache.get('currency') }}"
+            name="currency"
+            class="form-control"
+          ></form-input>
+          <datalist id="currencies">
+            <option
+              *for="let currency of this.searchForm.currencies"
+              value="{{ currency.code }}"
+            >
+            </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-2 col-xs-12">
+          <form-input
+            type="number"
+            placeholder="Min price"
+            name="min_price"
+            class="form-control"
+          ></form-input>
+        </div>
+
+        <div class="form-group col-md-2 col-xs-12">
+          <form-input
+            type="number"
+            placeholder="Max price"
+            name="max_price"
+            class="form-control"
+          ></form-input>
+        </div>
+
+        <div *if="this.searchForm.chosenRegions.length > 0" class="form-group col-12">
+            <ul class="list-unstyled d-flex chosen-regions">
+                <li class="chosen-region-item" *for="let region, index of this.searchForm.chosenRegions" >
+                    {{region.name}}
+                    <i class="fa fa-times" (click)="this.removeChosenRegion($el, index)"></i>
+                </li>
+            </ul>
+        </div>
+
+        <div class="form-group col-12 text-right form-actions">
+            <input type="reset" class="modal-btn btn-action mr-auto"></input>
+            <input type="submit" value="Search" class="modal-btn btn-action mr-auto"></input>
+        </div>
+      </form>
+    </section>
+  </div>
+</section>

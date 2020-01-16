@@ -1,0 +1,25 @@
+{
+  "name": "blog",
+  "favicon": "",
+  "assets": [],
+  "packages": [],
+  "externals": {
+    "css": {
+      "common": [
+        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+      ]
+    },
+    "js": [
+      "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    ]
+  },
+  "modules": [
+    "shared",
+    "home",
+    "users",
+    "services",
+    "searchbox",
+    "properties",
+    "single"
+  ]
+}

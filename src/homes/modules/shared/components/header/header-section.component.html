@@ -1,0 +1,214 @@
+<!-- the info header -->
+<section class="info-header">
+  <div class="container d-flex">
+    <!-- left side list -->
+    <ul class="mr-auto list-unstyled d-flex">
+      <li class="info-item">
+        <a href="tel:01288744799"
+          ><i class="fas fa-phone-alt"></i> 01288744799</a
+        >
+      </li>
+
+      <li class="info-item">
+        <a href="mailto:Info@Homes-Egypt.Com">
+          <i class="fas fa-envelope"></i> Info@Homes-Egypt.Com</a
+        >
+      </li>
+    </ul>
+    <!-- left side list -->
+
+    <!-- right side list -->
+    <ul class="ml-auto list-unstyled">
+      <li class="dropdown info-item">
+        <button
+          class="btn btn-link dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Currency ({{ this.cache.get("currency") }})
+        </button>
+        <!-- drop list -->
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li class="dropdown-item" *for="let currency of this.currencies">
+            <button
+              data-currency="{{ currency.code }}"
+              (click)="this.setCurrency($el)"
+            >
+              {{ currency.code }}
+            </button>
+          </li>
+        </ul>
+        <!-- drop list -->
+      </li>
+    </ul>
+    <!-- right side list -->
+  </div>
+</section>
+
+<!-- main header -->
+<nav class="navbar navbar-expand-lg main-header">
+  <div class="container">
+    <!-- logo -->
+    <h1 class="header-logo col-lg-2 col-3">
+      <a class="navbar-brand" href="/">
+        <img
+          src="/public/homes/images/logo.png"
+          alt="Homes logo"
+          title="Home"
+        />
+      </a>
+    </h1>
+
+    <!-- toggler -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars navbar-toggler-icon"></i>
+    </button>
+
+    <!-- nav-list -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="">sale</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="">rent</a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            data-toggle="modal"
+            data-target="#contactModal"
+            class="nav-link"
+          >
+            contact
+        </a>
+        </li>
+      </ul>
+
+      <!-- advertisement application -->
+      <button class="header-adv btn-action ml-auto" data-target="#advertiseModal" data-toggle="modal">advertise property</button>
+    </div>
+  </div>
+</nav>
+
+<!-- modals (popups) -->
+<!-- contact form dialog -->
+<div
+  class="contact modal fade"
+  id="contactModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="contactModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="contactModalLabel">Contact us</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- <form action="https://homes-egypt.com/contact-us/send"> -->
+        <form>
+          <div class="form-group">
+            <form-input
+              type="text"
+              required
+              class="form-control"
+              placeholder="Your name"
+            ></form-input>
+          </div>
+          <div class="form-group">
+            <form-input
+              type="email"
+              required
+              class="form-control"
+              placeholder="Your email address"
+            ></form-input>
+            <small class="text-uppercase text-dark">We Will Not Share Email with any one</small>
+          </div>
+          <div class="form-group">
+            <form-input
+              type="number"
+              required
+              class="form-control"
+              placeholder="Your phone number"
+            ></form-input>
+          </div>
+          <div class="form-group">
+            <form-input
+              type="text"
+              required
+              class="form-control"
+              placeholder="Subject"
+            ></form-input>
+          </div>
+          <div class="form-group">
+            <form-input
+              type="textarea"
+              required
+              class="form-control"
+              placeholder="Your message"
+              rows="4"
+            ></form-input>
+          </div>
+          <form-input type="button" class="modal-btn btn-action mr-auto">Send</form-input>
+        </form-input>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- advertise form dialog -->
+<div
+  class="advertise modal fade"
+  id="advertiseModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="contactModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="advertiseModalLabel">Advertise your property</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- TODO: Add the content & logic of the advertise application -->
+      </div>
+    </div>
+  </div>
+</div>
+

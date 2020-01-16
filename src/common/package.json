@@ -1,0 +1,37 @@
+{
+    "name": "common",
+    "type": "app",
+    "favicon": "images/favicon.png",
+    "packages": [
+        "@flk/support-javascript",
+        "@flk/support-helpers",
+        "@flk/supportive-is",
+        "@flk/config",
+        "@flk/application",
+        "@flk/http",
+        "@flk/router",
+        "@flk/layout",
+        "@flk/events",
+        "@flk/cache",
+        "@flk/locale",
+        "@flk/meta",
+        "@flk/form",
+        "@flk/user",
+        "@flk/random",
+        "@flk/endpoint-service",
+        "@flk/mdbootstrap",
+        "rfs",
+        "compass-mixins",
+        "@flk/scss",
+        "flk-dropdown-list"
+    ],
+    "mainFiles": {
+        "rfs": null
+    },
+    "assets": [
+        "images"
+    ],
+    "modules": [
+        "locales"
+    ]
+}

@@ -1,0 +1,23 @@
+// import your app files instead of writing code directly here!
+
+// special variable
+// $direction: rtl|ltr >> the current direction of the application
+// $right: `right` on ltr and `left` or rtl
+// $left: `left` on ltr and `right` or rtl
+
+@import "variables";
+
+@if $direction == ltr {
+  body {
+    font-size: $mainFontSize;
+
+    .btn-action {
+      color: $mainColor;
+      border: 1px solid $mainColor;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+  }
+} @else {
+  //
+}

@@ -1,0 +1,73 @@
+{
+    "env": "development",
+    "production": {
+        "baseUrl": "https://sitename.com",
+        "https": true,
+        "prerender": {
+            "enabled": true,
+            "recache": true
+        },
+        "sitemap": {
+            "route": null,
+            "location": null
+        }
+    },
+    "port": 81,
+    "browser": "default",
+    "baseApp": "homes",
+    "apps": {
+        "admin": {
+            "path": "/admin",
+            "locale": "en",
+            "meta": {
+                "title": {
+                    "en": "admin",
+                    "ar": "لوحة التحكم"
+                }
+            },
+            "locales": [
+                "en",
+                "ar"
+            ]
+        },
+        "homes": {
+            "path": "/",
+            "locale": "en",
+            "meta": {
+                "image": true,
+                "title": {
+                    "en": "Homes",
+                    "ar": "مدونتي"
+                },
+                "description": {
+                    "en": "Default description",
+                    "ar": "وصف الصفحة"
+                },
+                "keywords": {
+                    "en": "some,keywords,here",
+                    "ar": "بعض,الكلمات,هنا"
+                },
+                "twitter": true,
+                "twitterCard": "summary",
+                "graph": true,
+                "facebookAppId": null,
+                "url": true,
+                "siteName": true
+            },
+            "locales": [
+                "en",
+                "ar"
+            ]
+        }
+    },
+    "locales": {
+        "en": {
+            "direction": "ltr",
+            "name": "English"
+        },
+        "ar": {
+            "direction": "rtl",
+            "name": "العربية"
+        }
+    }
+}
