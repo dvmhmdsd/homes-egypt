@@ -18,8 +18,16 @@
 
       .property-img {
         height: 24rem;
+        overflow: hidden;
+        margin-bottom: 3rem;
+        .slide {
+          &:not(.active) {
+            display: none;
+          }
+        }
         img {
           max-width: 100%;
+          max-height: 100%;
         }
       }
     }
@@ -87,4 +95,9 @@
         }
     }
   }
+}
+
+.not-found {
+  color: $mainColor;
+  font-size: 2rem;
 }

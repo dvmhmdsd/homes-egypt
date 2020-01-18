@@ -6,7 +6,7 @@ _Component({
                 observe: [],
                 children: {},
                 render: function (component) {
-                    let elbLKMy = eo('div',null,null,`class`,`loader`);
+                    let elOezg0 = eo('div',null,null,`class`,`loader`);
 ec('div');
 
                     this.isReadyToGo();

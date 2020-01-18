@@ -4,367 +4,367 @@ _Component({
                 unique: true, // flag to determine if the component object will be unique or not
                 observable: true,
                 observe: ['loadingSearch','searchForm','activateType','chooseRegion','getProperties','cache','removeChosenRegion','getCommercialTypes','getCompoundsTypes','loading','properties'],
-                children: {cuTuBhCj2:'loading',c8iE0s6jA:'loading',c4rKtAILh:'flk-slider',cHTC_xkoa:'layout'},
+                children: {cYDGapCNI:'loading',cctg8KM8E:'loading',co9v4bYLY:'flk-slider',crDyrklM3:'layout'},
                 render: function (component) {
-                    let cmpPYuq = this._lc('cHTC_xkoa', {parent:component,content:(layout) => {let cndHHTY = component.loadingSearch;
-this.setState('stwIS7T', cndHHTY);
-if (cndHHTY) { 
-let elUWq3r = eo('div','Ms6f',null,`class`,`loader-container d-flex justify-content-center align-items-center`);
-let cmpsX5s = this._lc('cuTuBhCj2', {parent:component,parentTop:layout,state:'stwIS7T'});
+                    let cmppbSa = this._lc('crDyrklM3', {parent:component,content:(layout) => {let cndk8Hh = component.loadingSearch;
+this.setState('stxCRtf', cndk8Hh);
+if (cndk8Hh) { 
+let elWgU5p = eo('div','C0Vf',null,`class`,`loader-container d-flex justify-content-center align-items-center`);
+let cmpRBgY = this._lc('cYDGapCNI', {parent:component,parentTop:layout,state:'stxCRtf'});
 ec('div');
-}let elxbIW0 = eo('section',null,null,`class`,`searchbox d-flex flex-column justify-content-center`);
-let elfoJnr = eo('div',null,null,`class`,`container`);
-let elqADun = eo('section',null,null,`class`,`types-panel d-flex justify-content-around flex-wrap`);
+}let elAXJZv = eo('section',null,null,`class`,`searchbox d-flex flex-column justify-content-center`);
+let eljwlGW = eo('div',null,null,`class`,`container`);
+let elJM6HY = eo('section',null,null,`class`,`types-panel d-flex justify-content-around flex-wrap`);
 for (let i in component.searchForm.typesAvailable) {
 let type = component.searchForm.typesAvailable[i]; 
- let iivObF = 'Pb87ILZ' + i;
-let el4mypO = eo('button','MLZM0ceU5O2z' + i+iivObF,null, eventListeners, {onclick:[function(e) {var $el = this;component.activateType($el, type)}]},`class`,`btn-action types-panel-btn`,`data-type`,`${ type.value }`);
+ let iiqi7l = 'AnSs8eT' + i;
+let elB1h6w = eo('button','Wl09rsNviBGW' + i+iiqi7l,null, eventListeners, {onclick:[function(e) {var $el = this;component.activateType($el, type)}]},`class`,`btn-action types-panel-btn`,`data-type`,`${ type.value }`);
 text( type.label );
 ec('button');
 }
 ec('section');
-let eluTb8Z = eo('section',null,null,`class`,`search-form`);
-let elzE9GC = eo('ul',null,null,`class`,`regions list-unstyled d-flex justify-content-center flex-wrap`);
+let el4DV6H = eo('section',null,null,`class`,`search-form`);
+let elsk5Dk = eo('ul',null,null,`class`,`regions list-unstyled d-flex justify-content-center flex-wrap`);
 for (let i in component.searchForm.featuredRegions) {
 let region = component.searchForm.featuredRegions[i]; 
- let iirXv0 = 'SEvMf32' + i;
-let elxwcB6 = eo('li','4aSb2gOubJ53' + i+iirXv0,null, eventListeners, {onclick:[function(e) {var $el = this;component.chooseRegion(region.name)}]},`class`,`region-item`);
+ let iiWuEr = 'yjT6zsP' + i;
+let elvZzdy = eo('li','BU8lg7YuPDIJ' + i+iiWuEr,null, eventListeners, {onclick:[function(e) {var $el = this;component.chooseRegion(region.name)}]},`class`,`region-item`);
 text( region.name );
 ec('li');
 }
 ec('ul');
-let cndA4Gx = component.searchForm.type == 'rent' || component.searchForm.type == 'sale';
-this.setState('stMWZSr', cndA4Gx);
-if (cndA4Gx) { 
-let elng5Zp = eo('form','ulqf',null, eventListeners, {onsubmit:[function(e) {
+let cnd3fHG = component.searchForm.type == 'rent' || component.searchForm.type == 'sale';
+this.setState('stc_QSE', cnd3fHG);
+if (cnd3fHG) { 
+let elCI__L = eo('form','Ghef',null, eventListeners, {onsubmit:[function(e) {
             this.formHandler.validate(e);
         },function(e) {e.preventDefault();e.stopImmediatePropagation(); if (typeof component.isValidForm != 'undefined' && ! component.isValidForm) return false;},function(e) {var $el = this;component.getProperties($el)}]},`class`,`d-flex flex-wrap`);
 
-                if (! elng5Zp.formHandler) {
-                    window.cfrmdlr = elng5Zp.formHandler = new FormHandler(elng5Zp, component);
+                if (! elCI__L.formHandler) {
+                    window.cfrmdlr = elCI__L.formHandler = new FormHandler(elCI__L, component);
                 } else {
-                    window.cfrmdlr = elng5Zp.formHandler;
+                    window.cfrmdlr = elCI__L.formHandler;
                 }
-            let elZKc8C = eo('div','raZf',null,`class`,`form-group col-md-7 col-xs-12`);
-let elwaRNN = ev('input','igsf',null, eventListeners, {onchange:[function(e) {var $el = this;component.chooseRegion($el.value)}]},`title`,`${trans(`Search for a region`)}`,`name`,`${(`regions`).toInputName()}`,`placeholder`,`${trans(`Search for locations`)}`,`type`,`text`,`list`,`regionsList`,`class`,`form-control`,`id`,`regions`);
-let elsCLQ1 = eo('datalist','4Z6f',null,`id`,`regionsList`);
+            let elXpzVz = eo('div','cG0f',null,`class`,`form-group col-md-7 col-xs-12`);
+let elDHfVr = ev('input','iQuf',null, eventListeners, {onchange:[function(e) {var $el = this;component.chooseRegion($el.value)}]},`title`,`${trans(`Search for a region`)}`,`name`,`${(`regions`).toInputName()}`,`placeholder`,`${trans(`Search for locations`)}`,`type`,`text`,`list`,`regionsList`,`class`,`form-control`,`id`,`regions`);
+let el_sMZL = eo('datalist','NPLf',null,`id`,`regionsList`);
 for (let i in component.searchForm.regions) {
 let region = component.searchForm.regions[i]; 
- let iiMjO1 = 'bvXz70R' + i;
-let elQmDr9 = eo('option','QI_3ZVG5siEe' + i+iiMjO1,null,`value`,`${ region.name }`);
+ let iifg9T = 'VLSlCdV' + i;
+let elmOlBb = eo('option','j6I1cM5QGY4J' + i+iifg9T,null,`value`,`${ region.name }`);
 ec('option');
 }
 ec('datalist');
 ec('div');
-let elk4HIw = eo('div','JeJf',null,`class`,`form-group col-md-5 col-xs-12`);
-let el5UgeY = ev('input','DIMf',null,`title`,`${trans(`ID of the property`)}`,`name`,`${(`id`).toInputName()}`,`placeholder`,`${trans(`#ID`)}`,`type`,`text`,`class`,`form-control`,`id`,`id`);
+let el1jplv = eo('div','C7pf',null,`class`,`form-group col-md-5 col-xs-12`);
+let elT5qg4 = ev('input','auQf',null,`title`,`${trans(`ID of the property`)}`,`name`,`${(`id`).toInputName()}`,`placeholder`,`${trans(`#ID`)}`,`type`,`text`,`class`,`form-control`,`id`,`id`);
 ec('div');
-let el25FNE = eo('div','pO6f',null,`class`,`form-group col-md-3 col-xs-12`);
-let elWuUFM = ev('input','CU3f',null,`title`,`${trans(`type`)}`,`name`,`${(`type`).toInputName()}`,`placeholder`,`${trans(`Type`)}`,`type`,`text`,`list`,`typesList`,`class`,`form-control`,`id`,`type`);
-let els2Y43 = eo('datalist','WoPf',null,`id`,`typesList`);
+let elw8g6t = eo('div','Bcuf',null,`class`,`form-group col-md-3 col-xs-12`);
+let elZKOxB = ev('input','Zk4f',null,`title`,`${trans(`type`)}`,`name`,`${(`type`).toInputName()}`,`placeholder`,`${trans(`Type`)}`,`type`,`text`,`list`,`typesList`,`class`,`form-control`,`id`,`type`);
+let elb7slO = eo('datalist','WOcf',null,`id`,`typesList`);
 for (let i in component.searchForm.propertyTypes) {
 let type = component.searchForm.propertyTypes[i]; 
- let iiX5C_ = 'AeN25QQ' + i;
-let elFEhNJ = eo('option','CkjxKHo35HTP' + i+iiX5C_,null,`value`,`${ type.name }`);
+ let ii1XE1 = 'cl_w54r' + i;
+let elQMZMQ = eo('option','iS_Eis7_F0Hp' + i+ii1XE1,null,`value`,`${ type.name }`);
 ec('option');
 }
 ec('datalist');
 ec('div');
-let elwxFD5 = eo('div','R57f',null,`class`,`form-group col-md-3 col-xs-12`);
-let elVMjOD = ev('input','6ukf',null,`title`,`${trans(`Minimum Number of beds`)}`,`name`,`${(`min_beds`).toInputName()}`,`placeholder`,`${trans(`Min Beds`)}`,`type`,`text`,`list`,`minBeds`,`class`,`form-control`,`id`,`min_beds`);
-let elOWU_U = eo('datalist','z7Sf',null,`id`,`minBeds`);
+let elU6gFA = eo('div','lEQf',null,`class`,`form-group col-md-3 col-xs-12`);
+let elVnPdt = ev('input','g2Gf',null,`title`,`${trans(`Minimum Number of beds`)}`,`name`,`${(`min_beds`).toInputName()}`,`placeholder`,`${trans(`Min Beds`)}`,`type`,`text`,`list`,`minBeds`,`class`,`form-control`,`id`,`min_beds`);
+let elPlzFT = eo('datalist','4nvf',null,`id`,`minBeds`);
 for (let i = 0; i <= 10; i++) {
-let iiSIMi = 'Rptofvc' + i;
-let elXQZm_ = eo('option','qoq_k3_5IvtY' + i+iiSIMi,null,`value`,`${ i }`);
+let iiw9k0 = '_hNIeBT' + i;
+let elW78jg = eo('option','AMw76WJlLArl' + i+iiw9k0,null,`value`,`${ i }`);
 ec('option');
 }
 ec('datalist');
 ec('div');
-let elOWzfk = eo('div','xmwf',null,`class`,`form-group col-md-3 col-xs-12`);
-let el_kaCK = ev('input','qkBf',null,`title`,`${trans(`Maximum number of beds`)}`,`name`,`${(`max_beds`).toInputName()}`,`placeholder`,`${trans(`Max Beds`)}`,`type`,`text`,`list`,`maxBeds`,`class`,`form-control`,`id`,`max_beds`);
-let elLN74k = eo('datalist','YGMf',null,`id`,`maxBeds`);
+let elVahr_ = eo('div','DEuf',null,`class`,`form-group col-md-3 col-xs-12`);
+let el2AyFA = ev('input','X8If',null,`title`,`${trans(`Maximum number of beds`)}`,`name`,`${(`max_beds`).toInputName()}`,`placeholder`,`${trans(`Max Beds`)}`,`type`,`text`,`list`,`maxBeds`,`class`,`form-control`,`id`,`max_beds`);
+let elwUS1V = eo('datalist','pUJf',null,`id`,`maxBeds`);
 for (let i = 0; i <= 10; i++) {
-let iirtP3 = 'I0eiEGx' + i;
-let elQjoxd = eo('option','JZdhv7gPYjwb' + i+iirtP3,null,`value`,`${ i }`);
+let iiPZjG = '9bWNbgA' + i;
+let elszZiN = eo('option','SemoRG1tfSw6' + i+iiPZjG,null,`value`,`${ i }`);
 ec('option');
 }
 ec('datalist');
 ec('div');
-let elr3pnf = eo('div','k7_f',null,`class`,`form-group col-md-3 col-xs-12`);
-let elRh6mM = ev('input','0Sif',null,`title`,`${trans(`Currencies available`)}`,`name`,`${(`currency`).toInputName()}`,`placeholder`,`${trans(`${ component.cache.get('currency') }`)}`,`type`,`text`,`list`,`currencies`,`class`,`form-control`,`id`,`currency`);
-let eloszD0 = eo('datalist','tBhf',null,`id`,`currencies`);
+let elfwvpR = eo('div','g4rf',null,`class`,`form-group col-md-3 col-xs-12`);
+let elHNxqG = ev('input','YpIf',null,`title`,`${trans(`Currencies available`)}`,`name`,`${(`currency`).toInputName()}`,`placeholder`,`${trans(`${ component.cache.get('currency') }`)}`,`type`,`text`,`list`,`currencies`,`class`,`form-control`,`id`,`currency`);
+let elArXs4 = eo('datalist','8_xf',null,`id`,`currencies`);
 for (let i in component.searchForm.currencies) {
 let currency = component.searchForm.currencies[i]; 
- let iiSGLJ = 'YHK_1cB' + i;
-let elECQh4 = eo('option','PQ8z9z2iKtXm' + i+iiSGLJ,null,`value`,`${ currency.code }`);
+ let iizxEv = 'jpErHpP' + i;
+let elCU2yL = eo('option','_8W7VScugV8E' + i+iizxEv,null,`value`,`${ currency.code }`);
 ec('option');
 }
 ec('datalist');
 ec('div');
-let elpd1Wr = eo('div','qhkf',null,`class`,`form-group col-md-3 col-xs-12`);
-let eleKqzv = ev('input','I6xf',null,`title`,`${trans(`Minimum price`)}`,`name`,`${(`min_price`).toInputName()}`,`placeholder`,`${trans(`Min price`)}`,`type`,`number`,`class`,`form-control`,`id`,`min_price`);
+let elqAWg4 = eo('div','hMyf',null,`class`,`form-group col-md-3 col-xs-12`);
+let elMaVwC = ev('input','iHCf',null,`title`,`${trans(`Minimum price`)}`,`name`,`${(`min_price`).toInputName()}`,`placeholder`,`${trans(`Min price`)}`,`type`,`number`,`class`,`form-control`,`id`,`min_price`);
 ec('div');
-let elA0OxC = eo('div','HmJf',null,`class`,`form-group col-md-3 col-xs-12`);
-let elHmf2m = ev('input','YFsf',null,`title`,`${trans(`Maximum price`)}`,`name`,`${(`max_price`).toInputName()}`,`placeholder`,`${trans(`Max price`)}`,`type`,`number`,`class`,`form-control`,`id`,`max_price`);
+let elm_3Lb = eo('div','Pqtf',null,`class`,`form-group col-md-3 col-xs-12`);
+let el7suTT = ev('input','zNVf',null,`title`,`${trans(`Maximum price`)}`,`name`,`${(`max_price`).toInputName()}`,`placeholder`,`${trans(`Max price`)}`,`type`,`number`,`class`,`form-control`,`id`,`max_price`);
 ec('div');
-let cndK1_E = component.searchForm.chosenRegions.length > 0;
-this.setState('stsTYmk', cndK1_E);
-if (cndK1_E) { 
-let elvss_m = eo('div','KNRf',null,`class`,`form-group col-12`);
-let el42YSj = eo('ul','8azf',null,`class`,`list-unstyled d-flex chosen-regions`);
+let cndp5Hu = component.searchForm.chosenRegions.length > 0;
+this.setState('stWELAC', cndp5Hu);
+if (cndp5Hu) { 
+let el78MGe = eo('div','IuVf',null,`class`,`form-group col-12`);
+let elhcE52 = eo('ul','LAtf',null,`class`,`list-unstyled d-flex chosen-regions`);
 for (let index in component.searchForm.chosenRegionsNames) {
 let region = component.searchForm.chosenRegionsNames[index]; 
- let iiwmpe = 'FHgqqbB' + index;
-let elsW2n4 = eo('li','D5BBZJXnnpMs' + index+iiwmpe,null,`class`,`chosen-region-item`);
+ let iiCckL = 'nWcTAoU' + index;
+let el3KSf5 = eo('li','GEWMS4_0N9kK' + index+iiCckL,null,`class`,`chosen-region-item`);
 text(region);
-let eln7vX5 = eo('i','c7Qff'+iiwmpe,null, eventListeners, {onclick:[function(e) {var $el = this;component.removeChosenRegion($el, index)}]},`class`,`fa fa-times`);
+let el9CNk4 = eo('i','ttSff'+iiCckL,null, eventListeners, {onclick:[function(e) {var $el = this;component.removeChosenRegion($el, index)}]},`class`,`fa fa-times`);
 ec('i');
 ec('li');
 }
 ec('ul');
 ec('div');
-}let elgst_v = eo('div',null,null,`class`,`form-group col-12 text-right form-actions`);
-let el9NUHa = ev('input',null,null, eventListeners, {onclick:[function(e) {var $el = this;component.searchForm.chosenRegions = []}]},`type`,`reset`,`class`,`modal-btn btn-action mr-auto`);
-let elgtIkf = ev('input',null,null,`type`,`submit`,`value`,`Search`,`class`,`modal-btn btn-action mr-auto`);
+}let elgW7qX = eo('div',null,null,`class`,`form-group col-12 text-right form-actions`);
+let elDRTUp = ev('input',null,null, eventListeners, {onclick:[function(e) {var $el = this;component.searchForm.chosenRegions = []}]},`type`,`reset`,`class`,`modal-btn btn-action mr-auto`);
+let elaJ6lb = ev('input',null,null,`type`,`submit`,`value`,`Search`,`class`,`modal-btn btn-action mr-auto`);
 ec('div');
 ec('form');
-}let cndh00W = component.searchForm.type == 'commercial';
-this.setState('st9T02L', cndh00W);
-if (cndh00W) { 
-let el7MUpP = eo('form','InHf',null, eventListeners, {onsubmit:[function(e) {
+}let cndItjV = component.searchForm.type == 'commercial';
+this.setState('stkXCLA', cndItjV);
+if (cndItjV) { 
+let elWteas = eo('form','0wMf',null, eventListeners, {onsubmit:[function(e) {
             this.formHandler.validate(e);
         },function(e) {e.preventDefault();e.stopImmediatePropagation(); if (typeof component.isValidForm != 'undefined' && ! component.isValidForm) return false;},function(e) {var $el = this;component.getProperties(e, $el)}]},`class`,`d-flex flex-wrap`);
 
-                if (! el7MUpP.formHandler) {
-                    window.cfrmdlr = el7MUpP.formHandler = new FormHandler(el7MUpP, component);
+                if (! elWteas.formHandler) {
+                    window.cfrmdlr = elWteas.formHandler = new FormHandler(elWteas, component);
                 } else {
-                    window.cfrmdlr = el7MUpP.formHandler;
+                    window.cfrmdlr = elWteas.formHandler;
                 }
-            let elPHK9p = eo('div','z4Nf',null,`class`,`form-group col-md-7 col-xs-12`);
-let elRLCWa = ev('input','0gFf',null,`title`,`${trans(`Search for a region`)}`,`name`,`${(`regions`).toInputName()}`,`placeholder`,`${trans(`Search for locations`)}`,`type`,`text`,`list`,`regionsList`,`class`,`form-control`,`id`,`regions`);
-let el3Xjho = eo('datalist','5Twf',null,`id`,`regionsList`);
+            let el3Dl8J = eo('div','1aOf',null,`class`,`form-group col-md-7 col-xs-12`);
+let el72a9L = ev('input','HN0f',null,`title`,`${trans(`Search for a region`)}`,`name`,`${(`regions`).toInputName()}`,`placeholder`,`${trans(`Search for locations`)}`,`type`,`text`,`list`,`regionsList`,`class`,`form-control`,`id`,`regions`);
+let el_nMCq = eo('datalist','bb4f',null,`id`,`regionsList`);
 for (let i in component.searchForm.regions) {
 let region = component.searchForm.regions[i]; 
- let iinm2v = 'nsrGkNC' + i;
-let elhoF1o = eo('option','O0Y4_AZo9nDJ' + i+iinm2v,null,`value`,`${ region.name }`);
+ let ii0iy7 = 'ypU8h_w' + i;
+let elp_CCm = eo('option','EleTQLvOerho' + i+ii0iy7,null,`value`,`${ region.name }`);
 ec('option');
 }
 ec('datalist');
 ec('div');
-let el3zKLh = eo('div','uGTf',null,`class`,`form-group col-md-5 col-xs-12`);
-let ela4vf8 = ev('input','y7Gf',null,`title`,`${trans(`ID of the property`)}`,`name`,`${(`id`).toInputName()}`,`placeholder`,`${trans(`#ID`)}`,`type`,`text`,`class`,`form-control`,`id`,`id`);
+let elYmGZu = eo('div','_evf',null,`class`,`form-group col-md-5 col-xs-12`);
+let elmhSdE = ev('input','gaKf',null,`title`,`${trans(`ID of the property`)}`,`name`,`${(`id`).toInputName()}`,`placeholder`,`${trans(`#ID`)}`,`type`,`text`,`class`,`form-control`,`id`,`id`);
 ec('div');
-let el9ZE4o = eo('div','ZrUf',null,`class`,`form-group col-md-3 col-xs-12`);
-let el6q3HA = ev('input','Xx8f',null,`title`,`${trans(`type`)}`,`name`,`${(`type`).toInputName()}`,`placeholder`,`${trans(`Type`)}`,`type`,`text`,`list`,`typesList`,`class`,`form-control`,`id`,`type`);
-let elNppQQ = eo('datalist','RI5f',null,`id`,`typesList`);
+let eluD5Ha = eo('div','0gnf',null,`class`,`form-group col-md-3 col-xs-12`);
+let elFiLEh = ev('input','8v8f',null,`title`,`${trans(`type`)}`,`name`,`${(`type`).toInputName()}`,`placeholder`,`${trans(`Type`)}`,`type`,`text`,`list`,`typesList`,`class`,`form-control`,`id`,`type`);
+let elDHxZk = eo('datalist','nVqf',null,`id`,`typesList`);
 for (let i in component.getCommercialTypes()) {
 let type = component.getCommercialTypes()[i]; 
- let iiYE0j = 'p5lFxMa' + i;
-let elV0gAx = eo('option','CtbEPa7Lpb3Z' + i+iiYE0j,null,`value`,`${ type.name }`);
+ let iiQXln = 'IjVf5sd' + i;
+let elybOmx = eo('option','lZsttPhcb7Hn' + i+iiQXln,null,`value`,`${ type.name }`);
 ec('option');
 }
 ec('datalist');
 ec('div');
-let elHQql2 = eo('div','Qg6f',null,`class`,`form-group col-md-2 col-xs-12`);
-let elmRQ_z = ev('input','eoyf',null,`title`,`${trans(`Number of rooms`)}`,`name`,`${(`rooms`).toInputName()}`,`placeholder`,`${trans(`Rooms`)}`,`type`,`text`,`list`,`roomsNum`,`class`,`form-control`,`id`,`rooms`);
-let el2PCC8 = eo('datalist','1vXf',null,`id`,`roomsNum`);
+let elj9N7O = eo('div','CcYf',null,`class`,`form-group col-md-2 col-xs-12`);
+let elhA5GK = ev('input','R1Jf',null,`title`,`${trans(`Number of rooms`)}`,`name`,`${(`rooms`).toInputName()}`,`placeholder`,`${trans(`Rooms`)}`,`type`,`text`,`list`,`roomsNum`,`class`,`form-control`,`id`,`rooms`);
+let elKKNcF = eo('datalist','oitf',null,`id`,`roomsNum`);
 for (let i = 0; i <= 10; i++) {
-let iiyXBO = '43Egc5I' + i;
-let elA02MS = eo('option','jw3wBEJmev_j' + i+iiyXBO,null,`value`,`${ i }`);
+let iiXi1j = 'G6YjHgK' + i;
+let elA94sY = eo('option','PfHWjLbc0lqp' + i+iiXi1j,null,`value`,`${ i }`);
 ec('option');
 }
 ec('datalist');
 ec('div');
-let elRBvXV = eo('div','Frbf',null,`class`,`form-group col-md-3 col-xs-12`);
-let els1bHA = ev('input','tzCf',null,`title`,`${trans(`Currencies available`)}`,`name`,`${(`currency`).toInputName()}`,`placeholder`,`${trans(`${ component.cache.get('currency') }`)}`,`type`,`text`,`list`,`currencies`,`class`,`form-control`,`id`,`currency`);
-let eliJfmB = eo('datalist','rJtf',null,`id`,`currencies`);
+let elFAOva = eo('div','xNQf',null,`class`,`form-group col-md-3 col-xs-12`);
+let elGkqlz = ev('input','Itof',null,`title`,`${trans(`Currencies available`)}`,`name`,`${(`currency`).toInputName()}`,`placeholder`,`${trans(`${ component.cache.get('currency') }`)}`,`type`,`text`,`list`,`currencies`,`class`,`form-control`,`id`,`currency`);
+let elHkipf = eo('datalist','XsJf',null,`id`,`currencies`);
 for (let i in component.searchForm.currencies) {
 let currency = component.searchForm.currencies[i]; 
- let iiqdWk = 'guE3Wgj' + i;
-let el4d7Oi = eo('option','KMYXkfnu4h7j' + i+iiqdWk,null,`value`,`${ currency.code }`);
+ let iiU6oY = 'wBj8Gaz' + i;
+let el9FKhU = eo('option','d9UqPNMRBZcH' + i+iiU6oY,null,`value`,`${ currency.code }`);
 ec('option');
 }
 ec('datalist');
 ec('div');
-let el_3ACw = eo('div','Mtif',null,`class`,`form-group col-md-2 col-xs-12`);
-let els8BDk = ev('input','01Ef',null,`title`,`${trans(`Minimum price`)}`,`name`,`${(`min_price`).toInputName()}`,`placeholder`,`${trans(`Min price`)}`,`type`,`number`,`class`,`form-control`,`id`,`min_price`);
+let elyH75W = eo('div','ECgf',null,`class`,`form-group col-md-2 col-xs-12`);
+let elCj3gK = ev('input','R9Uf',null,`title`,`${trans(`Minimum price`)}`,`name`,`${(`min_price`).toInputName()}`,`placeholder`,`${trans(`Min price`)}`,`type`,`number`,`class`,`form-control`,`id`,`min_price`);
 ec('div');
-let elfam34 = eo('div','BJSf',null,`class`,`form-group col-md-2 col-xs-12`);
-let el8atjR = ev('input','hpLf',null,`title`,`${trans(`Maximum price`)}`,`name`,`${(`max_price`).toInputName()}`,`placeholder`,`${trans(`Max price`)}`,`type`,`number`,`class`,`form-control`,`id`,`max_price`);
+let elMmMQY = eo('div','7HMf',null,`class`,`form-group col-md-2 col-xs-12`);
+let elkcq0K = ev('input','Ngwf',null,`title`,`${trans(`Maximum price`)}`,`name`,`${(`max_price`).toInputName()}`,`placeholder`,`${trans(`Max price`)}`,`type`,`number`,`class`,`form-control`,`id`,`max_price`);
 ec('div');
-let cndQToS = component.searchForm.chosenRegions.length > 0;
-this.setState('stUO88G', cndQToS);
-if (cndQToS) { 
-let elAchq8 = eo('div','3wCf',null,`class`,`form-group col-12`);
-let elDmpHM = eo('ul','d9Rf',null,`class`,`list-unstyled d-flex chosen-regions`);
+let cndCQuq = component.searchForm.chosenRegions.length > 0;
+this.setState('st73rDW', cndCQuq);
+if (cndCQuq) { 
+let elQckwY = eo('div','KQPf',null,`class`,`form-group col-12`);
+let eljUATc = eo('ul','rv_f',null,`class`,`list-unstyled d-flex chosen-regions`);
 for (let index in component.searchForm.chosenRegionsNames) {
 let region = component.searchForm.chosenRegionsNames[index]; 
- let iiS9W1 = 'Z6KPmyE' + index;
-let elLxT2N = eo('li','JSxym_f84EqI' + index+iiS9W1,null,`class`,`chosen-region-item`);
+ let iiYefV = '6McZqNm' + index;
+let elwDjeh = eo('li','fkRWU50ETovp' + index+iiYefV,null,`class`,`chosen-region-item`);
 text(region);
-let el6LzZk = eo('i','sluff'+iiS9W1,null, eventListeners, {onclick:[function(e) {var $el = this;component.removeChosenRegion($el, index)}]},`class`,`fa fa-times`);
+let elbgzF8 = eo('i','2ZMff'+iiYefV,null, eventListeners, {onclick:[function(e) {var $el = this;component.removeChosenRegion($el, index)}]},`class`,`fa fa-times`);
 ec('i');
 ec('li');
 }
 ec('ul');
 ec('div');
-}let elzOx3T = eo('div',null,null,`class`,`form-group col-12 text-right form-actions`);
-let elM8LaS = ev('input',null,null, eventListeners, {onclick:[function(e) {var $el = this;component.searchForm.chosenRegionsNames = []; component.searchForm.chosenRegions = []}]},`type`,`reset`,`class`,`modal-btn btn-action mr-auto`);
-let elC4X0H = ev('input',null,null,`type`,`submit`,`value`,`Search`,`class`,`modal-btn btn-action mr-auto`);
+}let elnEbmG = eo('div',null,null,`class`,`form-group col-12 text-right form-actions`);
+let elc3jF0 = ev('input',null,null, eventListeners, {onclick:[function(e) {var $el = this;component.searchForm.chosenRegionsNames = []; component.searchForm.chosenRegions = []}]},`type`,`reset`,`class`,`modal-btn btn-action mr-auto`);
+let elCkI9F = ev('input',null,null,`type`,`submit`,`value`,`Search`,`class`,`modal-btn btn-action mr-auto`);
 ec('div');
 ec('form');
-}let cndwjYG = component.searchForm.type == 'new-homes';
-this.setState('stmMZux', cndwjYG);
-if (cndwjYG) { 
-let elp2_8V = eo('form','6p8f',null, eventListeners, {onsubmit:[function(e) {
+}let cnd5Qxm = component.searchForm.type == 'new-homes';
+this.setState('stCy5dE', cnd5Qxm);
+if (cnd5Qxm) { 
+let elTKhI9 = eo('form','R3Xf',null, eventListeners, {onsubmit:[function(e) {
             this.formHandler.validate(e);
         },function(e) {e.preventDefault();e.stopImmediatePropagation(); if (typeof component.isValidForm != 'undefined' && ! component.isValidForm) return false;},function(e) {var $el = this;component.getProperties(e, $el)}]},`class`,`d-flex flex-wrap`);
 
-                if (! elp2_8V.formHandler) {
-                    window.cfrmdlr = elp2_8V.formHandler = new FormHandler(elp2_8V, component);
+                if (! elTKhI9.formHandler) {
+                    window.cfrmdlr = elTKhI9.formHandler = new FormHandler(elTKhI9, component);
                 } else {
-                    window.cfrmdlr = elp2_8V.formHandler;
+                    window.cfrmdlr = elTKhI9.formHandler;
                 }
-            let elnwIGb = eo('div','_7Vf',null,`class`,`form-group col-md-7 col-xs-12`);
-let el0TiZp = ev('input','yQ6f',null,`title`,`${trans(`Search for a region`)}`,`name`,`${(`regions`).toInputName()}`,`placeholder`,`${trans(`Compounds`)}`,`type`,`text`,`list`,`compoundsList`,`class`,`form-control`,`id`,`regions`);
-let elSlwMl = eo('datalist','ftHf',null,`id`,`compoundsList`);
+            let ellgRYk = eo('div','fcVf',null,`class`,`form-group col-md-7 col-xs-12`);
+let elhVZuf = ev('input','gODf',null,`title`,`${trans(`Search for a region`)}`,`name`,`${(`regions`).toInputName()}`,`placeholder`,`${trans(`Compounds`)}`,`type`,`text`,`list`,`compoundsList`,`class`,`form-control`,`id`,`regions`);
+let elYz3we = eo('datalist','zL5f',null,`id`,`compoundsList`);
 for (let i in component.searchForm.compounds) {
 let compound = component.searchForm.compounds[i]; 
- let iixIFy = 'iKfkJ7d' + i;
-let elibfzB = eo('option','TbjrUxHr1qcx' + i+iixIFy,null,`value`,`${ compound.name }`);
+ let ii3Bgj = '7bkKFfH' + i;
+let elv23EZ = eo('option','tmlZk48kjWcF' + i+ii3Bgj,null,`value`,`${ compound.name }`);
 ec('option');
 }
 ec('datalist');
 ec('div');
-let el6IdhW = eo('div','P9df',null,`class`,`form-group col-md-5 col-xs-12`);
-let elPLLQM = ev('input','XJQf',null,`title`,`${trans(`ID of the property`)}`,`name`,`${(`id`).toInputName()}`,`placeholder`,`${trans(`#ID`)}`,`type`,`text`,`class`,`form-control`,`id`,`id`);
+let elzsEkU = eo('div','gJUf',null,`class`,`form-group col-md-5 col-xs-12`);
+let el7jysv = ev('input','IvLf',null,`title`,`${trans(`ID of the property`)}`,`name`,`${(`id`).toInputName()}`,`placeholder`,`${trans(`#ID`)}`,`type`,`text`,`class`,`form-control`,`id`,`id`);
 ec('div');
-let elpBMwl = eo('div','N9Mf',null,`class`,`form-group col-md-3 col-xs-12`);
-let elLQ7aA = ev('input','qsSf',null,`title`,`${trans(`type`)}`,`name`,`${(`type`).toInputName()}`,`placeholder`,`${trans(`Type`)}`,`type`,`text`,`list`,`typesList`,`class`,`form-control`,`id`,`type`);
-let elAwRDs = eo('datalist','Kayf',null,`id`,`typesList`);
+let eloXdYl = eo('div','SiVf',null,`class`,`form-group col-md-3 col-xs-12`);
+let el26INl = ev('input','Tk5f',null,`title`,`${trans(`type`)}`,`name`,`${(`type`).toInputName()}`,`placeholder`,`${trans(`Type`)}`,`type`,`text`,`list`,`typesList`,`class`,`form-control`,`id`,`type`);
+let elmr8SW = eo('datalist','M8Mf',null,`id`,`typesList`);
 for (let i in component.getCompoundsTypes()) {
 let type = component.getCompoundsTypes()[i]; 
- let ii4EdG = 'aKdqNGc' + i;
-let el2hSvQ = eo('option','bUTXESXaSpZX' + i+ii4EdG,null,`value`,`${ type.name }`);
+ let ii4ezL = 'xtZ06Pv' + i;
+let el9ukXS = eo('option','0zFiKXFlflkv' + i+ii4ezL,null,`value`,`${ type.name }`);
 ec('option');
 }
 ec('datalist');
 ec('div');
-let el7AJcb = eo('div','mn7f',null,`class`,`form-group col-md-2 col-xs-12`);
-let eloFXGj = ev('input','BWWf',null,`title`,`${trans(`Number of rooms`)}`,`name`,`${(`rooms`).toInputName()}`,`placeholder`,`${trans(`Rooms`)}`,`type`,`text`,`list`,`roomsNum`,`class`,`form-control`,`id`,`rooms`);
-let elYqtT5 = eo('datalist','KFrf',null,`id`,`roomsNum`);
+let elAumtW = eo('div','YLsf',null,`class`,`form-group col-md-2 col-xs-12`);
+let elTiULr = ev('input','N1if',null,`title`,`${trans(`Number of rooms`)}`,`name`,`${(`rooms`).toInputName()}`,`placeholder`,`${trans(`Rooms`)}`,`type`,`text`,`list`,`roomsNum`,`class`,`form-control`,`id`,`rooms`);
+let elsU7ed = eo('datalist','ZDrf',null,`id`,`roomsNum`);
 for (let i = 0; i <= 10; i++) {
-let iiT0Uw = 'GQNr4o7' + i;
-let elkh0Ea = eo('option','49fXK8FApR31' + i+iiT0Uw,null,`value`,`${ i }`);
+let ii3rcP = 'vRHKF2x' + i;
+let ell6s0g = eo('option','1oc8xlyQOGgs' + i+ii3rcP,null,`value`,`${ i }`);
 ec('option');
 }
 ec('datalist');
 ec('div');
-let elYp3cc = eo('div','PFNf',null,`class`,`form-group col-md-3 col-xs-12`);
-let elEa7Ty = ev('input','ikrf',null,`title`,`${trans(`Currencies available`)}`,`name`,`${(`currency`).toInputName()}`,`placeholder`,`${trans(`${ component.cache.get('currency') }`)}`,`type`,`text`,`list`,`currencies`,`class`,`form-control`,`id`,`currency`);
-let elDix7h = eo('datalist','lGUf',null,`id`,`currencies`);
+let elVn6eW = eo('div','A9Xf',null,`class`,`form-group col-md-3 col-xs-12`);
+let elVrnGV = ev('input','pAZf',null,`title`,`${trans(`Currencies available`)}`,`name`,`${(`currency`).toInputName()}`,`placeholder`,`${trans(`${ component.cache.get('currency') }`)}`,`type`,`text`,`list`,`currencies`,`class`,`form-control`,`id`,`currency`);
+let elTMW1K = eo('datalist','iIwf',null,`id`,`currencies`);
 for (let i in component.searchForm.currencies) {
 let currency = component.searchForm.currencies[i]; 
- let iiUF0P = 'Cg2DFzB' + i;
-let elB5Krt = eo('option','Hbb2TCvDd8Y8' + i+iiUF0P,null,`value`,`${ currency.code }`);
+ let iilxDs = 'KfzuggY' + i;
+let elDgAzy = eo('option','BacA9E61bgW9' + i+iilxDs,null,`value`,`${ currency.code }`);
 ec('option');
 }
 ec('datalist');
 ec('div');
-let elqUQfx = eo('div','Epyf',null,`class`,`form-group col-md-2 col-xs-12`);
-let elhcbyP = ev('input','wCvf',null,`title`,`${trans(`Minimum price`)}`,`name`,`${(`min_price`).toInputName()}`,`placeholder`,`${trans(`Min price`)}`,`type`,`number`,`class`,`form-control`,`id`,`min_price`);
+let elX6bYN = eo('div','zLQf',null,`class`,`form-group col-md-2 col-xs-12`);
+let elAJOf0 = ev('input','dyQf',null,`title`,`${trans(`Minimum price`)}`,`name`,`${(`min_price`).toInputName()}`,`placeholder`,`${trans(`Min price`)}`,`type`,`number`,`class`,`form-control`,`id`,`min_price`);
 ec('div');
-let elbcSvX = eo('div','Kbsf',null,`class`,`form-group col-md-2 col-xs-12`);
-let el023II = ev('input','Tlzf',null,`title`,`${trans(`Maximum price`)}`,`name`,`${(`max_price`).toInputName()}`,`placeholder`,`${trans(`Max price`)}`,`type`,`number`,`class`,`form-control`,`id`,`max_price`);
+let elHPUq7 = eo('div','vd6f',null,`class`,`form-group col-md-2 col-xs-12`);
+let elM2ml3 = ev('input','qpqf',null,`title`,`${trans(`Maximum price`)}`,`name`,`${(`max_price`).toInputName()}`,`placeholder`,`${trans(`Max price`)}`,`type`,`number`,`class`,`form-control`,`id`,`max_price`);
 ec('div');
-let cndWJI9 = component.searchForm.chosenRegions.length > 0;
-this.setState('st9gmlK', cndWJI9);
-if (cndWJI9) { 
-let el6OKLT = eo('div','6BGf',null,`class`,`form-group col-12`);
-let elGUmZo = eo('ul','uGpf',null,`class`,`list-unstyled d-flex chosen-regions`);
+let cndAplo = component.searchForm.chosenRegions.length > 0;
+this.setState('st1V8f7', cndAplo);
+if (cndAplo) { 
+let elRlZxr = eo('div','QHCf',null,`class`,`form-group col-12`);
+let el_FVY9 = eo('ul','Rpnf',null,`class`,`list-unstyled d-flex chosen-regions`);
 for (let index in component.searchForm.chosenRegionsNames) {
 let region = component.searchForm.chosenRegionsNames[index]; 
- let iiBEo9 = 'GBOXwvH' + index;
-let elubLn0 = eo('li','Zw5k2vgJe8hI' + index+iiBEo9,null,`class`,`chosen-region-item`);
+ let iiyLZc = 'b1s_dwo' + index;
+let elDoAdx = eo('li','izJvTp4aAnBR' + index+iiyLZc,null,`class`,`chosen-region-item`);
 text(region);
-let elMuhiE = eo('i','ssQff'+iiBEo9,null, eventListeners, {onclick:[function(e) {var $el = this;component.removeChosenRegion($el, index)}]},`class`,`fa fa-times`);
+let elE2TVz = eo('i','E82ff'+iiyLZc,null, eventListeners, {onclick:[function(e) {var $el = this;component.removeChosenRegion($el, index)}]},`class`,`fa fa-times`);
 ec('i');
 ec('li');
 }
 ec('ul');
 ec('div');
-}let elIuRkG = eo('div',null,null,`class`,`form-group col-12 text-right form-actions`);
-let elCIH_h = ev('input',null,null, eventListeners, {onclick:[function(e) {var $el = this;component.searchForm.chosenRegions = []; component.searchForm.chosenRegionsNames = []}]},`type`,`reset`,`class`,`modal-btn btn-action mr-auto`);
-let elmMmGR = ev('input',null,null,`type`,`submit`,`value`,`Search`,`class`,`modal-btn btn-action mr-auto`);
+}let elxs4p3 = eo('div',null,null,`class`,`form-group col-12 text-right form-actions`);
+let elmHrBu = ev('input',null,null, eventListeners, {onclick:[function(e) {var $el = this;component.searchForm.chosenRegions = []; component.searchForm.chosenRegionsNames = []}]},`type`,`reset`,`class`,`modal-btn btn-action mr-auto`);
+let el77mgk = ev('input',null,null,`type`,`submit`,`value`,`Search`,`class`,`modal-btn btn-action mr-auto`);
 ec('div');
 ec('form');
 }ec('section');
 ec('div');
 ec('section');
-let el2rOCU = eo('section',null,null,`class`,`properties p-4`);
-let elZ7Yxw = eo('h2',null,null,`class`,`properties-heading text-center`);
+let elVmO02 = eo('section',null,null,`class`,`properties p-4`);
+let elMjLb5 = eo('h2',null,null,`class`,`properties-heading text-center`);
 text(`Properties`);
 ec('h2');
-let cnd8PUm = component.loading;
-this.setState('stCQIYy', cnd8PUm);
-let cndjSQk = !component.loading;
-this.setState('stFVf93', cndjSQk);
-if (cnd8PUm) { 
-let elH_PXv = eo('div','q1Wf',null,`class`,`d-flex justify-content-center align-items-center`);
-let cmpBjC0 = this._lc('c8iE0s6jA', {parent:component,parentTop:layout,state:'stCQIYy'});
+let cndnIkp = component.loading;
+this.setState('stBJ4v7', cndnIkp);
+let cndylEf = !component.loading;
+this.setState('st62uqP', cndylEf);
+if (cndnIkp) { 
+let ellnAHW = eo('div','i30f',null,`class`,`d-flex justify-content-center align-items-center`);
+let cmpwQcu = this._lc('cctg8KM8E', {parent:component,parentTop:layout,state:'stBJ4v7'});
 ec('div');
-}let cndrqP8 = !component.loading && component.properties && component.properties.length > 0;
-this.setState('st16geL', cndrqP8);
-let cnd7T4M = cndjSQk;
-this.setState('stbrqhq', cnd7T4M);
-if (cndrqP8) { 
-let elNhnfj = eo('div','y25f',null,`class`,`properties-grid d-flex flex-wrap`);
+}let cndEtpZ = !component.loading && component.properties && component.properties.length > 0;
+this.setState('stL8oLk', cndEtpZ);
+let cndN0Cu = cndylEf;
+this.setState('stD6ioQ', cndN0Cu);
+if (cndEtpZ) { 
+let elV4ScY = eo('div','xmBf',null,`class`,`properties-grid d-flex flex-wrap`);
 for (let i in component.properties) {
 let property = component.properties[i]; 
- let ii2MGH = 'K6uuTQv' + i;
-let eloswnF = eo('article','Wh29Wb1NDSRy' + i+ii2MGH,null,`class`,`property-item col-lg-3 col-sm-12`);
-let eloBSH_ = eo('header','GOvff'+ii2MGH,null,`class`,`property-header`);
-let el1skPZ = eo('figure','Nbyff'+ii2MGH,null,`class`,`property-img`);
-let elQKG1s = eo('a','kIGff'+ii2MGH,null,`href`,`/properties/${ property.id }/${
-              property.name.split(' ').join('-')
-            }`);
-let cmpwqYt = this._lc('c4rKtAILh', {parent:component,parentTop:layout,props:{slides:[property.images]},state:'st16geL',insideLoop:true,index:"" +ii2MGH});
+ let iimaSc = 'Bwn0NSo' + i;
+let eljOQAS = eo('article','qh4vWwCFBtM5' + i+iimaSc,null,`class`,`property-item col-lg-3 col-sm-12`);
+let elSYajl = eo('header','ESuff'+iimaSc,null,`class`,`property-header`);
+let elCtZ5W = eo('a','VRnff'+iimaSc,null,`href`,`/properties/${ property.old_id }/${
+            property.name.split(' ').join('-')
+          }`);
+let elxsZDw = eo('section','4Zyff'+iimaSc,null,`class`,`property-img`);
+let cmpwhHw = this._lc('co9v4bYLY', {parent:component,parentTop:layout,props:{slides:[property.images]},state:'stL8oLk',insideLoop:true,index:"" +iimaSc});
+ec('section');
 ec('a');
-ec('figure');
-let elHykQk = eo('section','G0Vff'+ii2MGH,null,`class`,`property-metadata`);
-let elfMG19 = eo('p','fcJff'+ii2MGH,null,`class`,`property-location absolute-position`);
+let elrEhYf = eo('section','uF5ff'+iimaSc,null,`class`,`property-metadata`);
+let elSdzFK = eo('p','m5Nff'+iimaSc,null,`class`,`property-location absolute-position`);
 text( property.region );
 ec('p');
-let elzP4Pl = eo('p','7Rlff'+ii2MGH,null,`class`,`property-type absolute-position`);
+let elVo82p = eo('p','CnSff'+iimaSc,null,`class`,`property-type absolute-position`);
 text( property.saleType );
 ec('p');
-let el65nKu = eo('p','Imdff'+ii2MGH,null,`class`,`property-price absolute-position`);
-text(`${ property.price } ${ property.currency }`);
+let elgVbnH = eo('p','vO3ff'+iimaSc,null,`class`,`property-price absolute-position`);
+text(`${ property.price.toLocaleString() } ${ property.currency }`);
 ec('p');
 ec('section');
 ec('header');
-let elEJ5Rj = eo('main','o4dff'+ii2MGH,null,`class`,`property-body`);
-let elvcQ5r = eo('a','SuYff'+ii2MGH,null,`href`,`/properties/${ property.id }/${
+let elQ_N29 = eo('main','Otyff'+iimaSc,null,`class`,`property-body`);
+let eln05iU = eo('a','BZ6ff'+iimaSc,null,`href`,`/properties/${ property.old_id }/${
             property.name.split(' ').join('-')
           }`);
-let elhs29S = eo('h3','p1Eff'+ii2MGH,null,`class`,`property-name`);
+let elA3Cda = eo('h3','BZZff'+iimaSc,null,`class`,`property-name`);
 text( property.name );
 ec('h3');
 ec('a');
-let elRCr69 = eo('div','VAdff'+ii2MGH,null,`class`,`property-numbers d-flex justify-content-between`);
-let eluLfXI = eo('div','qOsff'+ii2MGH,null,`class`,`property-rooms`);
-let elF0PQn = eo('span','BPpff'+ii2MGH,null,`title`,`${trans(`Bed rooms`)}`,`class`,`property-beds`);
-let elWWoWI = eo('i','GNGff'+ii2MGH,null,`class`,`fa fa-bed`);
+let el3ysGd = eo('div','3mMff'+iimaSc,null,`class`,`property-numbers d-flex justify-content-between`);
+let elCxc8d = eo('div','Aqsff'+iimaSc,null,`class`,`property-rooms`);
+let eleAJKx = eo('span','VXmff'+iimaSc,null,`title`,`${trans(`Bed rooms`)}`,`class`,`property-beds`);
+let el1ZUbG = eo('i','ZBnff'+iimaSc,null,`class`,`fa fa-bed`);
 ec('i');
 text( property.bed_rooms );
 ec('span');
-let eljhBjj = eo('span','ItWff'+ii2MGH,null,`title`,`${trans(`Bath rooms`)}`,`class`,`property-bath`);
-let elxaaIH = eo('i','oYAff'+ii2MGH,null,`class`,`fa fa-bath`);
+let elyond_ = eo('span','Nbuff'+iimaSc,null,`title`,`${trans(`Bath rooms`)}`,`class`,`property-bath`);
+let elgbmCz = eo('i','V1Fff'+iimaSc,null,`class`,`fa fa-bath`);
 ec('i');
 text( property.bath_rooms );
 ec('span');
 ec('div');
-let elr1qMv = eo('p','xfJff'+ii2MGH,null,`class`,`property-id`);
+let elah7Vk = eo('p','xCbff'+iimaSc,null,`class`,`property-id`);
 text(`#${ property.id }`);
 ec('p');
 ec('div');
@@ -372,9 +372,9 @@ ec('main');
 ec('article');
 }
 ec('div');
-}else if (cnd7T4M) { 
-let elVaCkX = eo('div',null,null,`class`,`no-response d-flex justify-content-center align-items-center`);
-let el_mrYC = eo('p',null,null,`style`,`font-size: 2rem; color: #0f5b97;`);
+}else if (cndN0Cu) { 
+let ely1bth = eo('div',null,null,`class`,`no-response d-flex justify-content-center align-items-center`);
+let elYJKOm = eo('p',null,null,`style`,`font-size: 2rem; color: #0f5b97;`);
 text(`No properties`);
 ec('p');
 ec('div');

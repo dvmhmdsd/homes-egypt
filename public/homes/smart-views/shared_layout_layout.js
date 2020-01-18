@@ -4,16 +4,16 @@ _Component({
                 unique: true, // flag to determine if the component object will be unique or not
                 observable: false,
                 observe: [],
-                children: {cQKomGgLP:'header-section',cV8ywSLyI:'footer-section'},
+                children: {cjCCJTahn:'header-section',cfkwduokP:'footer-section'},
                 render: function (component) {
-                    let elq2uN0 = eo('div',null,null,`id`,`wrapper`);
-let cmpBiJA = this._lc('cQKomGgLP', {parent:component});
-let elZbHN3 = eo('main');
+                    let elzxHQ0 = eo('div',null,null,`id`,`wrapper`);
+let cmplWYZ = this._lc('cjCCJTahn', {parent:component});
+let elE2elD = eo('main');
 
         if (this.hasContent()) {
             this.content();
         }ec('main');
-let cmp3q59 = this._lc('cV8ywSLyI', {parent:component});
+let cmpg5PG = this._lc('cfkwduokP', {parent:component});
 ec('div');
 
                     this.isReadyToGo();

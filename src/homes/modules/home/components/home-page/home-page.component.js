@@ -87,7 +87,7 @@ class HomePage {
     // get properties on load
     this.getPropertiesOnLoad();
 
-    this.activateForm()
+    this.activateForm();
   }
 
   /**

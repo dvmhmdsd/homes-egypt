@@ -18,21 +18,15 @@
       class="property-item col-lg-3 col-sm-12"
     >
       <header class="property-header">
-        <figure class="property-img">
-          <a
-            href="/properties/{{ property.id }}/{{
-              property.name.split(' ').join('-')
-            }}"
-          >
-            <flk-slider [slides]=[property.images]></flk-slider>
-            <!-- <img
-              src="{{ property.images[0].image }}"
-              height="100%"
-              width="100%"
-              alt="property's image"
-            /> -->
-          </a>
-        </figure>
+        <a
+          href="/properties/{{ property.old_id }}/{{
+            property.name.split(' ').join('-')
+          }}"
+        >
+          <section class="property-img">
+            <flk-slider [slides]="[property.images]"></flk-slider>
+          </section>
+        </a>
 
         <section class="property-metadata">
           <p class="property-location absolute-position">
@@ -44,14 +38,14 @@
           </p>
 
           <p class="property-price absolute-position">
-            {{ property.price }} {{ property.currency }}
+            {{ property.price.toLocaleString() }} {{ property.currency }}
           </p>
         </section>
       </header>
 
       <main class="property-body">
         <a
-          href="/properties/{{ property.id }}/{{
+          href="/properties/{{ property.old_id }}/{{
             property.name.split(' ').join('-')
           }}"
         >
