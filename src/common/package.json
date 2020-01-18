@@ -23,7 +23,7 @@
         "rfs",
         "compass-mixins",
         "@flk/scss",
-        "flk-dropdown-list"
+        "@flk/slider"
     ],
     "mainFiles": {
         "rfs": null

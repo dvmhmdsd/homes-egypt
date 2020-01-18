@@ -8,10 +8,15 @@
 
     .property-item {
         margin-bottom: 4rem; 
+        border: 1px solid $mainColor;
+        padding: 0;
+        margin: 3rem 4%;
         .property-header {
             position: relative;
             .property-img {
                 z-index: 1;
+                height: 17rem;
+                width: 100%;
                 img {
                     max-width: 100%;
                     height: auto;
@@ -48,8 +53,17 @@
             color: $mainColor;
             font-weight: bold;
             font-size: 1rem;
+            padding: 0.3rem 1rem;
+            .property-name {
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
 
             .property-rooms {
+                i {
+                    margin-right: 5px;
+                }
                 > * {
                     margin: 5px;
                 }

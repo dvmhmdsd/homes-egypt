@@ -1,7 +1,7 @@
 <footer>
-  <section class="main-footer d-flex justify-content-around p-6">
-    <article class="main-footer-column">
-      <h2 class="footer-column-heading">Quick Links</h2>
+  <section class="main-footer d-flex justify-content-around p-6 flex-wrap">
+    <article class="main-footer-column mb-1 col-lg-4 col-sm-12">
+      <h2 class="footer-column-heading text-left">Quick Links</h2>
 
       <ul class="column-links list-unstyled text-left">
         <li class="column-link-item">
@@ -10,55 +10,49 @@
           </a>
         </li>
         <li class="column-link-item">
-          <a href="/">
+          <a href="/?sale_type=rent">
             Renting
           </a>
         </li>
         <li class="column-link-item">
-          <a href="/">
+          <a href="/?sale_type=commercial">
             Commercial
           </a>
         </li>
         <li class="column-link-item">
-          <a href="/">
+          <a href="/?sale_type=sale">
             Buying
           </a>
         </li>
       </ul>
     </article>
 
-    <article class="main-footer-column">
-      <h2 class="footer-column-heading">Popular Locations</h2>
+    <article class="main-footer-column col-lg-4 col-sm-12 mb-3">
+      <h2 class="footer-column-heading text-left">Popular Locations</h2>
 
       <ul class="column-links list-unstyled text-left">
-        <li class="column-link-item">
-          <a href="/">
-            Properties for rent in Zamalek
-          </a>
-        </li>
-
-        <li class="column-link-item">
-          <a href="/">
-            Properties for rent in Dokki
+        <li *for="let region of this.featuredRegions" class="column-link-item">
+          <a href="/?regions[]={{region.id}}">
+            Properties for rent in {{region.name}}
           </a>
         </li>
       </ul>
     </article>
 
-    <article class="main-footer-column social-contact text-left">
+    <article class="main-footer-column col-lg-4 col-sm-12 social-contact text-left">
       <p class="site-phone">
-        <a href="tel:01288744799"
-          ><i class="fas fa-phone-alt"></i> 01288744799</a
+        <a href="tel:{{this.info.phone}}"
+          ><i class="fas fa-phone-alt"></i> {{this.info.phone}}</a
         >
       </p>
       <p class="site-mail">
-        <a href="mailto:Info@Homes-Egypt.Com">
-          <i class="fas fa-envelope"></i> Info@Homes-Egypt.Com</a
+        <a href="mailto:{{this.info.email}}">
+          <i class="fas fa-envelope"></i> {{this.info.email}}</a
         >
       </p>
       <p class="site-facebook">
-        <a href="https://facebook.com"
-          ><i class="fas fa-facebook"></i> Homes Egypt</a
+        <a href="{{this.info.facebook}}"
+          ><i class="fab fa-facebook"></i> Homes Egypt</a
         >
       </p>
     </article>

@@ -1,0 +1,125 @@
+<layout>
+  <section class="single-property">
+    <div class="containers">
+      <section *if="this.property" class="single-property-preface flex-wrap d-flex p-4">
+        <section class="single-property-preface-left col-lg-8 col-sm-12">
+          <section class="preface-info d-flex justify-content-between">
+            <h2 class="property-name">{{ this.property.name }}</h2>
+            <p class="property-id">#ID: {{this.property ? this.property.id : ""}}</p>
+          </section>
+
+          <section class="property-img">
+            <img src="/public/homes/images/logo.png" alt="" />
+          </section>
+        </section>
+
+        <section class="single-property-preface-right col-lg-4 col-sm-12">
+          <section class="contact-section">
+            <section class="contact-info">
+              <h3>Contact Us</h3>
+              <p><span>Email:</span> {{this.cache.get("settings").settings["site.email"]}}</p>
+              <p><span> phone: </span> {{this.cache.get("settings").settings["site.phone"]}}</p>
+            </section>
+
+            <section class="contact-request">
+              <h3>Send Request</h3>
+              <form action="" class="d-flex flex-wrap">
+                <!-- <form action="https://homes-egypt.com/contact-us/send"> -->
+                <div class="form-group col-6">
+                  <form-input
+                    type="text"
+                    required
+                    class="form-control"
+                    placeholder="Your name"
+                  ></form-input>
+                </div>
+                <div class="form-group col-6">
+                  <form-input
+                    type="number"
+                    required
+                    class="form-control"
+                    placeholder="Your phone number"
+                  ></form-input>
+                </div>
+                <div class="form-group col-12">
+                  <form-input
+                    type="email"
+                    required
+                    class="form-control"
+                    placeholder="Your email address"
+                  ></form-input>
+                  <small class="text-uppercase text-dark"
+                    >We Will Not Share Email with any one</small
+                  >
+                </div>
+
+                <div class="form-group col-12">
+                  <form-input
+                    type="textarea"
+                    required
+                    class="form-control"
+                    placeholder="Your message"
+                    rows="4"
+                  ></form-input>
+                </div>
+                <form-input type="button" class="contact-btn btn-action mr-auto"
+                  >Request</form-input
+                >
+              </form>
+            </section>
+          </section>
+        </section>
+      </section>
+
+      <section class="single-property-middle d-flex flex-wrap">
+        <div
+          class="single-property-middle-left d-flex flex-wrap col-lg-8 col-sm-12 p-3"
+        >
+          <ul class="col-sm-6 property-data-p1 list-unstyled">
+            <li class="property-data-item">
+              <p *for="let price of this.property.prices">
+                <span class="prop-key"> {{price.type}} Price </span> {{this.ifCurrencyInDollar ? price.priceInDollar : price.price}} {{this.cache.get("currency")}}
+              </p>
+            </li>
+            <li class="property-data-item">
+              <span class="prop-key"> Address </span> {{this.property.region}} - {{this.property.city}}
+            </li>
+            <li class="property-data-item">
+              <span class="prop-key"> Type </span> {{this.property.type}}
+            </li>
+            <li class="property-data-item">
+              <span class="prop-key"> Id </span> {{this.property.id}}
+            </li>
+          </ul>
+
+          <ul class="col-sm-6 property-data-p2 list-unstyled">
+            <li *for="let room of this.property.rooms" class="property-data-item">
+              <span class="prop-key"> {{room.name}} </span> {{room.value}}
+            </li>
+            <li class="property-data-item">
+              <span class="prop-key"> Other Rooms </span> {{this.property.additional_rooms}}
+            </li>
+            <li class="property-data-item">
+              <span class="prop-key"> City </span> {{this.property.city}}
+            </li>
+          </ul>
+
+          <section class="property-desc">
+            <h3 (click)="this.showDesc = !this.showDesc">
+              Full Description
+              <i class="fa fa-chevron-{{ this.showDesc ? 'up' : 'down' }}"></i>
+            </h3>
+            <p></p>
+            <p *if="this.showDesc">
+              {{ this.property.description }}
+            </p>
+          </section>
+        </div>
+
+        <div class="single-property-middle-right col-lg-4 col-sm-12">
+          <img src="/public/homes/images/logo.png" alt="" />
+        </div>
+      </section>
+    </div>
+  </section>
+</layout>

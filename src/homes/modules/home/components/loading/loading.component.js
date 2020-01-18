@@ -1,4 +1,4 @@
-class Single {
+class Loading {
     /**
      * Constructor
      * Put your required dependencies in the constructor parameters list  

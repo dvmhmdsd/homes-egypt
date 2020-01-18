@@ -11,16 +11,25 @@ class Header {
     this.cache = cache;
 
     this.router = router;
+
+    this.info = {};
   }
 
   /**
    * Get all settings on load
    */
   init() {
-    this.settings.list().then(response => {
-      // add the currencies comes from backend into the currencies array
+    let response =
+      this.cache.get("settings") ||
+      this.settings.list().then(res => {
+        this.cache.set("settings", response);
+        return res;
+      });
+
       this.currencies = response.currencies;
-    });
+
+      this.info.email = response.settings["site.email"]
+      this.info.phone = response.settings["site.phone"].slice(3);
   }
 
   /**

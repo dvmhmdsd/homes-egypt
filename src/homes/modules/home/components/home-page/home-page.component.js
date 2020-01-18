@@ -2,9 +2,17 @@ class HomePage {
   /**
    * Constructor
    */
-  constructor(settingsService, propertiesService, cache) {
+  constructor(settingsService, propertiesService, cache, router, imageUrl) {
     this.name = "home";
     this.title = "Homes Egypt";
+
+    this.imageUrl = imageUrl;
+
+    this.loading;
+
+    this.loadingSearch;
+
+    this.router = router;
 
     this.cache = cache;
 
@@ -14,17 +22,18 @@ class HomePage {
 
     // show the corresponding form
     this.searchForm = {
-      type: "rent", // "rent" / "sale" / "commercial" / new_homes
+      type: "rent", // "rent" / "sale" / "commercial" / new-homes
       regions: [],
       compounds: [],
       currencies: [],
       chosenRegions: [],
+      chosenRegionsNames: [],
       propertyTypes: [],
       typesAvailable: [
         { label: "for rent", value: "rent" },
         { label: "sale", value: "sale" },
         { label: "commercial", value: "commercial" },
-        { label: "new homes", value: "new_homes" }
+        { label: "new homes", value: "new-homes" }
       ],
       featuredRegions: []
     };
@@ -38,38 +47,130 @@ class HomePage {
    * This method is triggered before rendering the component
    */
   init() {
-    this.settingsService.list().then(response => {
-      // echo(response.featuredRegions)
-
-      // get regions
-      this.searchForm.regions = response.regions;
-
-      // match regions' ids with the corresponding region
-      response.featuredRegions.map(regionId => {
-        this.searchForm.regions.forEach(region => {
-          if (region.id === regionId) {
-            this.searchForm.featuredRegions.push(region);
-            return;
-          }
-        });
+    let response =
+      this.cache.get("settings") ||
+      this.settingsService.list().then(res => {
+        this.cache.set("settings", res);
+        return res;
       });
 
-      // get properties types
-      this.searchForm.propertyTypes = response.propertyTypes;
+    // get regions
+    this.searchForm.regions = response.regions;
 
-      // get currencies
-      this.searchForm.currencies = response.currencies;
-
-      // get compounds
-      this.searchForm.compounds = response.compounds;
+    // match regions' ids with the corresponding region
+    response.featuredRegions.map(regionId => {
+      this.searchForm.regions.forEach(region => {
+        if (
+          region.id === regionId &&
+          this.searchForm.featuredRegions.length <
+            response.featuredRegions.length
+        ) {
+          this.searchForm.featuredRegions.push(region);
+          return;
+        }
+      });
     });
+
+    // add featuredRegions to cache to use in other places
+    this.cache.set("featuredRegions", this.searchForm.featuredRegions);
+
+    // get properties types
+    this.searchForm.propertyTypes = response.propertyTypes;
+
+    // get currencies
+    this.searchForm.currencies = response.currencies;
+
+    // get compounds
+    this.searchForm.compounds = response.compounds;
+
+
+    // get properties on load
+    this.getPropertiesOnLoad();
+
+    this.activateForm()
+  }
+
+  /**
+   * Get properties on load according to the url
+   */
+  getPropertiesOnLoad() {
+    let query = this.router.queryString.all();
+
+    this.loading = true;
+
+    this.propertiesService.list(query).then(response => {
+      this.properties = response.properties;
+      console.log(this.properties)
+      this.convertImagesSrc();
+      this.loading = false;
+    })
+  }
+
+  /**
+   * Convert the image src coming from API from relative to absolute
+   * 
+   * @returns {array}
+   */
+  convertImagesSrc() {
+    this.properties.map(property => {
+      property.images.map(img => {
+        img.image = this.imageUrl(img.image);
+      })
+    });
+  }
+
+  /**
+   * Get region object with its name
+   */
+  getRegion(name) {
+    let region;
+    this.searchForm.regions.forEach(reg => {
+      if (reg.name == name) {
+        region = reg;
+      }
+    })
+    return region;
+  }
+
+  /**
+   * Add a region to the chosen region
+   *
+   * @param {Object} region
+   */
+  chooseRegion(region) {
+    let chosenRegions = this.searchForm.chosenRegions;
+    let chosenRegionsNames = this.searchForm.chosenRegionsNames;
+
+    region = this.getRegion(region);
+    
+    // add region to the array if it's empty
+    if (chosenRegions.length === 0) {
+      chosenRegions.push(region.id);
+      chosenRegionsNames.push(region.name);
+      return;
+    } else {
+      // count all the similar regions in the chosenRegions Array
+      let similarRegionsCounter = 0;
+      for (let chRegion of chosenRegions) {
+        if (chRegion.id === region.id) {
+          similarRegionsCounter++;
+          break;
+        }
+      }
+
+      // Don't add the region if there's similar regions in the chosen regions in the array
+      if (similarRegionsCounter === 0) {
+        chosenRegions.push(region.id);
+        chosenRegionsNames.push(region.name);
+      }
+    }
   }
 
   /**
    * Remove chosen region from chosenRegions list
    *
    * @param {DOMElement} $el
-   * @param {number} index
+   * @param {Number} index
    */
   removeChosenRegion($el, index) {
     // remove from DOM
@@ -107,6 +208,16 @@ class HomePage {
   }
 
   /**
+   * Activate form type according query
+   */
+  activateForm() {
+    let type = this.router.queryString.all()["sale_type"];
+    
+    // activate form
+    if (type) this.searchForm.type = type;
+  }
+
+  /**
    * Get the types of commercial
    */
   getCommercialTypes() {
@@ -127,15 +238,49 @@ class HomePage {
   /**
    * Submit form with form values to get properties
    *
-   * @param {Object} event
    * @param {DOMElement} $el
    */
-  getProperties(event, $el) {
-    event.preventDefault();
+  getProperties($el) {
+    let options = this.makeQueryObject($el);
+
+    this.loadingSearch = true;
+
+    // get the list
+    this.propertiesService.list(options).then(response => {
+      this.properties = response.properties;
+      this.loadingSearch = false;
+      
+      this.updateURL(options);
+      
+      this.convertImagesSrc();
+    });
+  }
+
+  /**
+   * Update URL after getting properties
+   * 
+   * @param {Object} options
+   */
+  updateURL(options) {
+    // update url
+    let query = Object.keys(options)
+      .map(key => key + "=" + options[key])
+      .join("&");
+
+    this.router.navigateTo(`/?${query}`);
+  }
+
+  /**
+   * Make query object form form values
+   *
+   * @param {DOMElement} $el
+   * @returns {Object}
+   */
+  makeQueryObject($el) {
     let formQueries = {};
 
     // convert form values into object
-    Object.values($el).forEach(field => {
+    $el.querySelectorAll("input").forEach(field => {
       if (!field.name || field.value.trim() == "") {
         return;
       }
@@ -143,16 +288,13 @@ class HomePage {
     });
 
     // add chosen regions list to the form
-    formQueries.regions = this.searchForm.chosenRegions;
+    if (this.searchForm.chosenRegions.length > 0)
+      formQueries["regions"] = this.searchForm.chosenRegions;
 
     // add form type
     formQueries.sale_type = this.searchForm.type;
 
-    // get the list
-    this.propertiesService.list(formQueries).then(response => {
-      this.properties = response.properties;
-      echo(response.properties);
-    });
+    return formQueries;
   }
 
   /**
