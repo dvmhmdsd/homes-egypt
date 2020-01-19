@@ -1,0 +1,25 @@
+.properties {
+    .properties-heading {
+        color: $mainColor;
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 6rem;
+    }
+
+    .property-item {
+        margin-bottom: 4rem; 
+        padding: 0;
+        margin: 1rem 0;
+    }
+
+    .view-properties-btn {
+        padding: 0.5rem 1rem;
+        color: $mainColor;
+        font-size: 1.5rem;
+        transition: all 0.2s;
+        &:hover {
+            color: #fff;
+            background-color: $mainColor;
+        }
+    }
+}

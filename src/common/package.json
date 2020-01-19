@@ -23,6 +23,7 @@
         "rfs",
         "compass-mixins",
         "@flk/scss",
+        "@flk/fa",
         "@flk/slider"
     ],
     "mainFiles": {

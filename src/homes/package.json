@@ -4,11 +4,7 @@
     "assets": [],
     "packages": [],
     "externals": {
-        "css": {
-            "common": [
-                "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
-            ]
-        },
+        "css": {},
         "js": [
             "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         ]
@@ -16,12 +12,10 @@
     "modules": [
         "shared",
         "home",
+        "properties",
+        "search",
         "users",
         "services",
-        "searchbox",
-        "properties",
-        "pages/singleProperty-page",
-        "singleProperty-page",
-        "singleProperty-page"
+        "property"
     ]
 }

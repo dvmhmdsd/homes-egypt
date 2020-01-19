@@ -20,16 +20,41 @@ class Header {
    */
   init() {
     let response =
-      this.cache.get("settings") ||
+      this.cache.get("settings")
+
+    if (response) {
       this.settings.list().then(res => {
-        this.cache.set("settings", response);
+        this.cache.set("settings", res);
         return res;
+      }).then((res) => {
+        this.setupSettings(res);
       });
+    } else {
+      this.setupSettings(response)
+    }
 
-      this.currencies = response.currencies;
+    // view step1 of the advertisement application
+    this.step = "step-1";
+  }
 
-      this.info.email = response.settings["site.email"]
-      this.info.phone = response.settings["site.phone"].slice(3);
+  setupSettings(response) {
+    this.currencies = response.currencies;
+
+    this.info.email = response.settings["site.email"]
+    this.info.phone = response.settings["site.phone"].slice(3);
+  }
+
+  /**
+   * Watch the step property if it's changed -> change the button class
+   */
+  watchStep() {
+    if (this.step == "step-1") {
+      this.stepOneBtn.classList.add("btn-active")
+      this.stepTwoBtn.classList.remove("btn-active")
+    } else if (this.step == "step-2") {
+      this.stepOneBtn.classList.remove("btn-active")
+      this.stepTwoBtn.classList.add("btn-active")
+    }
   }
 
   /**
@@ -40,5 +65,9 @@ class Header {
 
     // reload the page to update the data
     this.router.refresh();
+  }
+
+  ready() {
+    this.watchStep();
   }
 }

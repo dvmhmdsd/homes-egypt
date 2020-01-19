@@ -12,9 +12,21 @@
   // the event before the router scanner starts.
   events.on("app.ready", () => {
     // add currency to cache on load the app
-    if (!cache.get("currency")) cache.set("currency", "EGP");
+    if (!cache.get("currency")) cache.set("currency", "EGP");   
   });
 })();
+
+// let settings = cache.get('settings')
+
+// shareable.share('settings', settings)
+
+// if (shareableeeeeeeeeeeeeeee.isSharing('settings')) {
+//   let test = shareable.getShared('settings')
+// } else {
+//   shareable.observe('settings', settings => {
+//     test = t;
+//   });
+// }
 
 function imageUrl(image) {
   return "https://homes-egypt.com/public/" + image;

@@ -1,7 +1,10 @@
-<div *if="this.loadingSearch" class="loader-container d-flex justify-content-center align-items-center">
-  <loading></loading>
-</div>
 <section class="searchbox d-flex flex-column justify-content-center">
+  <div
+    *if="this.loadingSearch"
+    class="loader-container d-flex justify-content-center align-items-center"
+  >
+    <loading></loading>
+  </div>
 
   <div class="container">
     <!-- types buttons -->
@@ -9,8 +12,10 @@
       <button
         class="btn-action types-panel-btn"
         *for="let type of this.searchForm.typesAvailable"
-        (click)="this.activateType($el, type)"
+        (click)="this.searchForm.type = type.value"
+        [class]="{ 'type-active': type.value == this.searchForm.type }"
         data-type="{{ type.value }}"
+        *as="buttonsPanel"
       >
         {{ type.label }}
       </button>
@@ -147,23 +152,44 @@
           ></form-input>
         </div>
 
-        <div *if="this.searchForm.chosenRegions.length > 0" class="form-group col-12">
-            <ul class="list-unstyled d-flex chosen-regions">
-                <li class="chosen-region-item" *for="let region, index of this.searchForm.chosenRegionsNames" >
-                    {{region}}
-                    <i class="fa fa-times" (click)="this.removeChosenRegion($el, index)"></i>
-                </li>
-            </ul>
+        <div
+          *if="this.searchForm.chosenRegions.length > 0"
+          class="form-group col-12"
+        >
+          <ul class="list-unstyled d-flex chosen-regions">
+            <li
+              class="chosen-region-item"
+              *for="let region, index of this.searchForm.chosenRegionsNames"
+            >
+              {{ region }}
+              <i
+                class="fa fa-times"
+                (click)="this.removeChosenRegion($el, index)"
+              ></i>
+            </li>
+          </ul>
         </div>
 
         <div class="form-group col-12 text-right form-actions">
-            <input type="reset" class="modal-btn btn-action mr-auto" (click)="this.searchForm.chosenRegions = []"/>
-            <input type="submit" value="Search" class="modal-btn btn-action mr-auto"/>
+          <input
+            type="reset"
+            class="modal-btn btn-action mr-auto"
+            (click)="this.searchForm.chosenRegions = []"
+          />
+          <input
+            type="submit"
+            value="Search"
+            class="modal-btn btn-action mr-auto"
+          />
         </div>
       </form>
 
       <!-- commercial form-->
-      <form *if="this.searchForm.type == 'commercial'" (submit)="this.getProperties(e, $el)" class="d-flex flex-wrap">
+      <form
+        *if="this.searchForm.type == 'commercial'"
+        (submit)="this.getProperties(e, $el)"
+        class="d-flex flex-wrap"
+      >
         <div class="form-group col-md-7 col-xs-12">
           <form-input
             type="text"
@@ -262,23 +288,47 @@
           ></form-input>
         </div>
 
-        <div *if="this.searchForm.chosenRegions.length > 0" class="form-group col-12">
-            <ul class="list-unstyled d-flex chosen-regions">
-                <li class="chosen-region-item" *for="let region, index of this.searchForm.chosenRegionsNames" >
-                    {{region}}
-                    <i class="fa fa-times" (click)="this.removeChosenRegion($el, index)"></i>
-                </li>
-            </ul>
+        <div
+          *if="this.searchForm.chosenRegions.length > 0"
+          class="form-group col-12"
+        >
+          <ul class="list-unstyled d-flex chosen-regions">
+            <li
+              class="chosen-region-item"
+              *for="let region, index of this.searchForm.chosenRegionsNames"
+            >
+              {{ region }}
+              <i
+                class="fa fa-times"
+                (click)="this.removeChosenRegion($el, index)"
+              ></i>
+            </li>
+          </ul>
         </div>
 
         <div class="form-group col-12 text-right form-actions">
-                <input type="reset" class="modal-btn btn-action mr-auto" (click)="this.searchForm.chosenRegionsNames = []; this.searchForm.chosenRegions = []" />
-                <input type="submit" value="Search" class="modal-btn btn-action mr-auto">
-            </div>
+          <input
+            type="reset"
+            class="modal-btn btn-action mr-auto"
+            (click)="
+              this.searchForm.chosenRegionsNames = [];
+              this.searchForm.chosenRegions = []
+            "
+          />
+          <input
+            type="submit"
+            value="Search"
+            class="modal-btn btn-action mr-auto"
+          />
+        </div>
       </form>
 
       <!-- new homes form-->
-      <form *if="this.searchForm.type == 'new-homes'" (submit)="this.getProperties(e, $el)" class="d-flex flex-wrap">
+      <form
+        *if="this.searchForm.type == 'new-homes'"
+        (submit)="this.getProperties(e, $el)"
+        class="d-flex flex-wrap"
+      >
         <div class="form-group col-md-7 col-xs-12">
           <form-input
             type="text"
@@ -377,18 +427,38 @@
           ></form-input>
         </div>
 
-        <div *if="this.searchForm.chosenRegions.length > 0" class="form-group col-12">
-            <ul class="list-unstyled d-flex chosen-regions">
-                <li class="chosen-region-item" *for="let region, index of this.searchForm.chosenRegionsNames" >
-                    {{region}}
-                    <i class="fa fa-times" (click)="this.removeChosenRegion($el, index)"></i>
-                </li>
-            </ul>
+        <div
+          *if="this.searchForm.chosenRegions.length > 0"
+          class="form-group col-12"
+        >
+          <ul class="list-unstyled d-flex chosen-regions">
+            <li
+              class="chosen-region-item"
+              *for="let region, index of this.searchForm.chosenRegionsNames"
+            >
+              {{ region }}
+              <i
+                class="fa fa-times"
+                (click)="this.removeChosenRegion($el, index)"
+              ></i>
+            </li>
+          </ul>
         </div>
 
         <div class="form-group col-12 text-right form-actions">
-          <input type="reset" class="modal-btn btn-action mr-auto" (click)="this.searchForm.chosenRegions = []; this.searchForm.chosenRegionsNames = []" />
-            <input type="submit" value="Search" class="modal-btn btn-action mr-auto"/>
+          <input
+            type="reset"
+            class="modal-btn btn-action mr-auto"
+            (click)="
+              this.searchForm.chosenRegions = [];
+              this.searchForm.chosenRegionsNames = []
+            "
+          />
+          <input
+            type="submit"
+            value="Search"
+            class="modal-btn btn-action mr-auto"
+          />
         </div>
       </form>
     </section>
