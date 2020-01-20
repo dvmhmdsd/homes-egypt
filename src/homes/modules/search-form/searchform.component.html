@@ -326,7 +326,7 @@
       <!-- new homes form-->
       <form
         *if="this.searchForm.type == 'new-homes'"
-        (submit)="this.getProperties(e, $el)"
+        (submit)="this.getProperties($el)"
         class="d-flex flex-wrap"
       >
         <div class="form-group col-md-7 col-xs-12">
