@@ -1,5 +1,5 @@
-.vscode
-public
-node_modules
+/.vscode
+/public
+/node_modules
 package-lock.json
 yarn.lock
