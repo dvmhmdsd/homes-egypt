@@ -1,11 +1,4 @@
 <section class="searchbox d-flex flex-column justify-content-center">
-  <div
-    *if="this.loadingSearch"
-    class="loader-container d-flex justify-content-center align-items-center"
-  >
-    <loading></loading>
-  </div>
-
   <div class="container">
     <!-- types buttons -->
     <section class="types-panel d-flex justify-content-around flex-wrap">
@@ -27,7 +20,7 @@
         <li
           class="region-item"
           *for="let region of this.searchForm.featuredRegions"
-          (click)="this.chooseRegion(region.name)"
+          (click)="this.chooseRegion(region)"
         >
           {{ region.name }}
         </li>
@@ -35,10 +28,10 @@
 
       <!-- rent / sale form-->
       <form
-        *if="this.searchForm.type == 'rent' || this.searchForm.type == 'sale'"
         (submit)="this.getProperties($el)"
         class="d-flex flex-wrap"
       >
+        <!-- <input type="hidden" name="sale_type" [value]="this.searchForm.type"> -->
         <div class="form-group col-md-7 col-xs-12">
           <form-input
             type="text"
@@ -51,7 +44,7 @@
           ></form-input>
           <datalist id="regionsList">
             <option
-              *for="let region of this.searchForm.regions"
+              *for="let region of this.regionsList"
               value="{{ region.name }}"
             >
             </option>
@@ -64,6 +57,7 @@
             placeholder="#ID"
             name="id"
             class="form-control"
+            [value]="this.searchForm.id"
             title="ID of the property"
           ></form-input>
         </div>
@@ -115,21 +109,13 @@
         </div>
 
         <div class="form-group col-md-3 col-xs-12">
-          <form-input
-            type="text"
-            list="currencies"
-            placeholder="{{ this.cache.get('currency') }}"
+          <flk-dropdown-list
             name="currency"
-            class="form-control"
-            title="Currencies available"
-          ></form-input>
-          <datalist id="currencies">
-            <option
-              *for="let currency of this.searchForm.currencies"
-              value="{{ currency.code }}"
-            >
-            </option>
-          </datalist>
+            placeholder="Currency"
+            [value]="this.searchForm.currency"
+            [items]="this.currencies"
+            [searchable]="false"
+          ></flk-dropdown-list>
         </div>
 
         <div class="form-group col-md-3 col-xs-12">
@@ -153,19 +139,17 @@
         </div>
 
         <div
-          *if="this.searchForm.chosenRegions.length > 0"
+          *if="! Is.empty(this.searchForm.chosenRegions)"
           class="form-group col-12"
         >
           <ul class="list-unstyled d-flex chosen-regions">
             <li
               class="chosen-region-item"
-              *for="let region, index of this.searchForm.chosenRegionsNames"
+              *for="let region, index of this.searchForm.chosenRegions"
             >
-              {{ region }}
-              <i
-                class="fa fa-times"
-                (click)="this.removeChosenRegion($el, index)"
-              ></i>
+              <span [html]="region.name"></span>
+              <fa icon="times" (click)="this.removeChosenRegion(index)"></fa>
+              <input type="hidden" name="regions[]" [value]="region.id" /> 
             </li>
           </ul>
         </div>
@@ -175,284 +159,6 @@
             type="reset"
             class="modal-btn btn-action mr-auto"
             (click)="this.searchForm.chosenRegions = []"
-          />
-          <input
-            type="submit"
-            value="Search"
-            class="modal-btn btn-action mr-auto"
-          />
-        </div>
-      </form>
-
-      <!-- commercial form-->
-      <form
-        *if="this.searchForm.type == 'commercial'"
-        (submit)="this.getProperties($el)"
-        class="d-flex flex-wrap"
-      >
-        <div class="form-group col-md-7 col-xs-12">
-          <form-input
-            type="text"
-            list="regionsList"
-            placeholder="Search for locations"
-            name="regions"
-            class="form-control"
-            title="Search for a region"
-          ></form-input>
-          <datalist id="regionsList">
-            <option
-              *for="let region of this.searchForm.regions"
-              value="{{ region.name }}"
-            >
-            </option>
-          </datalist>
-        </div>
-
-        <div class="form-group col-md-5 col-xs-12">
-          <form-input
-            type="text"
-            placeholder="#ID"
-            name="id"
-            class="form-control"
-            title="ID of the property"
-          ></form-input>
-        </div>
-
-        <div class="form-group col-md-3 col-xs-12">
-          <form-input
-            type="text"
-            list="typesList"
-            placeholder="Type"
-            name="type"
-            class="form-control"
-            title="type"
-          ></form-input>
-          <datalist id="typesList">
-            <option
-              *for="let type of this.getCommercialTypes()"
-              value="{{ type.name }}"
-            >
-            </option>
-          </datalist>
-        </div>
-
-        <div class="form-group col-md-2 col-xs-12">
-          <form-input
-            type="text"
-            list="roomsNum"
-            placeholder="Rooms"
-            name="rooms"
-            class="form-control"
-            title="Number of rooms"
-          ></form-input>
-          <datalist id="roomsNum">
-            <option *for="let i = 0; i <= 10; i++" value="{{ i }}"> </option>
-          </datalist>
-        </div>
-
-        <div class="form-group col-md-3 col-xs-12">
-          <form-input
-            type="text"
-            list="currencies"
-            placeholder="{{ this.cache.get('currency') }}"
-            name="currency"
-            class="form-control"
-            title="Currencies available"
-          ></form-input>
-          <datalist id="currencies">
-            <option
-              *for="let currency of this.searchForm.currencies"
-              value="{{ currency.code }}"
-            >
-            </option>
-          </datalist>
-        </div>
-
-        <div class="form-group col-md-2 col-xs-12">
-          <form-input
-            type="number"
-            placeholder="Min price"
-            name="min_price"
-            class="form-control"
-            title="Minimum price"
-          ></form-input>
-        </div>
-
-        <div class="form-group col-md-2 col-xs-12">
-          <form-input
-            type="number"
-            placeholder="Max price"
-            name="max_price"
-            class="form-control"
-            title="Maximum price"
-          ></form-input>
-        </div>
-
-        <div
-          *if="this.searchForm.chosenRegions.length > 0"
-          class="form-group col-12"
-        >
-          <ul class="list-unstyled d-flex chosen-regions">
-            <li
-              class="chosen-region-item"
-              *for="let region, index of this.searchForm.chosenRegionsNames"
-            >
-              {{ region }}
-              <i
-                class="fa fa-times"
-                (click)="this.removeChosenRegion($el, index)"
-              ></i>
-            </li>
-          </ul>
-        </div>
-
-        <div class="form-group col-12 text-right form-actions">
-          <input
-            type="reset"
-            class="modal-btn btn-action mr-auto"
-            (click)="
-              this.searchForm.chosenRegionsNames = [];
-              this.searchForm.chosenRegions = []
-            "
-          />
-          <input
-            type="submit"
-            value="Search"
-            class="modal-btn btn-action mr-auto"
-          />
-        </div>
-      </form>
-
-      <!-- new homes form-->
-      <form
-        *if="this.searchForm.type == 'new-homes'"
-        (submit)="this.getProperties($el)"
-        class="d-flex flex-wrap"
-      >
-        <div class="form-group col-md-7 col-xs-12">
-          <form-input
-            type="text"
-            list="compoundsList"
-            placeholder="Compounds"
-            name="regions"
-            class="form-control"
-            title="Search for a region"
-          ></form-input>
-          <datalist id="compoundsList">
-            <option
-              *for="let compound of this.searchForm.compounds"
-              value="{{ compound.name }}"
-            >
-            </option>
-          </datalist>
-        </div>
-
-        <div class="form-group col-md-5 col-xs-12">
-          <form-input
-            type="text"
-            placeholder="#ID"
-            name="id"
-            class="form-control"
-            title="ID of the property"
-          ></form-input>
-        </div>
-
-        <div class="form-group col-md-3 col-xs-12">
-          <form-input
-            type="text"
-            list="typesList"
-            placeholder="Type"
-            name="type"
-            class="form-control"
-            title="type"
-          ></form-input>
-          <datalist id="typesList">
-            <option
-              *for="let type of this.getCompoundsTypes()"
-              value="{{ type.name }}"
-            >
-            </option>
-          </datalist>
-        </div>
-
-        <div class="form-group col-md-2 col-xs-12">
-          <form-input
-            type="text"
-            list="roomsNum"
-            placeholder="Rooms"
-            name="rooms"
-            class="form-control"
-            title="Number of rooms"
-          ></form-input>
-          <datalist id="roomsNum">
-            <option *for="let i = 0; i <= 10; i++" value="{{ i }}"> </option>
-          </datalist>
-        </div>
-
-        <div class="form-group col-md-3 col-xs-12">
-          <form-input
-            type="text"
-            list="currencies"
-            placeholder="{{ this.cache.get('currency') }}"
-            name="currency"
-            class="form-control"
-            title="Currencies available"
-          ></form-input>
-          <datalist id="currencies">
-            <option
-              *for="let currency of this.searchForm.currencies"
-              value="{{ currency.code }}"
-            >
-            </option>
-          </datalist>
-        </div>
-
-        <div class="form-group col-md-2 col-xs-12">
-          <form-input
-            type="number"
-            placeholder="Min price"
-            name="min_price"
-            class="form-control"
-            title="Minimum price"
-          ></form-input>
-        </div>
-
-        <div class="form-group col-md-2 col-xs-12">
-          <form-input
-            type="number"
-            placeholder="Max price"
-            name="max_price"
-            class="form-control"
-            title="Maximum price"
-          ></form-input>
-        </div>
-
-        <div
-          *if="this.searchForm.chosenRegions.length > 0"
-          class="form-group col-12"
-        >
-          <ul class="list-unstyled d-flex chosen-regions">
-            <li
-              class="chosen-region-item"
-              *for="let region, index of this.searchForm.chosenRegionsNames"
-            >
-              {{ region }}
-              <i
-                class="fa fa-times"
-                (click)="this.removeChosenRegion($el, index)"
-              ></i>
-            </li>
-          </ul>
-        </div>
-
-        <div class="form-group col-12 text-right form-actions">
-          <input
-            type="reset"
-            class="modal-btn btn-action mr-auto"
-            (click)="
-              this.searchForm.chosenRegions = [];
-              this.searchForm.chosenRegionsNames = []
-            "
           />
           <input
             type="submit"

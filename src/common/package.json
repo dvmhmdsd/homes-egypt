@@ -8,6 +8,7 @@
         "@flk/supportive-is",
         "@flk/config",
         "@flk/application",
+        "@flk/dropdown-list",
         "@flk/http",
         "@flk/router",
         "@flk/layout",

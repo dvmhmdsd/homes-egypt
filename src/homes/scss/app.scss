@@ -6,6 +6,7 @@
 // $left: `left` on ltr and `right` or rtl
 
 @import "variables";
+@import 'dropdown-list';
 
 @if $direction == ltr {
   body {

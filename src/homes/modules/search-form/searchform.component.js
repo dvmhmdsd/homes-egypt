@@ -16,12 +16,12 @@ class Searchform {
 
     // show the corresponding form
     this.searchForm = {
+      currency: this.cache.get('currency'),
       type: "rent", // "rent" / "sale" / "commercial" / new-homes
       regions: [],
       compounds: [],
       currencies: [],
       chosenRegions: [],
-      chosenRegionsNames: [],
       propertyTypes: [],
       typesAvailable: [
         { label: "for rent", value: "rent" },
@@ -33,9 +33,6 @@ class Searchform {
     };
 
     // properties will be passed to the home page
-    this.properties;
-
-    this.activateForm();
   }
 
   /**
@@ -43,6 +40,13 @@ class Searchform {
    * This method is triggered before rendering the component
    */
   init() {
+    this.regionsList = [];
+    this.searchForm = Object.merge(this.searchForm, this.router.queryString.all());
+
+    if (! this.searchForm.type) {
+      this.searchForm.type = 'rent';
+    }
+    
     let response =
       this.cache.get("settings");
 
@@ -60,20 +64,15 @@ class Searchform {
 
   setupSettings(response) {
     // get regions
-    this.searchForm.regions = response.regions;
+    this.regionsList = response.regions;
 
-    // match regions' ids with the corresponding region
-    this.searchForm.regions.forEach(region => {
-      if (
-        Array.get(
-          response.featuredRegions,
-          regionItem => regionItem == region.id
-        ) &&
-        this.searchForm.featuredRegions.length < response.featuredRegions.length
-      ) {
-        this.searchForm.featuredRegions.push(region);
-      }
+    this.searchForm.featuredRegions = response.regions.filter(region => {
+      return response.featuredRegions.includes(region.id); 
     });
+
+    if (! Is.empty(this.searchForm.regions)) {
+      this.searchForm.chosenRegions = response.regions.filter(region => this.searchForm.regions.includes(region.id));
+    }
 
     // add featuredRegions to cache to use in other places
     this.cache.set("featuredRegions", this.searchForm.featuredRegions);
@@ -86,13 +85,13 @@ class Searchform {
 
     // get compounds
     this.searchForm.compounds = response.compounds;
-  }
 
-  /**
-   * Get region object with its name
-   */
-  getRegion(name) {
-    return Array.get(this.searchForm.regions, reg => reg.name == name);
+    this.currencies = response.currencies.map(currency => {
+      return {
+        text: currency.code,
+        value: currency.code,
+      };
+    });
   }
 
   /**
@@ -101,32 +100,7 @@ class Searchform {
    * @param {Object} region
    */
   chooseRegion(region) {
-    let chosenRegions = this.searchForm.chosenRegions;
-    let chosenRegionsNames = this.searchForm.chosenRegionsNames;
-
-    region = this.getRegion(region);
-
-    // add region to the array if it's empty
-    if (chosenRegions.length === 0) {
-      chosenRegions.push(region.id);
-      chosenRegionsNames.push(region.name);
-      return;
-    } else {
-      // count all the similar regions in the chosenRegions Array
-      let similarRegionsCounter = 0;
-      for (let chRegion of chosenRegions) {
-        if (chRegion.id === region.id) {
-          similarRegionsCounter++;
-          break;
-        }
-      }
-
-      // Don't add the region if there's similar regions in the chosen regions in the array
-      if (similarRegionsCounter === 0) {
-        chosenRegions.push(region.id);
-        chosenRegionsNames.push(region.name);
-      }
-    }
+    Array.pushOnce(this.searchForm.chosenRegions, region);
   }
 
   /**
@@ -135,121 +109,26 @@ class Searchform {
    * @param {DOMElement} $el
    * @param {Number} index
    */
-  removeChosenRegion($el, index) {
-    // remove from DOM
-    $el.parentElement.remove();
-
+  removeChosenRegion(index) {
     // remove from the list
     this.searchForm.chosenRegions.splice(index, 1);
   }
-
-  /**
-   * Update URL after getting properties
-   *
-   * @param {Object} options
-   */
-  updateURL(options) {
-    // update url
-    let query = Object.keys(options)
-      .map(key => key + "=" + options[key])
-      .join("&");
-
-    this.router.navigateTo(`/?${query}`);
-  }
-
-  /**
-   * Make query object form form values
-   *
-   * @param {DOMElement} $el
-   * @returns {Object}
-   */
-  makeQueryObject($el) {
-    let formQueries = {};
-
-    // convert form values into object
-    $el.querySelectorAll("input").forEach(field => {
-      if (!field.name || field.value.trim() == "") {
-        return;
-      }
-      formQueries[field.name] = field.value;
-    });
-
-    // add chosen regions list to the form
-    if (this.searchForm.chosenRegions.length > 0)
-      formQueries["regions"] = this.searchForm.chosenRegions;
-
-    // add form type
-    formQueries.sale_type = this.searchForm.type;
-
-    return formQueries;
-  }
-
-  /**
-   * Get the types of commercial
-   */
-  getCommercialTypes() {
-    return this.searchForm.propertyTypes.filter(type => {
-      return type.id == "7" || type.id == "8";
-    });
-  }
-
-  /**
-   * Get the types of new homes
-   */
-  getCompoundsTypes() {
-    return this.searchForm.propertyTypes.filter(type => {
-      return type.id !== "7" || type.id !== "8";
-    });
-  }
-
+  
   /**
    * Submit form with form values to get properties
    *
    * @param {DOMElement} $el
    */
   getProperties($el) {
-    let options = this.makeQueryObject($el);
-
-    this.loadingSearch = true;
-
-    // get the list
-    this.propertiesService.list(options).then(response => {
-      this.properties = response.properties;
-      this.loadingSearch = false;
-
-      this.updateURL(options);
+    let queryString = $($el).serializeArray().filter(function (i) {
+      return i.value;
     });
 
-    // pass the properties comes from search into the home page
-    let searchCallback = this.inputs.getEvent("search");
+    queryString.push({
+      name: 'sale_type',
+      value: this.searchForm.type,
+    });
 
-    searchCallback(this.properties);
-  }
-
-  /**
-   * Activate form type according query
-   */
-  activateForm() {
-    let type = this.router.queryString.all()["sale_type"];
-
-    // activate form
-    if (type) this.searchForm.type = type;
-    else this.searchForm.type = "rent";
-  }
-
-  /**
-   * The component is ready to do any action after being rendered in dom
-   */
-  ready() {
-    // add the active class on rental button after the dom is ready
-    for (let index = 0; index < this.buttonsPanel.length; index++) {
-      let childEl = this.buttonsPanel[index];
-
-      if (childEl.dataset.type == this.searchForm.type) {
-        childEl.classList.add("type-active");
-      } else {
-        childEl.classList.remove("type-active");
-      }
-    }
+    return this.router.navigateTo(`/?${$.param(queryString)}`);
   }
 }
