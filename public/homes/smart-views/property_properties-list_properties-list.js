@@ -4,43 +4,43 @@ _Component({
                 unique: false, // flag to determine if the component object will be unique or not
                 observable: true,
                 observe: ['loading','properties','propertiesToShow','viewMore'],
-                children: {cLPVYAIMo:'loading',cOm6pelgB:'property-card'},
+                children: {cVtOnbTvp:'loading',c9QG41sKS:'property-card'},
                 render: function (component) {
-                    let elyEpi6 = eo('section',null,null,`class`,`properties p-4`);
-let elUWESp = eo('h2',null,null,`class`,`properties-heading text-center`);
+                    let elVCJGC = eo('section',null,null,`class`,`properties p-4`);
+let elN4AAw = eo('h2',null,null,`class`,`properties-heading text-center`);
 text(`Properties`);
 ec('h2');
-let cnd6wJN = component.loading;
-this.setState('stkZbKL', cnd6wJN);
-let cndkk8y = !(cnd6wJN);
-this.setState('stIu1rg', cndkk8y);
-if (cnd6wJN) { 
-let elOIcLi = eo('div','wV3f',null,`class`,`d-flex justify-content-center align-items-center`);
-let cmpCR68 = this._lc('cLPVYAIMo', {parent:component,state:'stkZbKL'});
+let cndrgPB = component.loading;
+this.setState('stoZlKp', cndrgPB);
+let cndrcQ7 = !(cndrgPB);
+this.setState('staIT5u', cndrcQ7);
+if (cndrgPB) { 
+let eljL8UB = eo('div','9Byf',null,`class`,`d-flex justify-content-center align-items-center`);
+let cmp1E9S = this._lc('cVtOnbTvp', {parent:component,state:'stoZlKp'});
 ec('div');
 }else { 
-let cndVd7H = ! Is.empty(component.properties);
-this.setState('stynuw9', cndVd7H);
-let cnd3PlD = !(cndVd7H);
-this.setState('st4QIqV', cnd3PlD);
-if (cndVd7H) { 
-let elRvdzU = eo('div','RARf',null,`class`,`properties-grid d-flex flex-wrap justify-content-between`);
+let cndkcp9 = ! Is.empty(component.properties);
+this.setState('stfMWje', cndkcp9);
+let cndYp18 = !(cndkcp9);
+this.setState('stTOLFd', cndYp18);
+if (cndkcp9) { 
+let elJI9TN = eo('div','LU6f',null,`class`,`properties-grid d-flex flex-wrap justify-content-between`);
 for (let i in component.propertiesToShow) {
 let property = component.propertiesToShow[i]; 
- let iiHBDw = 'kSCASC6' + i;
-let elvcEFg = eo('article','I57yEAFkkQBV' + i+iiHBDw,null,`class`,`property-item col-lg-4 col-md-6 col-sm-12`);
-let cmp4fjX = this._lc('cOm6pelgB', {parent:component,props:{property:property},state:'stynuw9',insideLoop:true,index:"" +iiHBDw});
+ let ii6Ynq = 'wqC2AZh' + i;
+let elKtHEp = eo('article','mqg57dsk6LR9' + i+ii6Ynq,null,`class`,`property-item col-lg-4 col-md-6 col-sm-12`);
+let cmpPdJe = this._lc('c9QG41sKS', {parent:component,props:{property:property},state:'stfMWje',insideLoop:true,index:"" +ii6Ynq});
 ec('article');
 }
-let eld1Uot = eo('div','u5lf',null,`class`,`d-block text-center`,`style`,`width: 100%;`);
-let elDnJrl = eo('button','Oivf',null, eventListeners, {onclick:[function(e) {var $el = this;component.viewMore($el)}]},`class`,`btn-action view-properties-btn`);
+let elpS43B = eo('div','evNf',null,`class`,`d-block text-center`,`style`,`width: 100%;`);
+let elPGaj0 = eo('button','t9If',null, eventListeners, {onclick:[function(e) {var $el = this;component.viewMore($el)}]},`class`,`btn-action view-properties-btn`);
 text(`View More`);
 ec('button');
 ec('div');
 ec('div');
 }else { 
-let elNScxX = eo('div',null,null,`class`,`no-response d-flex justify-content-center align-items-center`);
-let elUxx7k = eo('p',null,null,`style`,`font-size: 2rem; color: #0f5b97;`);
+let elwNdSs = eo('div',null,null,`class`,`no-response d-flex justify-content-center align-items-center`);
+let elJn5iV = eo('p',null,null,`style`,`font-size: 2rem; color: #0f5b97;`);
 text(`No properties`);
 ec('p');
 ec('div');

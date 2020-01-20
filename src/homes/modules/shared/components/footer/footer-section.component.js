@@ -2,10 +2,12 @@ class Footer {
     /**
      * Constructor
      */
-    constructor(cache) {
+    constructor(cache, settingsService) {
         this.cache = cache;
 
         this.featuredRegions;
+
+        this.settingsService = settingsService;
 
         this.info = {};
     }
@@ -14,11 +16,23 @@ class Footer {
      * {@inheritdoc}
      */
     init() {
-        this.info.email = this.cache.get("settings").settings["site.email"];
-        this.info.phone = this.cache.get("settings").settings["site.phone"];
-        this.info.facebook = this.cache.get("settings").settings["social.facebook"];
+        this.settingsService.cached('list').then(response => {
+            this.info = {
+                email: response.settings['site.email'],
+                phone: response.settings['site.phone'],
+                facebook: response.settings['social.facebook'],
+            }; 
+        });
+
+        // this.settingsService.live.cached('list').then(response => {
+        //     this.settings = response.settings; 
+        // });
         
         this.featuredRegions = this.cache.get("featuredRegions");
+
+        // this.regionsService.featured().then(regions => {
+        //     this.featuredRegions = regions;
+        // })
     }
 
     /**
