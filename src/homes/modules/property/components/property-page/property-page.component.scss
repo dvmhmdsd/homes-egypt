@@ -102,6 +102,33 @@
           }
       }
     }
+
+    .single-property-footer {
+      background-color: #f5f7f9;
+      h2 {
+        font-size: 3rem;
+        color: $mainColor;
+      }
+      
+      .properties-container {
+        margin-top: 4rem;
+      }
+    }
+  }
+
+  .property-actions {
+    position: fixed;
+    z-index: 999;
+    bottom: 0;
+    width: 100%;
+    a {
+      padding: 1rem 0;
+      font-size: 1.3rem;
+
+      i {
+        margin-right: 5px;
+      }
+    }
   }
   
   .not-found {

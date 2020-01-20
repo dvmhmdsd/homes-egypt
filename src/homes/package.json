@@ -4,9 +4,16 @@
     "assets": [],
     "packages": [],
     "externals": {
-        "css": {},
+        "css": {
+            "common": [
+                "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css",
+                "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css"
+            ]
+        },
         "js": [
-            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            "https://code.jquery.com/jquery-3.4.1.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
         ]
     },
     "modules": [
@@ -16,6 +23,7 @@
         "search",
         "users",
         "services",
-        "property"
+        "property",
+        "search"
     ]
 }

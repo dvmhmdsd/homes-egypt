@@ -13,16 +13,18 @@ class Header {
     this.router = router;
 
     this.info = {};
+
+    this.images = [];
   }
 
   /**
    * Get all settings on load
    */
   init() {
-    let response =
+    this.response =
       this.cache.get("settings")
 
-    if (response) {
+    if (!this.response) {
       this.settings.list().then(res => {
         this.cache.set("settings", res);
         return res;
@@ -30,19 +32,45 @@ class Header {
         this.setupSettings(res);
       });
     } else {
-      this.setupSettings(response)
+      this.setupSettings(this.response)
     }
 
     // view step1 of the advertisement application
     this.step = "step-1";
   }
 
+  /**
+   * Set up the general settings according to the response (cache or network)
+   * 
+   * @param {Object} response 
+   */
   setupSettings(response) {
     this.currencies = response.currencies;
 
     this.info.email = response.settings["site.email"]
     this.info.phone = response.settings["site.phone"].slice(3);
   }
+
+  /**
+   * Duplicte the image input component
+   * 
+   * @param {DOMElement} $el
+   */
+  duplicateInput($el) {
+    let input = $el.parentElement.children[0].cloneNode(true);
+    // document.querySelector(".image-input").insertAdjacentHTML("afterbegin", input);
+    document.querySelector(".image-input").appendChild(input);
+    // echo(input)
+  }
+
+  /**
+   * Add inputs to the dom on load
+   */
+  // addInputs() {
+  //   echo(this.images)
+  //   this.images.forEach(image => {
+  //   })
+  // }
 
   /**
    * Watch the step property if it's changed -> change the button class
@@ -69,5 +97,10 @@ class Header {
 
   ready() {
     this.watchStep();
+
+    // add images input
+    this.images.push(this.imageInput);
+
+    // this.addInputs()
   }
 }

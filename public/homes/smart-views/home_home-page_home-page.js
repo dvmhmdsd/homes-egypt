@@ -4,10 +4,10 @@ _Component({
                 unique: true, // flag to determine if the component object will be unique or not
                 observable: true,
                 observe: ['properties'],
-                children: {cpcLvFvDz:'searchform',c_F0zKhQo:'properties-list',cylcsGRtG:'layout'},
+                children: {cHvfz4RPt:'searchform',c7mE1PQvK:'properties-list',cW_N2nof8:'layout'},
                 render: function (component) {
-                    let cmpXq5A = this._lc('cylcsGRtG', {parent:component,content:(layout) => {let cmpc_sb = this._lc('cpcLvFvDz', {parent:component,parentTop:layout,events:{onsearch:function(e) {let $el = this; component.properties = e}}});
-let cmpdA0N = this._lc('c_F0zKhQo', {parent:component,parentTop:layout});
+                    let cmpZ7x0 = this._lc('cW_N2nof8', {parent:component,content:(layout) => {let cmprEr3 = this._lc('cHvfz4RPt', {parent:component,parentTop:layout,events:{onsearch:function(e) {let $el = this; component.properties = e}}});
+let cmpMWzB = this._lc('c7mE1PQvK', {parent:component,parentTop:layout});
 }});
 
                     this.isReadyToGo();

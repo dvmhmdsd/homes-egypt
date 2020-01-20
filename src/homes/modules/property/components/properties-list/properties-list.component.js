@@ -12,8 +12,7 @@ class PropertiesList {
         this.router = router;
 
         this.propertiesService = propertiesService;
-
-        this.properties;
+        this.properties = null;
     }
 
     /**
@@ -55,7 +54,6 @@ class PropertiesList {
             this.properties = response.properties;
             this.loading = false;
             this.propertiesToShow = this.properties.slice(0, 6);
-            echo(this.properties)
         });
     }
 

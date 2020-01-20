@@ -24,5 +24,8 @@ Config.extend({
             next: "fa fa-chevron-right",
         },
         // "navigationIcon.prev": "fa fa-chevron-left"
+    },
+    form: {
+        imagePreview: assets('images/placeholder.png'),
     }
 });

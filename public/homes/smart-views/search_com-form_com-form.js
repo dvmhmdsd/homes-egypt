@@ -1,13 +1,14 @@
 _Component({
-                selector: 'loading',
-                c: 'Loading', // c for component name
+                selector: 'com-form',
+                c: 'ComForm', // c for component name
                 unique: false, // flag to determine if the component object will be unique or not
                 observable: false,
                 observe: [],
                 children: {},
                 render: function (component) {
-                    let elLjZiH = eo('div',null,null,`class`,`loader`);
-ec('div');
+                    let elCTxzg = eo('h1');
+text(`com-form component is ready`);
+ec('h1');
 
                     this.isReadyToGo();
                 }

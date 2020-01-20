@@ -132,6 +132,16 @@
         display: inline-block;
       }
     }
+    .image-input {
+      button.btn-icon {
+        i {
+          color: #fff;
+          background-color: grey;
+          padding: 10px;
+          border-radius: 50%;
+        }
+      }
+    }
 
     .input-group-text {
       background-color: $mainColor;
@@ -167,7 +177,9 @@
 }
 
 .modal {
-  .modal-dialog {
-    max-width: 70%;
+  @media (min-width: 991px) {
+    .modal-dialog {
+      max-width: 70%;
+    }
   }
 }

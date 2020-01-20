@@ -24,7 +24,9 @@
         "compass-mixins",
         "@flk/scss",
         "@flk/fa",
-        "@flk/slider"
+        "@flk/slider",
+        "@flk/image-input",
+        "jquery"
     ],
     "mainFiles": {
         "rfs": null

@@ -54,10 +54,10 @@
 
     .property-body {
         color: $mainColor;
-        font-weight: bold;
-        font-size: 1rem;
         padding: 0.3rem 1rem;
         .property-name {
+            font-weight: bold;
+            font-size: 1rem;
             &:hover {
                 text-decoration: underline;
             }
@@ -69,6 +69,16 @@
             }
             > * {
                 margin: 5px;
+            }
+        }
+    }
+
+    .property-footer {
+        a {
+            padding: 0.5rem 0;
+            font-size: 1.1rem;
+            i {
+                margin-right: 7px;
             }
         }
     }

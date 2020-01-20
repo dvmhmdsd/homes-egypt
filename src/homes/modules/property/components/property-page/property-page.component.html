@@ -25,8 +25,7 @@
 
                         <section class="contact-request">
                             <h3>Send Request</h3>
-                            <form action="" class="d-flex flex-wrap">
-                                <!-- <form action="https://homes-egypt.com/contact-us/send"> -->
+                            <form action="https://homes-egypt.com/contact-us/send" class="d-flex flex-wrap">
                                 <div class="form-group col-6">
                                     <form-input type="text" required class="form-control" placeholder="Your name">
                                     </form-input>
@@ -103,10 +102,37 @@
                         scrolling="no" marginheight="0" marginwidth="0"></iframe>
                 </div>
             </section>
+
+            <section class="single-property-footer text-center p-6">
+                <h2> Similar Properties </h2>
+                <!-- <div class="owl-carousel">
+                    <div> Your Content </div>
+                    <div> Your Content </div>
+                    <div> Your Content </div>
+                    <div> Your Content </div>
+                    <div> Your Content </div>
+                    <div> Your Content </div>
+                    <div> Your Content </div>
+                </div> -->
+                <div class="properties-container d-flex justify-content-center align-items-center">
+                    <article *if="! Is.empty(this.property.similar_properties)" *for="let smProperty of this.property.similar_properties.slice(0, 3)"
+                        class="property-item col-lg-4 col-md-6 col-sm-12 mb-3">
+                        <property-card [property]="smProperty"></property-card>
+                    </article>
+                </div>
+            </section>
         </div>
+
     </section>
 
-    <section *else class="d-flex justify-content-center align-items-center">
+    <section *if="!this.property" class="d-flex justify-content-center align-items-center">
         <p class="not-found">Property is not found !</p>
+    </section>
+
+    <section *if="this.property" class="property-actions d-md-none d-flex text-center btn-group">
+        <a href="{{this.property.whatsapp_mobile ? ('whatsapp://send?phone=+' + this.property.whatsapp_mobile + '&text=I would like to get more information about this property you posted in homes-egypt.com, https://homes-egypt/properties/' + this.property.old_id+ '/' + this.property.name.split(' ').join('-')) : '#'}}"
+            class="bg-success w-100 text-white rounded-left"> <i class="fab fa-whatsapp"></i> Whatsapp </a>
+        <a href="tel:{{this.property.whatsapp_mobile ? this.property.whatsapp_mobile : ''}}"
+            class="bg-primary w-100 text-white rounded-right"> <i class="fa fa-phone-alt"></i> Call</a>
     </section>
 </layout>

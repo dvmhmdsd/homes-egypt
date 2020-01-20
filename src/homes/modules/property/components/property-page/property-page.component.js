@@ -3,7 +3,7 @@ class PropertyPage {
      * Constructor
      * Put your required dependencies in the constructor parameters list
      */
-    constructor(router, cache) {
+    constructor(router, cache, $) {
         this.name = "singleProperty";
         this.title = "Loading ...";
 
@@ -20,6 +20,8 @@ class PropertyPage {
         this.ifCurrencyInDollar;
 
         this.mapSrc;
+
+        
     }
 
     /**
@@ -35,7 +37,6 @@ class PropertyPage {
                 this.title = this.property.name;
                 this.mapSrc = `https://maps.google.com/maps?ll=${this.property.address}&output=embed&z=17&t=m&hl=en&gl=US&mapclient=apiv3`;
                 this.convertImagesSrc();
-                // console.log(this.property)
             });
 
         this.ifCurrencyInDollar =
@@ -51,10 +52,21 @@ class PropertyPage {
         this.property.images.map(img => {
             this.slides.push({ image: imageUrl(img) });
         });
+
+        // convert the similar properties images
+        this.property.similar_properties.map(property => {
+            property.images.map(img => {
+                img.image = imageUrl(img.image);
+            });
+        });
     }
 
     /**
      * The component is ready to do any action after being rendered in dom
      */
-    ready() { }
+    ready() { 
+        // echo(jQuery.fn.owlCarousel)
+        // $(".owl-carousel").owlCarousel();
+        // $(".owl-carousel").owlCarousel();
+    }
 }
