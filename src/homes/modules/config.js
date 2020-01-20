@@ -14,17 +14,16 @@ Config.extend({
         loginKey: '_u',
         accessTokenKey: '_at',
     },
-    slider: {
-        loop: true,
-        delay: 1000,
-        bullets: false,
-        navigation: false,
-        navigationIcon: {
-            prev: "fa fa-chevron-left",
-            next: "fa fa-chevron-right",
-        },
-        // "navigationIcon.prev": "fa fa-chevron-left"
-    },
+    // slider: {
+    //     loop: true,
+    //     delay: 1000,
+    //     bullets: false,
+    //     navigationIcon: {
+    //         prev: "chevron-left",
+    //         next: "chevron-right",
+    //     },
+    //     // "navigationIcon.prev": "fa fa-chevron-left"
+    // },
     form: {
         imagePreview: assets('images/placeholder.png'),
     }
