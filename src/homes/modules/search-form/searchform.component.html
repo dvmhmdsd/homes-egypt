@@ -39,6 +39,7 @@
         (submit)="this.getProperties($el)"
         class="d-flex flex-wrap"
       >
+        <!-- <input type="hidden" name="sale_type" [value]="this.searchForm.type"> -->
         <div class="form-group col-md-7 col-xs-12">
           <form-input
             type="text"
@@ -300,7 +301,7 @@
               {{ region }}
               <i
                 class="fa fa-times"
-                (click)="this.removeChosenRegion($el, index)"
+                (click)="this.removeChosenRegion(index)"
               ></i>
             </li>
           </ul>

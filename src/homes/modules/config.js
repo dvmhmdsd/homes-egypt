@@ -19,6 +19,7 @@ Config.extend({
         delay: 1000,
         bullets: false,
         navigation: false,
+        animation: "fade",
         navigationIcon: {
             prev: "fa fa-chevron-left",
             next: "fa fa-chevron-right",

@@ -135,10 +135,7 @@ class Searchform {
    * @param {DOMElement} $el
    * @param {Number} index
    */
-  removeChosenRegion($el, index) {
-    // remove from DOM
-    $el.parentElement.remove();
-
+  removeChosenRegion(index) {
     // remove from the list
     this.searchForm.chosenRegions.splice(index, 1);
   }
@@ -208,6 +205,17 @@ class Searchform {
    * @param {DOMElement} $el
    */
   getProperties($el) {
+    let queryString = $($el).serializeArray().filter(function (i) {
+      return i.value;
+    });
+
+    queryString.push({
+      name: 'sale_type',
+      value: this.searchForm.type,
+    });
+
+    return this.router.navigateTo(`/?${$.param(queryString)}`);
+
     let options = this.makeQueryObject($el);
 
     this.loadingSearch = true;
@@ -242,14 +250,14 @@ class Searchform {
    */
   ready() {
     // add the active class on rental button after the dom is ready
-    for (let index = 0; index < this.buttonsPanel.length; index++) {
-      let childEl = this.buttonsPanel[index];
+    // for (let index = 0; index < this.buttonsPanel.length; index++) {
+    //   let childEl = this.buttonsPanel[index];
 
-      if (childEl.dataset.type == this.searchForm.type) {
-        childEl.classList.add("type-active");
-      } else {
-        childEl.classList.remove("type-active");
-      }
-    }
+    //   if (childEl.dataset.type == this.searchForm.type) {
+    //     childEl.classList.add("type-active");
+    //   } else {
+    //     childEl.classList.remove("type-active");
+    //   }
+    // }
   }
 }
