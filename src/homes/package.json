@@ -22,10 +22,8 @@
         "shared",
         "home",
         "properties",
-        "search",
         "users",
         "services",
-        "property",
-        "search"
+        "search-form"
     ]
 }

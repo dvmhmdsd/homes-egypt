@@ -1,1 +1,1 @@
-const BASE_URL = "http://localhost:1024"; const APP_NAME = 'homes'; const _C = ['development','homes','http://localhost:1024','/'];var LANGUAGES = {"en":{"direction":"ltr","name":"English"},"ar":{"direction":"rtl","name":"العربية"}};
+const BASE_URL = "http://localhost:81"; const APP_NAME = 'homes'; const _C = ['development','homes','http://localhost:81','/'];var LANGUAGES = {"en":{"direction":"ltr","name":"English"},"ar":{"direction":"rtl","name":"العربية"}};
