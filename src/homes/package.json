@@ -1,7 +1,9 @@
 {
     "name": "blog",
     "favicon": "",
-    "assets": [],
+    "assets": [
+        "images"
+    ],
     "packages": [],
     "externals": {
         "css": {
