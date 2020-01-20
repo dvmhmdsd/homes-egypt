@@ -23,3 +23,9 @@ If you want to stop the server and start it again as the project is already open
 Run:
 
 `yarn serve`
+
+# Opening Visual Studio Code without extensions
+
+To open Visual Studio Code for the project and disable extensions run the following
+
+`yarn code`
