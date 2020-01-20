@@ -20,7 +20,6 @@
         "@flk/random",
         "@flk/endpoint-service",
         "@flk/mdbootstrap",
-        "rfs",
         "compass-mixins",
         "@flk/scss",
         "@flk/fa",
