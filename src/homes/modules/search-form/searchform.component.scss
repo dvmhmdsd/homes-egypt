@@ -83,15 +83,20 @@
         &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
           color: $mainColor;
           font-weight: bold;
+          font-size: 1.7rem;
           opacity: 1; /* Firefox */
         }
         
         &:-ms-input-placeholder { /* Internet Explorer 10-11 */
           color: $mainColor;
+          font-weight: bold;
+          font-size: 1.7rem;
         }
         
         &::-ms-input-placeholder { /* Microsoft Edge */
           color: $mainColor;
+          font-weight: bold;
+          font-size: 1.7rem;
         }
       }
 
