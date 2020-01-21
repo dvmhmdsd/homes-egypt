@@ -70,7 +70,6 @@
     }
 
     .form-group {
-      // display: flex;
       .form-control {
         display: inline-block;
         padding: 1.5rem 1rem;
@@ -79,6 +78,21 @@
         border: 0;
         border-bottom: 2px solid $mainColor;
         border-radius: 0;
+        color: $mainColor;
+
+        &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+          color: $mainColor;
+          font-weight: bold;
+          opacity: 1; /* Firefox */
+        }
+        
+        &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+          color: $mainColor;
+        }
+        
+        &::-ms-input-placeholder { /* Microsoft Edge */
+          color: $mainColor;
+        }
       }
 
       .field-icon {

@@ -119,7 +119,6 @@ class Searchform {
    * @param {Object} region
    */
   chooseRegion(region) {
-    echo(region)
     if (typeof region != "object") {
       region = this.searchForm.regions.find((regionItem) => {
         return regionItem.name === region

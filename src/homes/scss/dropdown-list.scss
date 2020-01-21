@@ -10,6 +10,13 @@
         border: none;
         border-bottom: 2px solid $mainColor;
         cursor: text !important;
+
+        span {
+            color: $mainColor;
+        }
+        i {
+            color: $mainColor;   
+        }
     }
 
     i {
