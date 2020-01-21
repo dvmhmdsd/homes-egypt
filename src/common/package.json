@@ -9,6 +9,7 @@
         "@flk/config",
         "@flk/application",
         "@flk/dropdown-list",
+        "@flk/seo",
         "@flk/http",
         "@flk/router",
         "@flk/layout",

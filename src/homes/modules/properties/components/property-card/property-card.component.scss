@@ -3,29 +3,6 @@
     margin: 0 4%;
     .property-header {
         position: relative;
-        .property-img {
-            z-index: 1;
-            height: 17rem;
-            width: 100%;
-            .flk-slider {
-                height: 100%;
-                .slides-wrapper.centered {
-                    height: 100% !important;
-                }
-                .slide {
-                    padding: 0;
-                    height: 100%;
-                    &:not(.active) {
-                        display: none;
-                    }
-                    img {
-                        width: 100%;
-                        height: 100%;
-                    }
-                }
-            }
-        }
-
         .property-metadata {
             .absolute-position {
                 position: absolute;

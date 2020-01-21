@@ -50,10 +50,8 @@ class PropertiesList {
         this.loading = true;
 
         this.propertiesService.list(query).then(response => {
-            this.convertImagesSrc(response.properties);
             this.properties = response.properties;
             this.loading = false;
-            this.propertiesToShow = this.properties.slice(0, 6);
         });
     }
 
@@ -61,9 +59,11 @@ class PropertiesList {
      * Convert the image src coming from API from relative to absolute
      */
     convertImagesSrc(data) {
+        echo(data)
         data.map(property => {
             property.images.map(img => {
                 img.image = imageUrl(img.image);
+                img.link = `/properties/${ property.old_id }/${seo(property.name)}`;
             });
         });
     }

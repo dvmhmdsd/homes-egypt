@@ -52,13 +52,6 @@ class PropertyPage {
         this.property.images.map(img => {
             this.slides.push({ image: imageUrl(img) });
         });
-
-        // convert the similar properties images
-        this.property.similar_properties.map(property => {
-            property.images.map(img => {
-                img.image = imageUrl(img.image);
-            });
-        });
     }
 
     /**

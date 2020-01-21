@@ -1,12 +1,8 @@
 <div class="property-item-container">
-    <header class="property-header">
-        <a href="/properties/{{ this.property.old_id }}/{{
-            this.property.name.split(' ').join('-')
-                      }}">
-            <section class="property-img">
-                <flk-slider alt="{{this.property.name}}'s images" [slides]="this.property.images"></flk-slider>
-            </section>
-        </a>
+    <header class="property-header">    
+        <section class="property-img">
+            <flk-slider height="300px" [bullets]="false" alt="{{this.property.name}}'s images" [slides]="this.property.imagesList"></flk-slider>
+        </section>
 
         <section class="property-metadata">
             <p class="property-location absolute-position">

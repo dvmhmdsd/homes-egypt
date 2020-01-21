@@ -18,24 +18,9 @@
         }
   
         .property-img {
-          height: 24rem;
-          overflow: hidden;
-          margin-bottom: 3rem;
-          .flk-slider {
-            height: 100%;
-            .slides-wrapper {
-              height: 100%;
-              .slide {
-                height: 100%;
-                &:not(.active) {
-                  display: none;
-                }
-            }
-          }
-          }
           img {
-            height: 580px;  
-            box-shadow: 0px 0px 5px 1px black;
+            box-shadow: 0px 0px 1px 1px #ccc;
+            border: 3px solid #999;
           }
         }
       }
