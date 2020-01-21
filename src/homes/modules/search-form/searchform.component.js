@@ -41,6 +41,7 @@ class Searchform {
    */
   init() {
     this.regionsList = [];
+    this.numbersArray = [1, 2, 3, 4 ,5 ,6 ,7 ,8 ,9, 10];
     this.searchForm = Object.merge(this.searchForm, this.router.queryString.all());
 
     if (! this.searchForm.type) {
@@ -63,8 +64,14 @@ class Searchform {
   }
 
   setupSettings(response) {
+    this.searchForm.regions = response.regions;
     // get regions
-    this.regionsList = response.regions;
+    this.regionsList = response.regions.map(region => {
+      return {
+        text: region.name,
+        value: region.id,
+      };
+    });
 
     this.searchForm.featuredRegions = response.regions.filter(region => {
       return response.featuredRegions.includes(region.id); 
@@ -78,16 +85,30 @@ class Searchform {
     this.cache.set("featuredRegions", this.searchForm.featuredRegions);
 
     // get properties types
-    this.searchForm.propertyTypes = response.propertyTypes;
+    this.searchForm.propertyTypes = response.propertyTypes.map(type => {
+      return {
+        text: type.name,
+        value: type.id,
+      };
+    });
+    
+    this.numbersArray = this.numbersArray.map((num, index) => {
+      return {
+        text: `${index + 1}`,
+        value: index + 1
+      }
+    });
 
-    // get currencies
-    this.searchForm.currencies = response.currencies;
+    echo(this.numbersArray)
 
     // get compounds
-    this.searchForm.compounds = response.compounds;
-
-    // set the regions
-    this.searchForm.regions = response.regions;
+    this.searchForm.compounds = response.compounds.map(compound => {
+      return {
+        text: compound.id,
+        value: compound.name,
+      };
+    });
+    echo(response)
 
     this.currencies = response.currencies.map(currency => {
       return {
@@ -103,6 +124,7 @@ class Searchform {
    * @param {Object} region
    */
   chooseRegion(region) {
+    echo(region)
     if (region !== "object") {
       region = this.searchForm.regions.find((regionItem) => {
         return regionItem.name === region

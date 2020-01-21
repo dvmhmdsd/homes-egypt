@@ -1,5 +1,24 @@
 .dropdown-list {
+    width: 100%;
+    position: relative;
+    .select-list {
+        width: 100%;
+    }
     .heading {
+        padding: 1.5rem 1rem !important;
         background: transparent !important;
+        border: none;
+        border-bottom: 2px solid $mainColor;
+        cursor: text !important;
+    }
+
+    i {
+        position: absolute;
+        right: 2px;
+        bottom: 0.5rem;
+    }
+
+    .items-list.expanded {
+        margin-top: 0;
     }
 }

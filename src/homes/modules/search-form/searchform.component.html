@@ -27,12 +27,21 @@
               <i class="fas fa-map-marker-alt"></i>
             </label>
           </span>
-          <form-input type="text" id="regions" list="regionsList" placeholder="Search for locations" name="regions"
+          <!-- <form-input type="text" id="regions" list="regionsList" placeholder="Search for locations" name="regions"
             class="form-control" title="Search for a region" (change)="this.chooseRegion($el.value)"></form-input>
           <datalist id="regionsList">
             <option *for="let region of this.regionsList" value="{{ region.name }}">
             </option>
-          </datalist>
+          </datalist> -->
+          <flk-dropdown-list 
+            [items]="this.regionsList" 
+            [searchable]="false" 
+            id="regions" 
+            title="Search for a region"
+            (change)="this.chooseRegion($el.value)" 
+            placeholder="Search for region"
+            name="regions"
+          ></flk-dropdown-list>
         </div>
 
         <div class="form-group col-md-5 col-xs-12">
@@ -46,13 +55,20 @@
               <i class="fas fa-home"></i>
             </label>
           </span>
-          <form-input type="text" id="type" list="typesList" placeholder="Type" name="type" class="form-control"
+          <!-- <form-input type="text" id="type" list="typesList" placeholder="Type" name="type" class="form-control"
             title="type">
           </form-input>
           <datalist id="typesList">
             <option *for="let type of this.searchForm.propertyTypes" value="{{ type.name }}">
             </option>
-          </datalist>
+          </datalist> -->
+          <flk-dropdown-list 
+            [items]="this.searchForm.propertyTypes" 
+            [searchable]="false"
+            id="type"
+            placeholder="Type"
+            title="Type of the property"  
+          ></flk-dropdown-list>
         </div>
 
         <div class="form-group col-md-3 col-xs-12 d-flex">
@@ -61,11 +77,19 @@
               <i class="fas fa-bed"></i>
             </label>
           </span>
-          <form-input id="minBed" type="text" list="minBeds" placeholder="Min Beds" name="min_beds" class="form-control"
+          <!-- <form-input id="minBed" type="text" list="minBeds" placeholder="Min Beds" name="min_beds" class="form-control"
             title="Minimum Number of beds"></form-input>
           <datalist id="minBeds">
             <option *for="let i = 0; i <= 10; i++" value="{{ i }}"> </option>
-          </datalist>
+          </datalist> -->
+          <flk-dropdown-list 
+            [items]="this.numbersArray" 
+            [searchable]="false" 
+            id="minBed" 
+            name="min_beds"
+            placeholder="Min Beds" 
+            title="Minimum Number of beds"
+          ></flk-dropdown-list>
         </div>
 
         <div class="form-group col-md-3 col-xs-12 d-flex">
@@ -74,32 +98,24 @@
               <i class="fas fa-bed"></i>
             </label>
           </span>
-          <form-input type="text" id="maxBed" list="maxBeds" name="max_beds" placeholder="Max Beds" class="form-control"
+          <!-- <form-input type="text" id="maxBed" list="maxBeds" name="max_beds" placeholder="Max Beds" class="form-control"
             title="Maximum number of beds"></form-input>
           <datalist id="maxBeds">
             <option *for="let i = 0; i <= 10; i++" value="{{ i }}"> </option>
-          </datalist>
-          <!-- <flk-dropdown-list
-            [items]="this.numbersArray"
-            [value]="this.numbersArray"
-            [searchable]="false"
-          ></flk-dropdown-list> -->
+          </datalist> -->
+          <flk-dropdown-list [items]="this.numbersArray" [searchable]="false" id="maxBed" name="max_beds"
+            placeholder="Max Beds" title="Maximum Number of beds"></flk-dropdown-list>
         </div>
 
         <div class="form-group col-md-3 col-xs-12">
-          <!-- <flk-dropdown-list
-            name="currency"
-            placeholder="Currency"
-            [value]="this.searchForm.currency"
-            [items]="this.currencies"
-            [searchable]="false"
-          ></flk-dropdown-list> -->
-          <form-input icon="map-marker-alt" type="text" list="currencies" placeholder="{{ this.cache.get('currency') }}"
+          <flk-dropdown-list name="currency" placeholder="Currency" [value]="this.searchForm.currency"
+            [items]="this.currencies" [searchable]="false"></flk-dropdown-list>
+          <!-- <form-input icon="map-marker-alt" type="text" list="currencies" placeholder="{{ this.cache.get('currency') }}"
             name="currency" class="form-control" title="Currencies available"></form-input>
           <datalist id="currencies">
             <option *for="let currency of this.searchForm.currencies" value="{{ currency.code }}">
             </option>
-          </datalist>
+          </datalist> -->
         </div>
 
         <div class="form-group col-md-3 col-xs-12">
