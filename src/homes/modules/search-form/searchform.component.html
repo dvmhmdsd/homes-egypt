@@ -38,7 +38,7 @@
             [searchable]="false" 
             id="regions" 
             title="Search for a region"
-            (change)="this.chooseRegion($el.value)" 
+            (select)="this.chooseRegion(e.text)" 
             placeholder="Search for region"
             name="regions"
           ></flk-dropdown-list>

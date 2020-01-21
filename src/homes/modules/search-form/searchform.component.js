@@ -49,13 +49,11 @@ class Searchform {
     }
     
     let response =
-      this.cache.get("settings");
+      this.cache.get("generalSettings");
 
     if (!response) {
       this.settingsService.list().then(res => {
-        this.cache.set("settings", res);
-        return res;
-      }).then((res) => {
+        this.cache.set("generalSettings", res);
         this.setupSettings(res);
       })
     } else {
@@ -99,8 +97,6 @@ class Searchform {
       }
     });
 
-    echo(this.numbersArray)
-
     // get compounds
     this.searchForm.compounds = response.compounds.map(compound => {
       return {
@@ -108,7 +104,6 @@ class Searchform {
         value: compound.name,
       };
     });
-    echo(response)
 
     this.currencies = response.currencies.map(currency => {
       return {
@@ -125,14 +120,13 @@ class Searchform {
    */
   chooseRegion(region) {
     echo(region)
-    if (region !== "object") {
+    if (typeof region != "object") {
       region = this.searchForm.regions.find((regionItem) => {
         return regionItem.name === region
       });
     }
     Array.pushOnce(this.searchForm.chosenRegions, region);
   }
-
 
 
   /**
