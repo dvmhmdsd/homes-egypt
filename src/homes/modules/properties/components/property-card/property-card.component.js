@@ -26,5 +26,6 @@ class PropertyCard {
     /**
      * The component is ready to do any action after being rendered in dom
      */
-    ready() {}
+    ready() {
+    }
 }

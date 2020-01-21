@@ -26,6 +26,11 @@
                 left: 0;
                 bottom: 0;
             }
+
+            .property-img-numbers {
+                right: 0;
+                bottom: 0;
+            }
         }
     }
 
@@ -35,6 +40,7 @@
         .property-name {
             font-weight: bold;
             font-size: 1rem;
+            color: $mainColor;
             &:hover {
                 text-decoration: underline;
             }

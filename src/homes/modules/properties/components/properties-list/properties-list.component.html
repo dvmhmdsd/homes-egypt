@@ -8,11 +8,11 @@
         class="loader-container d-flex justify-content-center align-items-center"
       >
         <loading></loading>
-      </div>    
+      </div>
         <div *else class="container">
             <!-- grid of properties -->
             <div *if="! Is.empty(this.properties)" class="properties-grid d-flex flex-wrap justify-content-between">
-                <div *for="let property of this.properties" class="property-item col-lg-4 col-md-4 col-sm-6 col-12">
+                <div *for="let property of this.propertiesToShow" class="property-item col-lg-4 col-md-4 col-sm-6 col-12">
                     <property-card [property]="property"></property-card>
                 </div>
 

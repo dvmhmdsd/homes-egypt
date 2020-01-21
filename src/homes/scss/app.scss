@@ -11,6 +11,7 @@
 @if $direction == ltr {
   body {
     font-size: $mainFontSize;
+    font-family: $fontFamily;
 
     .btn-action {
       color: $mainColor;

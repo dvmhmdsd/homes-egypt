@@ -31,3 +31,11 @@
 function imageUrl(image) {
   return "https://homes-egypt.com/public/" + image;
 }
+
+// function initMap(position) {
+//   // The map
+//   var map = new google.maps.Map(
+//       document.getElementById('map'), {zoom: 17, center: position});
+//   // The marker
+//   var marker = new google.maps.Marker({position, map: map});
+// }

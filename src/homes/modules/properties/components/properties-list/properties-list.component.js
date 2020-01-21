@@ -20,6 +20,7 @@ class PropertiesList {
      * This method is triggered before rendering the component
      */
     init() {
+        this.propertiesToShow = [];
         // get properties on load
         this.getPropertiesOnLoad();
     }
@@ -52,19 +53,7 @@ class PropertiesList {
         this.propertiesService.list(query).then(response => {
             this.properties = response.properties;
             this.loading = false;
-        });
-    }
-
-    /**
-     * Convert the image src coming from API from relative to absolute
-     */
-    convertImagesSrc(data) {
-        echo(data)
-        data.map(property => {
-            property.images.map(img => {
-                img.image = imageUrl(img.image);
-                img.link = `/properties/${ property.old_id }/${seo(property.name)}`;
-            });
+            this.viewMore();
         });
     }
 
@@ -72,6 +61,6 @@ class PropertiesList {
      * The component is ready to do any action after being rendered in dom
      */
     ready() {
-        // echo(this.inputs.getProp("getProperties"))
+        
     }
 }

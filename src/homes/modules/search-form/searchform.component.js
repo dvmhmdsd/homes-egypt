@@ -86,6 +86,9 @@ class Searchform {
     // get compounds
     this.searchForm.compounds = response.compounds;
 
+    // set the regions
+    this.searchForm.regions = response.regions;
+
     this.currencies = response.currencies.map(currency => {
       return {
         text: currency.code,
@@ -100,8 +103,15 @@ class Searchform {
    * @param {Object} region
    */
   chooseRegion(region) {
+    if (region !== "object") {
+      region = this.searchForm.regions.find((regionItem) => {
+        return regionItem.name === region
+      });
+    }
     Array.pushOnce(this.searchForm.chosenRegions, region);
   }
+
+
 
   /**
    * Remove chosen region from chosenRegions list

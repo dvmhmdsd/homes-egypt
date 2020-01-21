@@ -1,7 +1,8 @@
 <div class="property-item-container">
-    <header class="property-header">    
+    <header class="property-header">
         <section class="property-img">
-            <flk-slider height="300px" [bullets]="false" alt="{{this.property.name}}'s images" [slides]="this.property.imagesList"></flk-slider>
+            <flk-slider height="300px" [bullets]="false" alt="{{this.property.name}}'s images"
+                [slides]="this.property.imagesList"></flk-slider>
         </section>
 
         <section class="property-metadata">
@@ -17,13 +18,15 @@
                 {{ this.cache.get("currency") == "USD" ? Number(this.property.priceInDollar).toLocaleString() : Number(this.property.price).toLocaleString()}}
                 {{this.cache.get("currency")}}
             </p>
+
+            <p class="property-img-numbers absolute-position" title="Number of images">
+                {{ this.property.totalImages }}
+            </p>
         </section>
     </header>
 
     <main class="property-body">
-        <a href="/properties/{{ this.property.old_id }}/{{
-            this.property.name.split(' ').join('-')
-                      }}">
+        <a href="/properties/{{ this.property.old_id }}/{{seo(this.property.name)}}">
             <h3 class="property-name">{{ this.property.name }}</h3>
         </a>
 
