@@ -12,13 +12,12 @@ class PropertyCard {
      * This method is triggered before rendering the component
      */
     init() {
-
         this.property = this.inputs.getProp("property");
 
         this.property.imagesList = this.property.images.map(image => {
             return {
-                image: imageUrl(image.image),
-                link: `/properties/${ this.property.old_id }/${seo(this.property.name)}`,
+                image: image.image,
+                link: `/property/${ this.property.old_id }/${seo(this.property.name)}`,
             }
         });
     }

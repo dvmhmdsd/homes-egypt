@@ -8,13 +8,16 @@
 
         .property-name {
           color: $mainColor;
-          text-transform: capitalize;
-          font-size: 1rem;
+          text-transform: capitalize;          
+          font-weight: bold;
+          font-size: 2rem;
         }
   
         .property-id {
           color: #f0622c;
           font-weight: bold;
+          // margin-top: 0.5rem;
+          font-size: 1.5rem;
         }
   
         .property-img {

@@ -1,18 +1,16 @@
 <layout>
-    <div *if="this.loading" class="loader-container d-flex justify-content-center align-items-center">
-        <loading></loading>
-    </div>
+    <loading *if="this.loading"></loading>
     <section *if="this.property" class="single-property">
         <div class="containers">
             <section class="single-property-preface flex-wrap d-flex p-4">
                 <section class="single-property-preface-left col-lg-8 col-sm-12">
                     <section class="preface-info d-flex justify-content-between">
-                        <h2 class="property-name">{{ this.property.name }}</h2>
-                        <p class="property-id" *if="this.property.id">#ID: {{this.property ? this.property.id : ""}}</p>
+                        <h1 class="property-name" [html]="this.property.name"></h1>
+                        <p class="property-id" >#ID: {{ this.property.id }}</p>
                     </section>
 
-                    <section class="property-img">
-                        <flk-slider height="36rem" [slides]="this.slides" alt="{{this.property.name}}'s previews"
+                    <section *if="! Is.empty(this.property.images)" class="property-img">
+                        <flk-slider height="36rem" [slides]="this.property.images" alt="{{this.property.name}}'s previews"
                             title="{{this.property.name}}">
                         </flk-slider>
                     </section>
@@ -20,37 +18,7 @@
 
                 <section class="single-property-preface-right col-lg-4 col-sm-12">
                     <section class="contact-section">
-                        <section class="contact-info">
-                            <h3>Contact Us</h3>
-                            <p><span>Email:</span> {{this.info ? this.info.email : ""}}</p>
-                            <p><span> phone: </span> {{this.info ? this.info.phone : ""}}</p>
-                        </section>
-
-                        <section class="contact-request">
-                            <h3>Send Request</h3>
-                            <form action="https://homes-egypt.com/contact-us/send" class="d-flex flex-wrap">
-                                <div class="form-group col-6">
-                                    <form-input type="text" required class="form-control" placeholder="Your name">
-                                    </form-input>
-                                </div>
-                                <div class="form-group col-6">
-                                    <form-input type="number" required class="form-control"
-                                        placeholder="Your phone number"></form-input>
-                                </div>
-                                <div class="form-group col-12">
-                                    <form-input type="email" required class="form-control"
-                                        placeholder="Your email address"></form-input>
-                                    <small class="text-uppercase text-dark">We Will Not Share Email with any one</small>
-                                </div>
-
-                                <div class="form-group col-12">
-                                    <form-input type="textarea" required class="form-control" placeholder="Your message"
-                                        rows="4">
-                                    </form-input>
-                                </div>
-                                <form-input type="button" class="contact-btn btn-action mr-auto">Request</form-input>
-                            </form>
-                        </section>
+                        <property-request-form [property]="this.property"></property-request-form>
                     </section>
                 </section>
             </section>
@@ -80,7 +48,7 @@
                         <li *for="let room of this.property.rooms" class="property-data-item">
                             <span class="prop-key"> {{room.name}} </span> {{room.value}}
                         </li>
-                        <li class="property-data-item">
+                        <li *if="! Is.empty(this.property.additional_rooms)" class="property-data-item">
                             <span class="prop-key"> Other Rooms </span> {{this.property.additional_rooms}}
                         </li>
                         <li class="property-data-item">
@@ -105,16 +73,7 @@
             </section>
 
             <section *if="! Is.empty(this.property.similar_properties)" class="single-property-footer text-center p-6">
-                <h2> Similar Properties </h2>
-                <!-- <div class="owl-carousel">
-                    <div> Your Content </div>
-                    <div> Your Content </div>
-                    <div> Your Content </div>
-                    <div> Your Content </div>
-                    <div> Your Content </div>
-                    <div> Your Content </div>
-                    <div> Your Content </div>
-                </div> -->
+                <h2 class="bold text-transform-uppercase"> Similar Properties </h2>                
                 <div class="properties-container d-flex justify-content-center align-items-center flex-wrap">
                     <article 
                         *for="let smProperty of this.property.similar_properties.slice(0, 3)"
@@ -128,7 +87,7 @@
     </section>
 
     <section *if="!this.property" class="d-flex justify-content-center align-items-center">
-        <p class="not-found">Property is not found !</p>
+        <p class="not-found">Not Found Property  !</p>
     </section>
 
     <section *if="this.property" class="property-actions d-md-none d-flex text-center btn-group">

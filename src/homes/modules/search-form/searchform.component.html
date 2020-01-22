@@ -45,16 +45,20 @@
         <div class="form-group col-md-3 col-xs-12 d-flex">
           <span class="field-icon">
             <label for="type">
-              <i class="fas fa-home"></i>
+              <fa icon="home"></fa>
             </label>
           </span>
-          <flk-dropdown-list 
-            [items]="this.searchForm.propertyTypes" 
+          <flk-dropdown-list
+            *if="this.propertyTypes" 
+            [items]="this.propertyTypes"
+            [value]="this.searchForm.type"
+            name="type" 
             [searchable]="false"
             id="type"
             placeholder="Type"
             title="Type of the property"  
-          ></flk-dropdown-list>
+          ></flk-dropdown-list
+          >
         </div>
 
         <div class="form-group col-md-3 col-xs-12 d-flex">
@@ -67,6 +71,7 @@
             [items]="this.numbersArray" 
             [searchable]="false" 
             id="minBed" 
+            [value]="this.searchForm.min_beds"
             name="min_beds"
             placeholder="Min Beds" 
             title="Minimum Number of beds"
@@ -84,11 +89,6 @@
         </div>
 
         <div class="form-group col-md-3 col-xs-12">
-          <flk-dropdown-list name="currency" placeholder="Currency" [value]="this.searchForm.currency"
-            [items]="this.currencies" [searchable]="false"></flk-dropdown-list>
-        </div>
-
-        <div class="form-group col-md-3 col-xs-12">
           <form-input type="number" placeholder="Min price" name="min_price" class="form-control" title="Minimum price">
           </form-input>
         </div>
@@ -96,6 +96,11 @@
         <div class="form-group col-md-3 col-xs-12">
           <form-input type="number" placeholder="Max price" name="max_price" class="form-control" title="Maximum price">
           </form-input>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12">
+          <flk-dropdown-list name="currency" (select)="this.settingsService.updateCurrency(e.value)" placeholder="Currency" [value]="this.searchForm.currency"
+            [items]="this.currencies" [searchable]="false"></flk-dropdown-list>
         </div>
 
         <div *if="! Is.empty(this.searchForm.chosenRegions)" class="form-group col-12">

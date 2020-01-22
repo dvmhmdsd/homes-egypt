@@ -41,28 +41,27 @@ class Searchform {
    */
   init() {
     this.regionsList = [];
-    this.numbersArray = [1, 2, 3, 4 ,5 ,6 ,7 ,8 ,9, 10];
+    this.currencies = [];
+    this.propertyTypes = [];
+    this.numbersArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => {
+      return {
+        text: number,
+        value: number,
+      };
+    });
+
     this.searchForm = Object.merge(this.searchForm, this.router.queryString.all());
 
-    if (! this.searchForm.type) {
+    if (!this.searchForm.type) {
       this.searchForm.type = 'rent';
     }
-    
-    let response =
-      this.cache.get("generalSettings");
 
-    if (!response) {
-      this.settingsService.list().then(res => {
-        this.cache.set("generalSettings", res);
-        this.setupSettings(res);
-      })
-    } else {
+    this.settingsService.cached('list').then(response => {
       this.setupSettings(response);
-    }
+    });
   }
 
   setupSettings(response) {
-    this.searchForm.regions = response.regions;
     // get regions
     this.regionsList = response.regions.map(region => {
       return {
@@ -72,10 +71,10 @@ class Searchform {
     });
 
     this.searchForm.featuredRegions = response.regions.filter(region => {
-      return response.featuredRegions.includes(region.id); 
+      return response.featuredRegions.includes(region.id);
     });
 
-    if (! Is.empty(this.searchForm.regions)) {
+    if (!Is.empty(this.searchForm.regions)) {
       this.searchForm.chosenRegions = response.regions.filter(region => this.searchForm.regions.includes(region.id));
     }
 
@@ -83,22 +82,15 @@ class Searchform {
     this.cache.set("featuredRegions", this.searchForm.featuredRegions);
 
     // get properties types
-    this.searchForm.propertyTypes = response.propertyTypes.map(type => {
+    this.propertyTypes = response.propertyTypes.map(type => {
       return {
         text: type.name,
         value: type.id,
       };
     });
-    
-    this.numbersArray = this.numbersArray.map((num, index) => {
-      return {
-        text: `${index + 1}`,
-        value: index + 1
-      }
-    });
 
     // get compounds
-    this.searchForm.compounds = response.compounds.map(compound => {
+    this.compounds = response.compounds.map(compound => {
       return {
         text: compound.id,
         value: compound.name,
@@ -119,11 +111,6 @@ class Searchform {
    * @param {Object} region
    */
   chooseRegion(region) {
-    if (typeof region != "object") {
-      region = this.searchForm.regions.find((regionItem) => {
-        return regionItem.name === region
-      });
-    }
     Array.pushOnce(this.searchForm.chosenRegions, region);
   }
 
@@ -138,7 +125,7 @@ class Searchform {
     // remove from the list
     this.searchForm.chosenRegions.splice(index, 1);
   }
-  
+
   /**
    * Submit form with form values to get properties
    *

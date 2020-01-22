@@ -38,6 +38,12 @@
         }
     }
 
+    .property-img {
+        img {
+            width: 100%;
+        }
+    }
+
     .property-body {
         color: $mainColor;
         padding: 0.3rem 1rem;

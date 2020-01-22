@@ -1,8 +1,9 @@
 class SettingsService extends Endpoint.Service {
-  constructor(cache) {
+  constructor(router) {
     super();
-    this.cache = cache;
+    this.router = router;
   }
+
   /**
    * {@inheritDoc}
    */
@@ -13,38 +14,20 @@ class SettingsService extends Endpoint.Service {
     };
   }
 
-  get live() {
-    this.liveData = true;
-    return this;
+  currentCurrency() {
+    return this.cache.get('currency') || this.router.queryString.get('currency') || 'USD';
   }
 
-  cached(methodName, ...args) {
-    return new Promise((resolve, reject) => {
-      let cacheKey =
-        this.cacheMap[methodName] ||
-        (this.path + "-" + methodName).ltrim("/").replace(/\//g, "-");
-      if (!this.cache.has(cacheKey)) {
-        this[methodName](...args).then(response => {
-          this.cache.set(cacheKey, response);
-          resolve(response);
-        });
-      } else {
-        resolve(this.cache.get(cacheKey));
-      }
-    });
+  updateCurrency(currency) {
+    this.cache.set('currency', currency);
   }
 
-  list() {
-    let cacheKey = this.cacheMap["list"];
-    return new Promise((resolve, reject) => {
-      if (!this.cache.has(cacheKey)) {
-        super.list().then(response => {
-          this.cache.set(cacheKey, response.body);
-          resolve(response.body);
-        });
-      } else {
-        resolve(this.cache.get(cacheKey));
-      }
+  info(callback) {
+    this.cached('list').then(response => {
+      callback({
+        email: response.settings["site.email"],
+        phone: response.settings["site.phone"],
+      });
     });
   }
 }

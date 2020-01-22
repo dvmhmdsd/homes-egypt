@@ -3,12 +3,9 @@
 
     <section class="properties p-4">
         <h2 class="properties-heading text-center">Properties</h2>
-        <div
-        *if="this.loading"
-        class="loader-container d-flex justify-content-center align-items-center"
-      >
-        <loading></loading>
-      </div>
+      
+      <loading *if="this.loading"></loading>
+
         <div *else class="container">
             <!-- grid of properties -->
             <div *if="! Is.empty(this.properties)" class="properties-grid d-flex flex-wrap justify-content-between">

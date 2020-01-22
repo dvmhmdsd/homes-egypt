@@ -1,0 +1,28 @@
+<section class="contact-info">
+    <h3>Contact Us</h3>
+    <p><span>Email:</span> {{ this.info.email }}</p>
+    <p><span>Phone:</span> {{this.info.phone }}</p>
+</section>
+
+<section class="contact-request">
+    <h3>Send Request</h3>
+    <form (submit)="this.send($el)" class="d-flex flex-wrap">
+        <div class="form-group col-6">
+            <form-input type="text" name="name" required class="form-control" placeholder="Your name">
+            </form-input>
+        </div>
+        <div class="form-group col-6">
+            <form-input type="number" required class="form-control" placeholder="Your phone number"></form-input>
+        </div>
+        <div class="form-group col-12">
+            <form-input type="email" required class="form-control" placeholder="Your email address"></form-input>
+            <small class="text-uppercase text-dark">We Will Not Share Email with any one</small>
+        </div>
+
+        <div class="form-group col-12">
+            <form-input type="textarea" required class="form-control" placeholder="Your message" rows="4">
+            </form-input>
+        </div>
+        <form-input type="button" class="contact-btn btn-action mr-auto">Request</form-input>
+    </form>
+</section>

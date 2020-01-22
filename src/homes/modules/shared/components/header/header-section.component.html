@@ -19,12 +19,12 @@
       <li class="dropdown info-item">
         <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          Currency ({{ this.cache.get("currency") }})
+          Currency ({{ this.currentCurrency }})
         </button>
         <!-- drop list -->
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <li class="dropdown-item" *for="let currency of this.currencies">
-            <button data-currency="{{ currency.code }}" (click)="this.setCurrency($el)">
+            <button (click)="this.setCurrency(currency.code)">
               {{ currency.code }}
             </button>
           </li>

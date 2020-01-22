@@ -6,7 +6,7 @@ class Header {
     // currencies of the website
     this.currencies;
 
-    this.settings = settingsService;
+    this.settingsService = settingsService;
 
     this.cache = cache;
 
@@ -21,7 +21,9 @@ class Header {
   init() {
     this.imageInputs = [""];
 
-    this.settings.cached("list").then(response => {
+    this.currentCurrency = this.settingsService.currentCurrency();
+
+    this.settingsService.cached("list").then(response => {
       this.response = response;
       this.info = {
         email: response.settings["site.email"],
@@ -51,8 +53,8 @@ class Header {
   /**
    * Set the cache with the currency value
    */
-  setCurrency(el) {
-    this.cache.set("currency", el.dataset.currency);
+  setCurrency(currency) {
+    this.settingsService.updateCurrency(currency);
 
     // reload the page to update the data
     this.router.refresh();
