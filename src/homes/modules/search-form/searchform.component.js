@@ -45,7 +45,7 @@ class Searchform {
     this.propertyTypes = [];
     this.numbersArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => {
       return {
-        text: number,
+        text: String(number),
         value: number,
       };
     });

@@ -1,0 +1,93 @@
+class AdvertiseProperty {
+    /**
+     * Constructor
+     * Put your required dependencies in the constructor parameters list  
+     */
+    constructor(http, formSubmitService) {
+        this.http = http;
+
+        this.formSubmit = formSubmitService;
+
+        this.cities = [];
+
+    }
+
+    /**
+     * Initialize the component
+     * This method is triggered before rendering the component
+     */
+    async init() {
+        this.imageInputs = [" "];
+
+        // view step1 of the advertisement application
+        this.step = "step-1";
+
+        // types of the property - comes from header section
+        this.types = this.inputs.getProp("types") || [];
+
+        this.regions = [];
+
+        this.saleTypes = [
+            { text: 'Rent', value: 'rent' },
+            { text: 'Sale', value: 'sale' },
+        ];
+
+        this.numbersArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => {
+            return {
+                text: String(number),
+                value: number,
+            };
+        }) || [];
+
+        let { body: cities } = await this.http.get("https://homes-egypt.com/api/cities");
+        this.cityResponse = cities;
+        this.cities = cities.map(city => {
+
+            return {
+                text: city.city,
+                value: city.city
+            }
+        }) || [];
+    }
+
+    /**
+     * Get the regions of the corresponding city
+     * 
+     * 
+     */
+    getRegion(val) {
+        let city = this.cityResponse.find((cityObj) => {
+            return cityObj.city == val;
+        });
+        this.regions = city.regions;
+    }
+
+    /**
+     * Watch the step property if it's changed -> change the button class
+     */
+    watchStep() {
+        if (this.step == "step-1") {
+            this.stepOneBtn.classList.add("btn-active");
+            this.stepTwoBtn.classList.remove("btn-active");
+        } else if (this.step == "step-2") {
+            this.stepOneBtn.classList.remove("btn-active");
+            this.stepTwoBtn.classList.add("btn-active");
+        }
+    }
+
+    /**
+     * Send data of the form to the API
+     * 
+     * @param {DOMElement} $el 
+     */
+    send($el) {
+        this.formSubmit("https://homes-egypt.com/add-property/submit", $el);
+    }
+
+    /**
+     * The component is ready to do any action after being rendered in dom
+     */
+    ready() {
+        this.watchStep();
+    }
+}

@@ -1,0 +1,97 @@
+<section class="forms-panel d-flex justify-content-around flex-wrap">
+    <button class="user-info info-button col-md-4 col-lg-5" data-id="step-1" *as="stepOneBtn"
+        (click)="this.step = 'step-1'; this.watchStep()">
+        <span> 1 </span>
+        user info
+    </button>
+    <button class="property-info info-button col-md-4 col-lg-5" data-id="step-2" *as="stepTwoBtn"
+        (click)="this.step = 'step-2'; this.watchStep()">
+        <span> 2 </span>
+        property
+    </button>
+</section>
+
+<section class="property-form">
+    <form>
+        <div *as="firstStep" id="step-1"
+            class="d-flex flex-wrap justify-content-between col-12 step-1 {{this.step == 'step-1' ? 'active-step' : 'step-one-inactive'}}">
+            <div class="form-group col-md-6">
+                <form-input type="text" label="Full Name" class="form-control" name="username"
+                    placeholder="e.g: John Doe">
+                </form-input>
+            </div>
+
+            <div class="form-group col-md-6">
+                <form-input type="email" label="Email Address" class="form-control" name="email"
+                    placeholder="e.g: test@test.com">
+                </form-input>
+            </div>
+
+            <div class="form-group col-md-6">
+                <form-input label="Phone Number" type="number" name="phone" class="form-control"></form-input>
+            </div>
+
+            <div class="form-group col-md-6">
+                <form-input type="text" label="Address" class="form-control" name="address" autocomplete="address">
+                </form-input>
+            </div>
+
+            <div class="form-group col-md-6">
+                <flk-dropdown-list [items]="this.cities" [searchable]="false" id="city" placeholder="Your City"
+                    name="cities" (select)="this.getRegion(e.value)"></flk-dropdown-list>
+            </div>
+
+            <div class="form-group col-md-6">
+                <flk-dropdown-list [items]="this.regions" [searchable]="false" id="region" placeholder="Your District"
+                    name="cities"></flk-dropdown-list>
+            </div>
+
+            <button class="adv-action-btn next" (click)="this.step = 'step-2'; this.watchStep()"> Next </button>
+        </div>
+        <div id="step-2"
+            class="d-flex flex-wrap step-2 col-12 {{this.step == 'step-2' ? 'active-step' : 'step-two-inactive'}}">
+            <div class="form-group col-md-6">
+                <flk-dropdown-list [items]="this.saleTypes" [searchable]="false" id="sale_type" placeholder="Sale Type"
+                    name="sale_type"></flk-dropdown-list>
+            </div>
+
+
+            <div class="form-group col-md-3">
+                <flk-dropdown-list [items]="this.numbersArray" [searchable]="false" id="beds" placeholder="Beds"
+                    name="beds"></flk-dropdown-list>
+            </div>
+
+            <div class="form-group col-md-3">
+                <flk-dropdown-list [items]="this.numbersArray" [searchable]="false" id="baths" placeholder="Baths"
+                    name="baths"></flk-dropdown-list>
+            </div>
+
+            <div class="input-group col-md-6">
+                <label for="area" class="d-block"> Property area </label>
+                <input type="text" name="area" id="area" class="form-control" aria-describedby="basic-addon2"
+                    placeholder="0">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">Meter</span>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <flk-dropdown-list [items]="this.types" [searchable]="false" id="type" placeholder="Type of property"
+                    name="type"></flk-dropdown-list>
+            </div>
+
+            <div class="form-group image-input col-md-12 d-flex flex-wrap">
+
+                <flk-image-input *for="let image of this.imageInputs" name="images[]" *as="imageInput">
+                </flk-image-input>
+
+                <button class="btn-icon" (click)="this.imageInputs.push('')" title="Add more image"> <i
+                        class="fa fa-plus"></i> </button>
+            </div>
+
+            <button type="button" class="adv-action-btn prev" (click)="this.step = 'step-1'; this.watchStep()">
+                Previous </button>
+            <button (click)="this.send($el)" type="submit" class="adv-action-btn finish"> Finish </button>
+        </div>
+    </form>
+</section>

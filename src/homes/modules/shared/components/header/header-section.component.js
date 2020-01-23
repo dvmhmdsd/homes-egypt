@@ -19,12 +19,10 @@ class Header {
    * Get all settings on load
    */
   init() {
-    this.imageInputs = [""];
-
     this.currentCurrency = this.settingsService.currentCurrency();
 
     this.settingsService.cached("list").then(response => {
-      this.response = response;
+      this.types = response.propertyTypes;
       this.info = {
         email: response.settings["site.email"],
         phone: response.settings["site.phone"].slice(3)
@@ -32,22 +30,6 @@ class Header {
 
       this.currencies = response.currencies;
     });
-
-    // view step1 of the advertisement application
-    this.step = "step-1";
-  }
-
-  /**
-   * Watch the step property if it's changed -> change the button class
-   */
-  watchStep() {
-    if (this.step == "step-1") {
-      this.stepOneBtn.classList.add("btn-active");
-      this.stepTwoBtn.classList.remove("btn-active");
-    } else if (this.step == "step-2") {
-      this.stepOneBtn.classList.remove("btn-active");
-      this.stepTwoBtn.classList.add("btn-active");
-    }
   }
 
   /**
@@ -61,6 +43,6 @@ class Header {
   }
 
   ready() {
-    this.watchStep();
+    
   }
 }

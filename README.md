@@ -1,6 +1,6 @@
 # Homes Egypt Falak Project
 
-# Current Version (1.1.0)
+# Last Version (1.1.0)
 - Changed property url from `/properties/{:id}/{:title}` to `/property/{:id}/{:title}`.
 - Added to settings service two methods:
   - `currentCurrency`: Get current currency based on cached currency or current query string, otherwise `USD` is the default.
@@ -11,36 +11,37 @@
     - > Form handling itself is not done yet.
   - Removed property image url generator function, now property images urls are coming from the API.
 
-
-# Todo 
-
-## Search Form
-  - Text or Numeric inputs text are higher than the dropdown ones in the search form.
-
-## Property Request Form
-  - Please confirm it is fully working, also don't forget to add `name` attribute to all fields.
-  - `Mobile Number` and `Name` are required fields. 
-  - Make sure its working.
-
-## Advertise your property
+# Current Version (1.2.0)
+  - Text or Numeric inputs text are the same as the dropdown ones in the search form.
+  - Solve the issue of display "#ID: undefined" in the property page on load
+  - Decrease the font of the name in the property page
+  - Add `name` attribute to all fields of the `property-request-form` and make the `name` & `phone number` required.
   - Create a separate component `advertise-property` as a standalone component.
   - Cities are selected based on dropdown list, the api request for it is `/cities`, it will return all cities ands its regions, once user select city, he/she can select its regions accordingly.
   - Add sale type dropdown list `rent`| `sale` are the values, and `name` is `sale_type` 
-  - Types, Beds and Baths are dropdowns not text.
-  - Choose type and Area size are in one row.
-  - Beds and Baths are in one row.
-  - Try to use a smaller modal size by passing `size="medium"` or `size="small"` to `flk-modal` component as its too big.
-- Make sure its working.
+  - Convert Types, Beds and Baths into dropdowns.
+  - Add `form-submit-service` to handle the submition of the forms in the website.
+  - Create a separated `contact-form` component as a standalone.
+  - Remove `WE WILL NOT SHARE EMAIL WITH ANY ONE` sentence in `contact-form`.
+  - Make `contact-form` a small modal.
+  - Display at least 18 property per chunk "For every READ MORE click"
+  - Make a lazy loading pagination
+
+# Issues
+  - `flk-image-input` have issues when choose the image (Error: `flk-image-input.component.js:61 Uncaught TypeError: Cannot read property 'removeError' of null`)
+
+# Todo 
+
+## Property Request Form
+  - Handle the form submit. (this.http.post -> returns 404);
+
+## Advertise your property
+  - Beds and Baths are in one row. (already in 1 row)
+  - Try to use a smaller modal size by passing `size="medium"` or `size="small"` to `flk-modal` component as its too big. (?)
+- Make sure its working. (because of the image input issue, I coudn't test it well )
 
 ## Contact Us Form
-- Create a separated `contact-form` component as a standalone.
-- Make it a small modal.
-- Remove `WE WILL NOT SHARE EMAIL WITH ANY ONE` sentence.
 - Make sure its working.
-
-## Pagination
-- Display at least 18 property per chunk "For every READ MORE click"
-- Make a lazy loading pagination
 
 ## END OF TODO
 

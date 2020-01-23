@@ -6,7 +6,7 @@
                 <section class="single-property-preface-left col-lg-8 col-sm-12">
                     <section class="preface-info d-flex justify-content-between">
                         <h1 class="property-name" [html]="this.property.name"></h1>
-                        <p class="property-id" >#ID: {{ this.property.id }}</p>
+                        <p class="property-id" >#ID: {{ this.property.id ? this.property.id : "" }}</p>
                     </section>
 
                     <section *if="! Is.empty(this.property.images)" class="property-img">
