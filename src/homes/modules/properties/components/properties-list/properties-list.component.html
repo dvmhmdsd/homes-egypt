@@ -6,20 +6,20 @@
       
         <loading *if="this.loading"></loading>
 
-        <div *else class="container">
+        <div *if="! Is.empty(this.properties)" class="container">
             <!-- grid of properties -->
             <div *if="! Is.empty(this.properties)" class="properties-grid d-flex flex-wrap justify-content-between">
-                <div *for="let property of this.propertiesToShow" class="property-item col-lg-4 col-md-4 col-sm-6 col-12">
+                <div *for="let property of this.properties" class="property-item col-lg-4 col-md-4 col-sm-6 col-12">
                     <property-card [property]="property"></property-card>
                 </div>
 
-                <div class="d-block text-center" style="width: 100%;">
-                    <button class="btn-action view-properties-btn" (click)="this.viewMore($el)"> View More </button>
+                <div *if="! this.lastPage" class="w-100 d-block text-center">
+                    <button class="btn-action view-properties-btn" (click)="this.viewMore()"> View More </button>
                 </div>
             </div>
-            <div *else class="no-response d-flex justify-content-center align-items-center">
-                <p style="font-size: 2rem; color: #0f5b97;">No properties</p>
-            </div>
+        </div>
+        <div *elseif="! this.loading && Is.empty(this.properties)" class="no-response d-flex justify-content-center align-items-center">
+            <p style="font-size: 2rem; color: #0f5b97;">No properties</p>
         </div>
     </section>
 </layout>

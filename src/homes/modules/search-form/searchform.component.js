@@ -17,7 +17,7 @@ class Searchform {
     // show the corresponding form
     this.searchForm = {
       currency: this.cache.get('currency'),
-      type: "rent", // "rent" / "sale" / "commercial" / new-homes
+      sale_type: "rent", // "rent" / "sale" / "commercial" / new-homes
       regions: [],
       compounds: [],
       currencies: [],
@@ -52,8 +52,8 @@ class Searchform {
 
     this.searchForm = Object.merge(this.searchForm, this.router.queryString.all());
 
-    if (!this.searchForm.type) {
-      this.searchForm.type = 'rent';
+    if (!this.searchForm.sale_type) {
+      this.searchForm.sale_type = 'rent';
     }
 
     this.settingsService.cached('list').then(response => {
@@ -63,6 +63,7 @@ class Searchform {
 
   setupSettings(response) {
     // get regions
+    this.originalRegions = response.regions;
     this.regionsList = response.regions.map(region => {
       return {
         text: region.name,
@@ -106,11 +107,22 @@ class Searchform {
   }
 
   /**
+   * Reset Search form data
+   */
+  resetSearch() {
+    this.router.navigateTo('/');
+  }
+
+  /**
    * Add a region to the chosen region
    *
    * @param {Object} region
    */
   chooseRegion(region) {
+    if (Is.numeric(region)) {
+      region = this.originalRegions.find(regionItem => String(regionItem.id) == String(region));
+    }
+
     Array.pushOnce(this.searchForm.chosenRegions, region);
   }
 
@@ -124,6 +136,8 @@ class Searchform {
   removeChosenRegion(index) {
     // remove from the list
     this.searchForm.chosenRegions.splice(index, 1);
+
+    this.detectChanges();
   }
 
   /**
@@ -138,7 +152,7 @@ class Searchform {
 
     queryString.push({
       name: 'sale_type',
-      value: this.searchForm.type,
+      value: this.searchForm.sale_type,
     });
 
     return this.router.navigateTo(`/?${$.param(queryString)}`);

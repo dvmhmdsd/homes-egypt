@@ -17,6 +17,15 @@
     }
 
     .dropdown {
+      button {
+        display: block;
+        width: 100%;
+        text-align: left;
+        &:focus {
+          outline: none;
+        }
+      }
+
       .btn.btn-link.dropdown-toggle {
         text-transform: capitalize;
         text-decoration: none;

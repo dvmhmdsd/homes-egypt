@@ -3,13 +3,13 @@ class AdvertiseProperty {
      * Constructor
      * Put your required dependencies in the constructor parameters list  
      */
-    constructor(http, formSubmitService) {
+    constructor(http, formSubmitService, settingsService) {
         this.http = http;
 
         this.formSubmit = formSubmitService;
+        this.settingsService = settingsService;
 
         this.cities = [];
-
     }
 
     /**
@@ -17,13 +17,13 @@ class AdvertiseProperty {
      * This method is triggered before rendering the component
      */
     async init() {
-        this.imageInputs = [" "];
+        this.imageInputs = [""];
 
         // view step1 of the advertisement application
         this.step = "step-1";
 
         // types of the property - comes from header section
-        this.types = this.inputs.getProp("types") || [];
+        this.propertyTypes = this.inputs.getProp("types", []);
 
         this.regions = [];
 
@@ -36,13 +36,12 @@ class AdvertiseProperty {
             return {
                 text: String(number),
                 value: number,
-            };
+            };  
         }) || [];
 
-        let { body: cities } = await this.http.get("https://homes-egypt.com/api/cities");
-        this.cityResponse = cities;
-        this.cities = cities.map(city => {
+        this.citiesResponse = await this.settingsService.cached('cities');
 
+        this.cities = this.citiesResponse.map(city => {
             return {
                 text: city.city,
                 value: city.city
@@ -56,9 +55,10 @@ class AdvertiseProperty {
      * 
      */
     getRegion(val) {
-        let city = this.cityResponse.find((cityObj) => {
+        let city = this.citiesResponse.find((cityObj) => {
             return cityObj.city == val;
         });
+        
         this.regions = city.regions;
     }
 

@@ -3,7 +3,7 @@ class SettingsService extends Endpoint.Service {
     super();
     this.router = router;
   }
-
+  
   /**
    * {@inheritDoc}
    */
@@ -20,6 +20,10 @@ class SettingsService extends Endpoint.Service {
 
   updateCurrency(currency) {
     this.cache.set('currency', currency);
+  }
+
+  cities() {
+    return this.endpoint.get('/cities');
   }
 
   info(callback) {

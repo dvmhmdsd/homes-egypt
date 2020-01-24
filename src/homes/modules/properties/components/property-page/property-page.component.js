@@ -40,7 +40,6 @@ class PropertyPage {
         this.loading = false;
 
         this.ifCurrencyInDollar = this.cache.get("currency") == "USD";
-
     }
 
     /**

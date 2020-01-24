@@ -23,11 +23,7 @@ class Footer {
                 facebook: response.settings['social.facebook'],
             }; 
         });
-
-        // this.settingsService.live.cached('list').then(response => {
-        //     this.settings = response.settings; 
-        // });
-        
+            
         this.featuredRegions = this.cache.get("featuredRegions");
 
         // this.regionsService.featured().then(regions => {

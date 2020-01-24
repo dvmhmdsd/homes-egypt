@@ -3,7 +3,7 @@
     <!-- types buttons -->
     <section class="types-panel d-flex justify-content-center flex-wrap">
       <button class="btn-action types-panel-btn mx-3" *for="let type of this.searchForm.typesAvailable"
-        (click)="this.searchForm.type = type.value" [class]="{ 'type-active': type.value == this.searchForm.type }"
+        (click)="this.searchForm.sale_type = type.value" [class]="{ 'type-active': type.value == this.searchForm.sale_type }"
         data-type="{{ type.value }}" *as="buttonsPanel">
         {{ type.label }}
       </button>
@@ -31,9 +31,9 @@
             [searchable]="false" 
             id="regions" 
             title="Search for a region"
-            (select)="this.chooseRegion(e.text)" 
+            (select)="this.chooseRegion(e.value)" 
             placeholder="Search for region"
-            name="regions"
+            name="regions[]"
           ></flk-dropdown-list>
         </div>
 
@@ -89,12 +89,12 @@
         </div>
 
         <div class="form-group col-md-3 col-xs-12">
-          <form-input type="number" placeholder="Min price" name="min_price" class="form-control" title="Minimum price">
+          <form-input type="number" placeholder="Min price" [value]="this.searchForm.min_price" (input)="this.searchForm.min_price = Number($el.value) < 0 ? 0 : this.searchForm.min_price" min="0" name="min_price" class="form-control" title="Minimum price">
           </form-input>
         </div>
 
         <div class="form-group col-md-3 col-xs-12">
-          <form-input type="number" placeholder="Max price" name="max_price" class="form-control" title="Maximum price">
+          <form-input type="number" placeholder="Max price" [value]="this.searchForm.max_price" (input)="this.searchForm.max_price = Number($el.value) < 0 ? 0 : this.searchForm.max_price" min="0" name="max_price" class="form-control" title="Maximum price">
           </form-input>
         </div>
 
@@ -114,7 +114,7 @@
         </div>
 
         <div class="form-group col-12 text-right form-actions">
-          <input type="reset" class="modal-btn btn-action mr-auto" (click)="this.searchForm.chosenRegions = []" />
+          <input type="reset" class="modal-btn btn-action mr-auto" (click)="this.resetSearch()" />
           <input type="submit" value="Search" class="modal-btn btn-action mr-auto" />
         </div>
       </form>

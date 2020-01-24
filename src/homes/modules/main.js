@@ -1,5 +1,5 @@
 // This is just for encapsulation so it doesn't conflict with other global variables.
-(function() {
+(function () {
   // run any operations here
   // this file is loaded before the router is ready so you can subscribe to events or run initial operations here.
   // Please DO NOT write any instant executable code outside the ready method.
@@ -10,9 +10,24 @@
 
   // once the application is ready, execute the given callback to
   // the event before the router scanner starts.
-  events.on("app.ready", () => {
+  events.on("app.ready", async app => {
+    let settingsService = DI.resolve("SettingsService");
+
+    app.hold(
+      `
+      <div class="loader-container d-flex justify-content-center align-items-center">
+        <div class="loader"></div>
+    </div>
+      `
+    );
+
+    await settingsService.live.cached('list');
+    await settingsService.live.cached('cities');
+
+    app.resume();
+
     // add currency to cache on load the app
-    if (!cache.get("currency")) cache.set("currency", "EGP");   
+    if (!cache.get("currency")) cache.set("currency", "EGP");
   });
 })();
 

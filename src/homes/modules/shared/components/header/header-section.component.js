@@ -4,7 +4,7 @@ class Header {
    */
   constructor(settingsService, cache, router) {
     // currencies of the website
-    this.currencies;
+    this.currencies = [];
 
     this.settingsService = settingsService;
 
@@ -23,12 +23,13 @@ class Header {
 
     this.settingsService.cached("list").then(response => {
       this.types = response.propertyTypes;
+
       this.info = {
         email: response.settings["site.email"],
         phone: response.settings["site.phone"].slice(3)
       };
 
-      this.currencies = response.currencies;
+      this.currencies = response.currencies.filter(currency => currency.code != this.currentCurrency);
     });
   }
 
@@ -43,6 +44,6 @@ class Header {
   }
 
   ready() {
-    
+
   }
 }
