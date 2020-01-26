@@ -14,7 +14,7 @@ class ContactForm {
     init() {}
 
     send($el) {
-        this.formSubmit.sendData("https://homes-egypt.com/contact-us/send", $el);
+        this.formSubmit.sendData("/contact-us/send", $el);
     }
 
     /**

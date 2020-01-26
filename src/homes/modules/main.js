@@ -13,18 +13,18 @@
   events.on("app.ready", async app => {
     let settingsService = DI.resolve("SettingsService");
 
-    app.hold(
-      `
-      <div class="loader-container d-flex justify-content-center align-items-center">
-        <div class="loader"></div>
-    </div>
-      `
-    );
+    // app.hold(
+    //   `
+    //   <div class="loader-container d-flex justify-content-center align-items-center">
+    //     <div class="loader"></div>
+    //   </div>
+    //   `
+    // );
 
     await settingsService.live.cached('list');
     await settingsService.live.cached('cities');
 
-    app.resume();
+    // app.resume();
 
     // add currency to cache on load the app
     if (!cache.get("currency")) cache.set("currency", "EGP");

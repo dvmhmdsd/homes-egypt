@@ -12,7 +12,7 @@ class FormSubmitService extends Endpoint.Service {
     sendData(url, $el) {
         let data = this.formatData($el);
         
-        return this.http.post(url, data);
+        return this.endpoint.post(url, data);
     }
 
     formatData($el) {

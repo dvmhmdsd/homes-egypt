@@ -34,7 +34,7 @@ class PropertyRequestForm {
             data[item.name] = item.value
         });
 
-        this.formSubmit.sendData("https://homes-egypt.com/api/property", data).then(res => {
+        this.formSubmit.sendData("/property", data).then(res => {
             echo(res)
         })
     }
