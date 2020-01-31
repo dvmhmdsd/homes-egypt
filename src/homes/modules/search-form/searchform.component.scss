@@ -4,7 +4,7 @@ $search-inputs-font-size: 1.2rem;
   background: #fff url("../images/ourwork8.jpg") no-repeat center center fixed;
   background-size: cover;
   padding: 1rem;
-  overflow: hidden;
+  // overflow: hidden;
 
   .input-wrapper {
     // margin-top: 0.55rem;
@@ -43,7 +43,7 @@ $search-inputs-font-size: 1.2rem;
           &::after {
             content: "";
             position: absolute;
-            top: 27px;
+            top: 26px;
             left: 32px;
             border: 20px solid transparent;
             border-bottom-color: rgba($color: #fff, $alpha: 0.9);

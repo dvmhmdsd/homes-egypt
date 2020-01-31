@@ -16,7 +16,7 @@
     "@flk/application": "^1.3.3",
     "@flk/cache": "^1.3.0",
     "@flk/config": "^1.3.0",
-    "@flk/dropdown-list": "^1.3.8",
+    "@flk/dropdown-list": "^1.3.9",
     "@flk/endpoint-service": "^1.3.3",
     "@flk/events": "^1.3.0",
     "@flk/fa": "^5.7.2",
