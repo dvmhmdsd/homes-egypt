@@ -18,6 +18,7 @@
         "@flk/locale",
         "@flk/meta",
         "@flk/form",
+        "@flk/tooltip",
         "@flk/user",
         "@flk/random",
         "@flk/endpoint-service",
@@ -26,7 +27,9 @@
         "@flk/scss",
         "@flk/fa",
         "@flk/slider",
+        "@flk/modal",
         "@flk/image-input",
+        "@flk/social-media-sharing",
         "jquery"
     ],
     "mainFiles": {

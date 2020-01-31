@@ -1,0 +1,20 @@
+.flk-modal {    
+  .modal_heading {
+    background: $mainColor;
+    color: #FFF;
+    padding: 1rem !important;
+    h3 {      
+      font-size: 2rem !important;
+      font-weight: bold !important;
+    }
+  }
+
+  .close_button {
+    top: 0.8rem !important;
+    color: #eee !important;
+  }
+
+  .modal_content {
+    width: 50%;
+  }
+}

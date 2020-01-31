@@ -4,7 +4,7 @@ class ContactForm {
      * Put your required dependencies in the constructor parameters list  
      */
     constructor(formSubmitService) {
-        this.formSubmit = formSubmitService;
+        this.formSubmitService = formSubmitService;
     }
     
     /**
@@ -13,8 +13,14 @@ class ContactForm {
      */
     init() {}
 
-    send($el) {
-        this.formSubmit.sendData("https://homes-egypt.com/contact-us/send", $el);
+    async send(form) {
+        this.isLoading = true;
+
+        await this.formSubmitService.contactUs(form);
+
+        this.isLoading = false;
+
+        this.modal.close();
     }
 
     /**

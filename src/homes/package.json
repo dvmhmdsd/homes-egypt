@@ -4,20 +4,16 @@
     "assets": [
         "images"
     ],
-    "packages": [],
+    "packages": [
+        "@flk/facebook-page-preview"
+    ],
     "externals": {
         "css": {
             "common": [
-                "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css",
-                "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css",
                 "https://fonts.googleapis.com/css?family=Exo&display=swap"
             ]
         },
         "js": [
-            "https://code.jquery.com/jquery-3.4.1.min.js",
-            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js",
-            "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js",
-            "https://maps.googleapis.com/maps/api/js?key=AIzaSyBwBRUTy0JfTgAnaWKkF4B9jHCpnzkPWF8"
         ]
     },
     "modules": [
@@ -25,6 +21,7 @@
         "home",
         "properties",
         "users",
-        "search-form"
+        "search-form",
+        "google-map"
     ]
 }

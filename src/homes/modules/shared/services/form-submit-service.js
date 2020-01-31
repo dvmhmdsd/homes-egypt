@@ -3,11 +3,6 @@ class FormSubmitService extends Endpoint.Service {
         super();
         this.http = http;
     }
-    /**
-     * {@inheritDoc} 
-     */
-    boot() {
-    }
 
     sendData(url, $el) {
         let data = this.formatData($el);
@@ -24,6 +19,10 @@ class FormSubmitService extends Endpoint.Service {
         });
 
         return data;
+    }
+
+    contactUs(form) {
+        return this.endpoint.post(this.path('/contact-us'), form);
     }
 }
 

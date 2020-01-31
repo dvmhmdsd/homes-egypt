@@ -18,8 +18,9 @@ class Header {
   /**
    * Get all settings on load
    */
-  init() {
-    this.currentCurrency = this.settingsService.currentCurrency();
+  async init() {
+    this.currentRoute = this.router.route();
+    this.queryStringSaleType = this.router.queryString.get('sale_type');
 
     this.settingsService.cached("list").then(response => {
       this.types = response.propertyTypes;
@@ -29,7 +30,7 @@ class Header {
         phone: response.settings["site.phone"].slice(3)
       };
 
-      this.currencies = response.currencies.filter(currency => currency.code != this.currentCurrency);
+      this.currencies = response.currencies;
     });
   }
 
@@ -39,8 +40,9 @@ class Header {
   setCurrency(currency) {
     this.settingsService.updateCurrency(currency);
 
-    // reload the page to update the data
-    this.router.refresh();
+    this.currentCurrency = currency;
+
+    this.detectChanges()
   }
 
   ready() {

@@ -3,26 +3,98 @@
 .info-header {
   background-color: $mainColor;
   color: #fff;
-  font-weight: bold;
+  // font-weight: bold;
+
+  @include responsive((
+    1024: (
+      padding-top: 0.3rem,
+      padding-bottom: 0.3rem,
+    )
+  ), max);
+
+  .container {    
+    @include responsive((
+      1024: (
+        padding: 0.2rem,
+      )
+    ), max);
+  }
+
+  .currency-item {
+    @include responsive((
+      1024: (
+        margin-left: 1rem !important,
+      )
+    ), max);        
+  }
+
   ul {
     margin-bottom: 0;
+    @include responsive((
+      1024: (
+        margin: 0 !important,
+      )
+    ), max);
     .info-item {
       margin: 5px 0.8rem;
+
+      @include responsive((
+        1024: (
+          margin: 0,
+          margin-right: 0.7rem,
+        )
+      ), max);
+
+      &:last-child {
+        @include responsive((
+          1024: (
+            margin: 0,
+          )
+        ), max);  
+      }
+      
       a {
+        color: #fff;
+        
+        @include responsive((
+          1024: (
+            text-align: center,
+            font-size: 0.7rem,
+          )
+        ), max);
         i {
           margin-right: 7px;
+          
+          @include responsive((
+            1024: (
+              // margin: 0,
+              display: block,
+            )
+          ), max);
         }
-        color: #fff;
+
       }
     }
 
-    .dropdown {
+    .dropdown {      
       button {
         display: block;
         width: 100%;
         text-align: left;
         &:focus {
           outline: none;
+        }
+
+        .icon {
+          @include responsive((
+            1024: (
+              display: block,
+              width: 100%,
+              text-align: center,
+              font-size: 0.7rem,
+              margin-bottom: 0.1rem,
+            )
+          ), max);          
         }
       }
 
@@ -32,7 +104,7 @@
         margin: 0;
         padding: 0;
         color: #fff;
-        font-size: inherit;
+        // font-size: inherit;
       }
     }
   }
@@ -49,8 +121,14 @@
     margin: 0;
     .navbar-brand {
       img {
-        max-width: 75%;
-        height: auto;
+        @include responsive((
+          0: (
+            max-width: 100px
+          ),
+          1024: (            
+            max-width: 75%,
+          )
+        ))
       }
     }
   }
@@ -58,9 +136,29 @@
   .navbar-nav {
     .nav-item {
       text-transform: uppercase;
+
+      @include responsive((
+        1024: (
+          border-bottom: 1px solid #eee,
+          padding: 0.5rem 1rem,
+        )
+      ), max);
       .nav-link {
-        color: $mainColor;
+        color: #999;
         font-weight: bold;
+        font-size: 1.5rem;
+        text-transform: capitalize;
+        @include responsive((
+          1024: (
+            color: #333,
+            font-size: 1rem,
+          )
+        ), max);
+
+        &.active,
+        &:hover {
+          color: $mainColor;;
+        }
       }
     }
   }
@@ -73,6 +171,12 @@
 
   .header-adv {
     padding: 0.4rem;
+    @include responsive((
+      1024: (
+        margin: 1rem !important,
+        display: inline-block,
+      )
+    ), max);
   }
 }
 

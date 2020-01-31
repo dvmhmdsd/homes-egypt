@@ -3,7 +3,7 @@
     <!-- types buttons -->
     <section class="types-panel d-flex justify-content-center flex-wrap">
       <button class="btn-action types-panel-btn mx-3" *for="let type of this.searchForm.typesAvailable"
-        (click)="this.searchForm.sale_type = type.value" [class]="{ 'type-active': type.value == this.searchForm.sale_type }"
+        (click)="this.updateSaleType(type.value)" [class]="{ 'type-active': type.value == this.searchForm.sale_type }"
         data-type="{{ type.value }}" *as="buttonsPanel">
         {{ type.label }}
       </button>
@@ -12,7 +12,7 @@
     <!-- Search forms -->
     <section class="search-form">
       <ul class="regions list-unstyled d-flex justify-content-center flex-wrap">
-        <li class="region-item" *for="let region of this.searchForm.featuredRegions"
+        <li class="region-item" *for="let region of this.featuredRegions"
           (click)="this.chooseRegion(region)">
           {{ region.name }}
         </li>
@@ -20,57 +20,64 @@
 
       <!-- rent / sale form-->
       <form (submit)="this.getProperties($el)" class="d-flex flex-wrap">
-        <div class="form-group col-md-7 col-xs-12 d-flex">
-          <span class="field-icon">
-            <label for="regions">
-              <i class="fas fa-map-marker-alt"></i>
-            </label>
-          </span>
+        <div class="form-group col-sm-6 col-xs-12 d-flex">          
           <flk-dropdown-list 
+            icon="map-marker-alt"
             [items]="this.regionsList" 
+            [value]="this.searchForm.region"
             [searchable]="false" 
             id="regions" 
-            title="Search for a region"
-            (select)="this.chooseRegion(e.value)" 
-            placeholder="Search for region"
-            name="regions[]"
+            [none]="true"
+            title="Select Property Location"
+            (select)="this.chooseRegion(e.value);" 
+            placeholder="{{ this.regionsPlaceholder }}"
           ></flk-dropdown-list>
         </div>
 
-        <div class="form-group col-md-5 col-xs-12">
-          <form-input type="text" placeholder="#ID" name="id" class="form-control" [value]="this.searchForm.id"
-            title="ID of the property"></form-input>
+        <div class="form-group col-sm-3 col-xs-12 d-flex compound-wrapper" [class]="{smaller: this.smallerCompound}">          
+          <flk-dropdown-list
+            *if="this.compounds" 
+            icon="city"
+            [items]="this.compounds"
+            [value]="this.searchForm.compound"
+            name="compound" 
+            [searchable]="false"
+            id="compound"
+            (select)="this.searchForm.compound = e.value; this.smallerCompound = e.text.includes(' ');"
+            [none]="true"
+            placeholder="Compound"
+            title="Select Compound"  
+          ></flk-dropdown-list>
         </div>
 
-        <div class="form-group col-md-3 col-xs-12 d-flex">
-          <span class="field-icon">
-            <label for="type">
-              <fa icon="home"></fa>
-            </label>
-          </span>
+        <div class="form-group col-sm-3 col-xs-12 d-flex type-wrapper" [class]="{smaller: this.smallerType}">          
           <flk-dropdown-list
             *if="this.propertyTypes" 
+            icon="home"
             [items]="this.propertyTypes"
             [value]="this.searchForm.type"
             name="type" 
             [searchable]="false"
             id="type"
+            (select)="this.searchForm.type = e.value; this.smallerType = e.text.includes(' ')"
+            [none]="true"
             placeholder="Type"
-            title="Type of the property"  
-          ></flk-dropdown-list
-          >
+            title="Property Type"  
+          ></flk-dropdown-list>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12 input-wrapper">
+          <form-input type="text" tooltip placeholder="#ID" name="id" class="form-control" [value]="this.searchForm.id"
+            title="Property ID"></form-input>
         </div>
 
         <div class="form-group col-md-3 col-xs-12 d-flex">
-          <span class="field-icon">
-            <label for="minBed">
-              <i class="fas fa-bed"></i>
-            </label>
-          </span>
           <flk-dropdown-list 
+            icon="bed"
             [items]="this.numbersArray" 
             [searchable]="false" 
             id="minBed" 
+            [none]="true"
             [value]="this.searchForm.min_beds"
             name="min_beds"
             placeholder="Min Beds" 
@@ -79,27 +86,47 @@
         </div>
 
         <div class="form-group col-md-3 col-xs-12 d-flex">
-          <span class="field-icon">
-            <label for="maxBed">
-              <i class="fas fa-bed"></i>
-            </label>
-          </span>
-          <flk-dropdown-list [items]="this.numbersArray" [searchable]="false" id="maxBed" name="max_beds"
+          <flk-dropdown-list icon="bed"[value]="this.searchForm.max_beds" [none]="true" [items]="this.numbersArray" [searchable]="false" id="maxBed" name="max_beds"
             placeholder="Max Beds" title="Maximum Number of beds"></flk-dropdown-list>
         </div>
 
-        <div class="form-group col-md-3 col-xs-12">
+        <div class="form-group col-md-3 col-xs-12 d-flex">
+          <flk-dropdown-list 
+            icon="warehouse"
+            [items]="this.areaSizes" 
+            id="minArea" 
+            [none]="true"
+            [value]="this.searchForm.min_area"
+            name="min_area"
+            placeholder="Min Area" 
+            title="Minimum Number of Area Size"
+          ></flk-dropdown-list>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12 d-flex">
+          <flk-dropdown-list 
+            icon="warehouse" 
+            [value]="this.searchForm.max_area" 
+            [none]="true" 
+            [items]="this.areaSizes" 
+            id="maxArea" 
+            name="max_area"
+            placeholder="Max Area"
+             title="Maximum Number of area"></flk-dropdown-list>
+        </div>
+
+        <div class="form-group col-md-3 col-xs-12 input-wrapper">
           <form-input type="number" placeholder="Min price" [value]="this.searchForm.min_price" (input)="this.searchForm.min_price = Number($el.value) < 0 ? 0 : this.searchForm.min_price" min="0" name="min_price" class="form-control" title="Minimum price">
           </form-input>
         </div>
 
-        <div class="form-group col-md-3 col-xs-12">
+        <div class="form-group col-md-3 col-xs-12 input-wrapper">
           <form-input type="number" placeholder="Max price" [value]="this.searchForm.max_price" (input)="this.searchForm.max_price = Number($el.value) < 0 ? 0 : this.searchForm.max_price" min="0" name="max_price" class="form-control" title="Maximum price">
           </form-input>
         </div>
 
         <div class="form-group col-md-3 col-xs-12">
-          <flk-dropdown-list name="currency" (select)="this.settingsService.updateCurrency(e.value)" placeholder="Currency" [value]="this.searchForm.currency"
+          <flk-dropdown-list name="currency" icon="money-bill-wave" (select)="this.settingsService.updateCurrency(e.value); this.detectChanges()" placeholder="Currency" [value]="window.currentCurrency.code"
             [items]="this.currencies" [searchable]="false"></flk-dropdown-list>
         </div>
 
@@ -115,7 +142,7 @@
 
         <div class="form-group col-12 text-right form-actions">
           <input type="reset" class="modal-btn btn-action mr-auto" (click)="this.resetSearch()" />
-          <input type="submit" value="Search" class="modal-btn btn-action mr-auto" />
+          <input type="submit" value="Search" class="modal-btn btn-action active mr-auto" />
         </div>
       </form>
     </section>

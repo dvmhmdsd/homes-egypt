@@ -1,97 +1,158 @@
-<section class="forms-panel d-flex justify-content-around flex-wrap">
-    <button class="user-info info-button col-md-4 col-lg-5" data-id="step-1" *as="stepOneBtn"
-        (click)="this.step = 'step-1'; this.watchStep()">
-        <span> 1 </span>
-        user info
-    </button>
-    <button class="property-info info-button col-md-4 col-lg-5" data-id="step-2" *as="stepTwoBtn"
-        (click)="this.step = 'step-2'; this.watchStep()">
-        <span> 2 </span>
-        property
-    </button>
-</section>
+<flk-modal id="advertise-property-modal" (close)="this.event('close')()" size="medium" *as="modal"
+    heading="Advertise Your Property">
+    <div *if="this.success" class="colored text-center bold">
+        <h2 class="m-b-1 bold">Your property has been submitted successfully.</h2>
+        <h4 class="m-b-1 bold">We will contact you as soon as possible.</h4>
 
-<section class="property-form">
-    <form>
-        <div *as="firstStep" id="step-1"
-            class="d-flex flex-wrap justify-content-between col-12 step-1 {{this.step == 'step-1' ? 'active-step' : 'step-one-inactive'}}">
-            <div class="form-group col-md-6">
-                <form-input type="text" label="Full Name" class="form-control" name="username"
-                    placeholder="e.g: John Doe">
-                </form-input>
-            </div>
-
-            <div class="form-group col-md-6">
-                <form-input type="email" label="Email Address" class="form-control" name="email"
-                    placeholder="e.g: test@test.com">
-                </form-input>
-            </div>
-
-            <div class="form-group col-md-6">
-                <form-input label="Phone Number" type="number" name="phone" class="form-control"></form-input>
-            </div>
-
-            <div class="form-group col-md-6">
-                <form-input type="text" label="Address" class="form-control" name="address" autocomplete="address">
-                </form-input>
-            </div>
-
-            <div class="form-group col-md-6">
-                <flk-dropdown-list [items]="this.cities" [searchable]="false" id="city" placeholder="Your City"
-                    name="cities" (select)="this.getRegion(e.value)"></flk-dropdown-list>
-            </div>
-
-            <div class="form-group col-md-6">
-                <flk-dropdown-list [items]="this.regions" [searchable]="false" id="region" placeholder="Your District"
-                    name="cities"></flk-dropdown-list>
-            </div>
-
-            <button class="adv-action-btn next" (click)="this.step = 'step-2'; this.watchStep()"> Next </button>
+        <div>
+            <fa icon="check" 7x></fa>
         </div>
-        <div id="step-2"
-            class="d-flex flex-wrap step-2 col-12 {{this.step == 'step-2' ? 'active-step' : 'step-two-inactive'}}">
-            <div class="form-group col-md-6">
-                <flk-dropdown-list [items]="this.saleTypes" [searchable]="false" id="sale_type" placeholder="Sale Type"
-                    name="sale_type"></flk-dropdown-list>
-            </div>
 
+        <button type="button" class="btn-action active done-btn" (click)="this.modal.close()">Close</button>
+    </div>
+    <else>
+        <section class="forms-panel d-flex justify-content-around flex-wrap">
+            <button class="user-info info-button col-md-4 col-lg-5" [class]="{'btn-active': this.step == 1}"
+                (click)="this.step = 1;">
+                <span> 1 </span>
+                Your Information
+            </button>
+            <button [disabled]="this.isNextBtnShouldBeDisabled()" class="property-info info-button col-md-4 col-lg-5" [class]="{'btn-active': this.step == 2}"
+                (click)="this.step = 2;">
+                <span> 2 </span>
+                Property Information
+            </button>
+        </section>
 
-            <div class="form-group col-md-3">
-                <flk-dropdown-list [items]="this.numbersArray" [searchable]="false" id="beds" placeholder="Beds"
-                    name="beds"></flk-dropdown-list>
-            </div>
+        <section class="property-form">
+            <form (submit)="this.submit($el)">
+                <div id="step-1" class="d-flex flex-wrap justify-content-between col-12 step-1"
+                    [class]="{'active-step': this.step == 1, 'step-one-inactive': this.step == 2}">
 
-            <div class="form-group col-md-3">
-                <flk-dropdown-list [items]="this.numbersArray" [searchable]="false" id="baths" placeholder="Baths"
-                    name="baths"></flk-dropdown-list>
-            </div>
+                    <div class="row">
+                        <div class="col-sm-6 m-b-1">
+                            <form-input type="text" [value]="this.data.username" label="Full Name" required="true" class="form-control"
+                                name="username" placeholder="e.g: John Doe">
+                            </form-input>
+                        </div>
+                        <div class="col-sm-6 m-b-1">
+                            <form-input type="email" [value]="this.data.email" label="Email Address" required="true" class="form-control"
+                                name="user_email" placeholder="e.g: test@test.com">
+                            </form-input>
+                        </div>
+                    </div>
 
-            <div class="input-group col-md-6">
-                <label for="area" class="d-block"> Property area </label>
-                <input type="text" name="area" id="area" class="form-control" aria-describedby="basic-addon2"
-                    placeholder="0">
-                <div class="input-group-append">
-                    <span class="input-group-text" id="basic-addon2">Meter</span>
+                    <div class="row">
+                        <div class="col-sm-6 m-b-1">
+                            <form-input label="Phone Number" is="mobileNumber.eg" [value]="this.data.phone" type="number" required="true" name="user_phone"
+                                class="form-control"></form-input>
+                        </div>
+
+                        <div class="col-sm-6 m-b-1">
+                            <form-input type="text" [value]="this.data.address" label="Your Address" class="form-control" name="user_address"
+                                autocomplete="address">
+                            </form-input>
+                        </div>
+                    </div>
+
+                    <div class="w-100 text-right">
+                        <button type="button" [disabled]="this.isNextBtnShouldBeDisabled()" class="adv-action-btn next"
+                        (click)="this.step = 2"> Next </button>                        
+                    </div>
                 </div>
-            </div>
+                <div id="step-2" class="d-flex flex-wrap step-2 col-12"
+                    [class]="{'active-step': this.step == 2, 'step-two-inactive': this.step == 1}">
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <flk-dropdown-list [items]="this.cities" required="true" icon="globe-americas"
+                                [searchable]="false" id="city" placeholder="City" name="city_id"
+                                (select)="this.getRegion(e.value); this.region = null">
+                            </flk-dropdown-list>
+                        </div>
 
-            <div class="form-group col-md-6">                
-                <flk-dropdown-list [items]="this.propertyTypes" [searchable]="false" id="type" placeholder="Type of property"
-                    name="type"></flk-dropdown-list>
-            </div>
+                        <div class="form-group col-sm-6">
+                            <flk-dropdown-list [items]="this.regions" [value]="this.region"
+                                (select)="this.region = e.value" required="true" icon="map-marker-alt"
+                                [searchable]="false" id="region" placeholder="District" name="region_id">
+                            </flk-dropdown-list>
+                        </div>
+                    </div>
 
-            <div class="form-group image-input col-md-12 d-flex flex-wrap">
+                    <div class="row">
+                        <div class="form-group col-sm-6 m-t-1">
+                            <form-input type="number" placeholder="Price" name="price" class="form-control"
+                                required="true"></form-input>
+                        </div>
 
-                <flk-image-input *for="let image of this.imageInputs" name="images[]" *as="imageInput">
-                </flk-image-input>
+                        <div class="form-group col-sm-6">
+                            <flk-dropdown-list icon="money-bill-wave" [value="this.currentCurrency"
+                                [items]="this.currencies" required="true" [searchable]="false" placeholder="Currency"
+                                name="currency_id">
+                            </flk-dropdown-list>
+                        </div>
+                    </div>
 
-                <button class="btn-icon" (click)="this.imageInputs.push('')" title="Add more image"> <i
-                        class="fa fa-plus"></i> </button>
-            </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <flk-dropdown-list [items]="this.numbersArray" required="true" [searchable]="false"
+                                id="baths" placeholder="Baths" name="rooms.2"></flk-dropdown-list>
+                        </div>
 
-            <button type="button" class="adv-action-btn prev" (click)="this.step = 'step-1'; this.watchStep()">
-                Previous </button>
-            <button (click)="this.send($el)" type="submit" class="adv-action-btn finish"> Finish </button>
-        </div>
-    </form>
-</section>
+                        <div class="form-group col-sm-6">
+                            <flk-dropdown-list [items]="this.numbersArray" required="true" [searchable]="false"
+                                id="beds" placeholder="Beds" name="rooms.1"></flk-dropdown-list>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <flk-dropdown-list [items]="this.propertyTypes" required="true" [searchable]="false"
+                                id="type" placeholder="Property Type" name="property_type_id"></flk-dropdown-list>
+                        </div>
+                        <div class="form-group input-group col-sm-6">
+                            <form-input type="text" placeholder="Property Area" name="area" id="area"
+                                class="form-control" required="true"></form-input>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">Meter</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <flk-dropdown-list [items]="this.saleTypes" [searchable]="false" id="sale_type"
+                                placeholder="Sale Type" required="true" name="sale_type"></flk-dropdown-list>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group image-input col-sm-12 d-flex flex-wrap">
+                            <span *for="let image, index of this.imageInputs">
+                                <flk-image-input [src]="image" [required]="true"
+                                    (change)="this.imageInputs[index] = e.src" name="images[]" *as="imageInput">
+                                </flk-image-input>
+
+                                <button *if="index > 0" [disabled]="this.isLoading" type="button"
+                                    (click)="this.imageInputs.splice(index, 1); this.detectChanges()"
+                                    class="btn btn-sm btn-danger btn-circle">
+                                    <fa icon="trash"></fa>
+                                </button>
+                            </span>
+
+                            <button class="btn-icon" [disabled]="this.isLoading" type="button"
+                                (click)="this.imageInputs.push('')" title="Add more image"> <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-right w-100">
+                        <button type="button" [disabled]="this.isLoading" class="adv-action-btn prev"
+                            (click)="this.step = 1;">
+                            Previous </button>
+                        <button [disabled]="this.isLoading" class="m-l-3 adv-action-btn finish"> Finish </button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </else>
+</flk-modal>

@@ -4,6 +4,13 @@
         font-size: 3rem;
         font-weight: bold;
         margin-bottom: 6rem;
+
+        @include responsive((
+            1024: (
+                padding-top: 2rem,
+                margin-bottom: 1rem,
+            )
+        ), max);
     }
 
     .property-item {
@@ -22,4 +29,10 @@
             background-color: $mainColor;
         }
     }
+
+    @include responsive((
+        1024: (
+            padding: 4rem,
+        )
+    ));
 }

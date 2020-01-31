@@ -1,19 +1,22 @@
-<form (submit)="this.send($el)">
-    <div class="form-group">
-        <form-input type="text" required class="form-control" placeholder="Your name"></form-input>
-    </div>
-    <div class="form-group">
-        <form-input type="email" required class="form-control" placeholder="Your email address"></form-input>
-    </div>
-    <div class="form-group">
-        <form-input type="number" required class="form-control" placeholder="Your phone number"></form-input>
-    </div>
-    <div class="form-group">
-        <form-input type="text" required class="form-control" placeholder="Subject"></form-input>
-    </div>
-    <div class="form-group">
-        <form-input type="textarea" required class="form-control" placeholder="Your message" rows="4"></form-input>
-    </div>
-    <form-input type="button" class="modal-btn btn-action mr-auto">Send</form-input>
-    </form-input>
-</form>
+<flk-modal *as="modal" size="small" (close)="this.event('close')()" heading="Contact Us">
+    <form (submit)="this.send($el)">
+        <div class="form-group">
+            <form-input type="text" name="name" required class="form-control" placeholder="Your name"></form-input>
+        </div>
+        <div class="form-group">
+            <form-input type="email" name="email" required class="form-control" placeholder="Your email address"></form-input>
+        </div>
+        <div class="form-group">
+            <form-input type="number" name="phone" required class="form-control" placeholder="Your phone number"></form-input>
+        </div>
+        <div class="form-group">
+            <form-input type="text" name="subject" required class="form-control" placeholder="Subject"></form-input>
+        </div>
+        <div class="form-group">
+            <form-input type="textarea" name="message" required class="form-control" placeholder="Your message" rows="4"></form-input>
+        </div>
+
+        <button [disabled]="this.isLoading" class="modal-btn btn-action active mr-auto">Send</button>
+
+    </form>
+</flk-modal>
