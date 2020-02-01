@@ -1,4 +1,33 @@
+.contact-section {
+    h3 {
+        color: $mainColor;
+        font-weight: bolder;
+        font-size: 2.3rem;
+        text-decoration: underline;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        padding-left: 1rem;
+    }
 
-.btn-action {
-    background-color: transparent;
-}
+    p {
+        padding-left: 2rem;
+        color: grey;
+
+        span {
+        margin-right: 1.5rem;
+        color: $mainColor;
+        }
+    }
+
+    .contact-btn {
+        padding: 0.5rem 1.5rem;
+
+        &:hover {
+        background-color: $mainColor;
+        color: #fff;
+        }
+    }
+    .btn-action {
+        background-color: transparent;
+    }
+    }

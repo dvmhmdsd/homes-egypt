@@ -15,9 +15,10 @@ class Searchform {
     this.propertiesService = propertiesService;
 
     // show the corresponding form
-    this.searchForm = {
-      currency: this.cache.get('currency'),
-      sale_type: "rent", // "rent" / "sale" / "commercial" / new-homes
+    this.defaultSearch = {
+      currency: '',
+      compound: null,
+      sale_type: "", // "rent" / "sale" / "commercial" / new-homes
       regions: [],
       compounds: [],
       currencies: [],
@@ -29,9 +30,9 @@ class Searchform {
         { label: "commercial", value: "commercial" },
         { label: "new homes", value: "new-homes" }
       ],
-      featuredRegions: []
     };
 
+    this.featuredRegions = [];
     // properties will be passed to the home page
   }
 
@@ -39,7 +40,18 @@ class Searchform {
    * Initialize the component
    * This method is triggered before rendering the component
    */
-  init() {
+  async init() {
+    this.areaSizes = [];
+
+    for (let size = 50; size <= 4000; size += 50) {
+      this.areaSizes.push({
+        text: size.format() + ' meter',
+        value: size,
+      });
+    }
+
+    this.regionsPlaceholder = 'Select Region';
+    this.searchForm = Object.clone(this.defaultSearch);
     this.regionsList = [];
     this.currencies = [];
     this.propertyTypes = [];
@@ -50,18 +62,17 @@ class Searchform {
       };
     });
 
-    this.searchForm = Object.merge(this.searchForm, this.router.queryString.all());
-
-    if (!this.searchForm.sale_type) {
-      this.searchForm.sale_type = 'rent';
-    }
-
     this.settingsService.cached('list').then(response => {
       this.setupSettings(response);
     });
   }
 
   setupSettings(response) {
+    this.settings = response;
+    this.setPropertyTypes();
+
+    this.searchForm = Object.merge(this.searchForm, this.router.queryString.all());
+
     // get regions
     this.originalRegions = response.regions;
     this.regionsList = response.regions.map(region => {
@@ -71,7 +82,7 @@ class Searchform {
       };
     });
 
-    this.searchForm.featuredRegions = response.regions.filter(region => {
+    this.featuredRegions = response.regions.filter(region => {
       return response.featuredRegions.includes(region.id);
     });
 
@@ -80,23 +91,29 @@ class Searchform {
     }
 
     // add featuredRegions to cache to use in other places
-    this.cache.set("featuredRegions", this.searchForm.featuredRegions);
-
-    // get properties types
-    this.propertyTypes = response.propertyTypes.map(type => {
-      return {
-        text: type.name,
-        value: type.id,
-      };
-    });
+    this.cache.set("featuredRegions", this.featuredRegions);
 
     // get compounds
     this.compounds = response.compounds.map(compound => {
       return {
-        text: compound.id,
-        value: compound.name,
+        text: compound.name,
+        value: compound.id,
       };
     });
+
+    this.smallerCompound = false;
+    this.smallerType = false;
+    let currentCompound = response.compounds.find(compound => compound.id == Number(this.searchForm.compound));
+
+    if (currentCompound) {
+      this.smallerCompound = currentCompound.name.includes(' ');
+    }
+
+    let currentType = response.propertyTypes.find(type => type.id == Number(this.searchForm.type));
+
+    if (currentType) {
+      this.smallerType = currentType.name.includes(' ');
+    } 
 
     this.currencies = response.currencies.map(currency => {
       return {
@@ -107,10 +124,44 @@ class Searchform {
   }
 
   /**
+   * Update sale type
+   */
+  updateSaleType(saleType) {
+    if (this.searchForm.sale_type != 'commercial' && saleType == 'commercial') {
+      this.searchForm.type = '';
+    } else if (this.searchForm.sale_type == 'commercial' && saleType != 'commercial') {
+      this.searchForm.type = '';
+    }
+
+    this.searchForm.sale_type = saleType;
+
+    this.setPropertyTypes();
+  }
+
+  setPropertyTypes() {
+    this.searchForm.type = null;
+    // if sale type is commercial, then it will be only retail or office
+    // other types will be the rest of the types
+    // get properties types
+    this.propertyTypes = this.settings.propertyTypes.filter(type => {
+      return this.searchForm.sale_type == 'commercial' ?
+        ['7', '8'].includes(type.id) :
+        !['7', '8'].includes(type.id);
+    }).map(type => {
+      return {
+        text: type.name,
+        value: type.id,
+      };
+    });
+  }
+
+  /**
    * Reset Search form data
    */
   resetSearch() {
-    this.router.navigateTo('/');
+    this.searchForm = Object.clone(this.defaultSearch);
+    this.smallerCompound = false;
+    this.smallerType = false;
   }
 
   /**
@@ -119,6 +170,14 @@ class Searchform {
    * @param {Object} region
    */
   chooseRegion(region) {
+    this.searchForm.region = null;
+
+    if (!region) return;
+
+    this.regionsPlaceholder = 'Select More Regions';
+
+    this.searchForm.region = Random.id();
+
     if (Is.numeric(region)) {
       region = this.originalRegions.find(regionItem => String(regionItem.id) == String(region));
     }
@@ -136,6 +195,11 @@ class Searchform {
   removeChosenRegion(index) {
     // remove from the list
     this.searchForm.chosenRegions.splice(index, 1);
+
+    if (this.searchForm.chosenRegions.length == 0) {
+      this.regionsPlaceholder = 'Select Region';
+      this.searchForm.region = null;
+    }
 
     this.detectChanges();
   }
@@ -155,6 +219,8 @@ class Searchform {
       value: this.searchForm.sale_type,
     });
 
-    return this.router.navigateTo(`/?${$.param(queryString)}`);
+    setTimeout(() => {
+      this.router.navigateTo(`/?${$.param(queryString)}`);
+    }, 100);
   }
 }

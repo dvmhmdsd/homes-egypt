@@ -1,64 +1,70 @@
 <footer>
-  <section class="main-footer d-flex justify-content-around p-6 flex-wrap">
-    <article class="main-footer-column mb-1 col-lg-4 col-sm-12">
-      <h2 class="footer-column-heading text-left">Quick Links</h2>
+    <section class="main-footer p-y-2">
+      <div class="container-fluid">
+        <div class="row">
+          <section class="main-footer-column mb-1 col-md-3 col-12">
+            <facebook-page-preview [link]="this.facebookUrl"></facebook-page-preview>
+          </section>
+          <section class="main-footer-column mb-1 col-md-3 col-12">
+            <h2 class="footer-column-heading text-left">Quick Links</h2>
+    
+            <ul class="column-links list-unstyled text-left">
+              <li class="column-link-item">
+                <a href="/">
+                  Home
+                </a>
+              </li>
+              <li class="column-link-item">
+                <a href="/?sale_type=rent">
+                  Renting
+                </a>
+              </li>
+              <li class="column-link-item">
+                <a href="/?sale_type=commercial">
+                  Commercial
+                </a>
+              </li>
+              <li class="column-link-item">
+                <a href="/?sale_type=sale">
+                  Buying
+                </a>
+              </li>
+            </ul>
+          </section>
+    
+          <section class="main-footer-column col-md-3 col-sm-12 mb-3">
+            <h2 class="footer-column-heading text-left">Popular Locations</h2>
+    
+            <ul class="column-links list-unstyled text-left">
+              <li *for="let region of this.featuredRegions" class="column-link-item">
+                <a href="/?regions[]={{region.id}}">
+                  Properties for rent in {{region.name}}
+                </a>
+              </li>
+            </ul>
+          </section>
+    
+          <section class="main-footer-column col-md-3 col-sm-12 social-contact text-left">
+            <h2 class="footer-column-heading m-b-1">Contact Us</h2>
 
-      <ul class="column-links list-unstyled text-left">
-        <li class="column-link-item">
-          <a href="/">
-            Home
-          </a>
-        </li>
-        <li class="column-link-item">
-          <a href="/?sale_type=rent">
-            Renting
-          </a>
-        </li>
-        <li class="column-link-item">
-          <a href="/?sale_type=commercial">
-            Commercial
-          </a>
-        </li>
-        <li class="column-link-item">
-          <a href="/?sale_type=sale">
-            Buying
-          </a>
-        </li>
-      </ul>
-    </article>
+            <p class="site-phone">
+              <a href="tel:{{this.info.phone}}"><i class="fas fa-phone-alt"></i> {{this.info.phone}}</a>
+            </p>
+            <p class="site-mail">
+              <a href="mailto:{{this.info.email}}">
+                <i class="fas fa-envelope"></i> {{this.info.email}}</a>
+            </p>
+            <p class="site-facebook">
+              <a href="{{this.info.facebook}}"><i class="fab fa-facebook"></i> Homes Egypt</a>
+            </p>
+          </section>
+        </div>
+    
+    </div>
+  
+    </section>
 
-    <article class="main-footer-column col-lg-4 col-sm-12 mb-3">
-      <h2 class="footer-column-heading text-left">Popular Locations</h2>
-
-      <ul class="column-links list-unstyled text-left">
-        <li *for="let region of this.featuredRegions" class="column-link-item">
-          <a href="/?regions[]={{region.id}}">
-            Properties for rent in {{region.name}}
-          </a>
-        </li>
-      </ul>
-    </article>
-
-    <article class="main-footer-column col-lg-4 col-sm-12 social-contact text-left">
-      <p class="site-phone">
-        <a href="tel:{{this.info.phone}}"
-          ><i class="fas fa-phone-alt"></i> {{this.info.phone}}</a
-        >
-      </p>
-      <p class="site-mail">
-        <a href="mailto:{{this.info.email}}">
-          <i class="fas fa-envelope"></i> {{this.info.email}}</a
-        >
-      </p>
-      <p class="site-facebook">
-        <a href="{{this.info.facebook}}"
-          ><i class="fab fa-facebook"></i> Homes Egypt</a
-        >
-      </p>
-    </article>
-  </section>
-
-  <section class="copy d-flex justify-content-center align-items-center p-1">
-      <p class="mb-0"> &copy; 2020 <a href="/"> CI </a> - All rights reserved </p>
-  </section>
+    <section class="copy d-flex justify-content-center align-items-center p-1">
+      <p class="mb-0"> &copy; 2020 <a href="https://crafted-internet.com" target="_blank"> Crafted Internet </a> - All rights reserved </p>
+    </section>
 </footer>

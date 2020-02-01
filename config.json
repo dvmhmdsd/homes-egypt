@@ -1,7 +1,7 @@
 {
     "env": "development",
     "production": {
-        "baseUrl": "https://sitename.com",
+        "baseUrl": "https://homes-egypt.com/new",
         "https": true,
         "prerender": {
             "enabled": true,
@@ -26,8 +26,7 @@
                 }
             },
             "locales": [
-                "en",
-                "ar"
+                "en"
             ]
         },
         "homes": {
@@ -36,12 +35,10 @@
             "meta": {
                 "image": true,
                 "title": {
-                    "en": "Homes",
-                    "ar": "مدونتي"
+                    "en": "Homes Egypt"
                 },
                 "description": {
-                    "en": "Default description",
-                    "ar": "وصف الصفحة"
+                    "en": "Real Estate Property Finder"
                 },
                 "keywords": {
                     "en": "some,keywords,here",
@@ -55,8 +52,7 @@
                 "siteName": true
             },
             "locales": [
-                "en",
-                "ar"
+                "en"
             ]
         }
     },

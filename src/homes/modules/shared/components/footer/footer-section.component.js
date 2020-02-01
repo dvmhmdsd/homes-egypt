@@ -16,7 +16,11 @@ class Footer {
      * {@inheritdoc}
      */
     init() {
+        this.facebookUrl = 'https://m.facebook.com/Homes.egypt/';
         this.settingsService.cached('list').then(response => {
+            if (response.settings['social.facebook']) {
+                this.facebookUrl = response.settings['social.facebook'];
+            }
             this.info = {
                 email: response.settings['site.email'],
                 phone: response.settings['site.phone'],

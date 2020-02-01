@@ -3,7 +3,7 @@ class SettingsService extends Endpoint.Service {
     super();
     this.router = router;
   }
-  
+
   /**
    * {@inheritDoc}
    */
@@ -14,11 +14,32 @@ class SettingsService extends Endpoint.Service {
     };
   }
 
-  currentCurrency() {
-    return this.cache.get('currency') || this.router.queryString.get('currency') || 'USD';
+  async currentCurrency() {
+    if (this.cache.has('currency')) {
+      return this.cache.get('currency');
+    }
+
+    let currencyCode = this.router.queryString.get('currency');
+
+    if (! currencyCode) {
+      currencyCode = 'EGP';
+    }
+
+    let { currencies } = await this.cached('list');
+
+    return currencies.find(currencyElement => currencyElement.code == currencyCode);
+  }
+
+  getCurrencyByCode(currencyCode) {
+    return window.settings.currencies.find(currencyObject => currencyObject.code == currencyCode);
   }
 
   updateCurrency(currency) {
+    if (Is.string(currency)) {
+      currency = this.getCurrencyByCode(currency);
+    }
+    
+    window.currentCurrency = currency;
     this.cache.set('currency', currency);
   }
 

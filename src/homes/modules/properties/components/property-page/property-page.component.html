@@ -2,81 +2,90 @@
     <loading *if="this.loading"></loading>
     <section *if="this.property" class="single-property">
         <div class="containers">
-            <section class="single-property-preface flex-wrap d-flex p-4">
-                <section class="single-property-preface-left col-lg-8 col-sm-12">
-                    <section class="preface-info d-flex justify-content-between">
-                        <h1 class="property-name" [html]="this.property.name"></h1>
-                        <p class="property-id">#ID: {{ this.property.id ? this.property.id : "" }}</p>
+            <section class="single-property-preface flex-wrap d-flex p-y-2">
+                <section class="single-property-preface-left col-md-7">
+                    <section class="preface-info">
+                        <h1 class="d-block d-sm-inline-block property-name" [html]="this.property.name"></h1>
+                        <p class="d-block d-sm-inline-block property-id">#ID: {{ this.property.old_id ? this.property.old_id : "" }}</p>
                     </section>
 
+                    <section *if="! Is.empty(this.property)" class="property-actions d-md-none d-flex text-center btn-group">
+                        <a 
+                            href="{{('whatsapp://send?phone=2' + this.callNumber + '&text=I would like to get more information about this property you posted in homes-egypt.com, https://homes-egypt/property/' + this.property.old_id + ' \n property id: ' + this.property.old_id + ' \n Propterty Type: ' + this.property.type + ' \n Price ' + currencyConverter(this.property.prices[0].price, this.property.prices[0].currency).format()) + ' ' + window.currentCurrency.code}}"
+                            class="bg-success w-100 text-white rounded-left"> <i class="fab fa-whatsapp"></i> Whatsapp </articl>
+                        <a  
+                            href="tel:{{this.callNumber}}"
+                            class="bg-primary w-100 text-white rounded-right"> <i class="fa fa-phone-alt"></i> Call</a>        
+                    </section>
+
+                    <div class="d-block d-sm-none">
+                        <social-media-sharing 
+                        *if="! Is.empty(this.property.id)" 
+                        [slug]="'/property/' + this.property.old_id"
+                        [title]="this.property.name"
+                    ></social-media-sharing>                        
+                    </div>
+
                     <section *if="! Is.empty(this.property.images)" class="property-img">
-                        <flk-slider height="36rem" [slides]="this.property.images"
+                        <flk-slider [slides]="this.property.images"
                             alt="{{this.property.name}}'s previews" title="{{this.property.name}}">
                         </flk-slider>
                     </section>
                 </section>
 
-                <section class="single-property-preface-right col-lg-4 col-sm-12">
+                <section class="single-property-preface-right col my-3 my-sm-0 d-md-block">
                     <section class="contact-section">
-                        <property-request-form [property]="this.property"></property-request-form>
+                        <property-request-form *if="! Is.empty(this.property)" [property]="this.property"></property-request-form>
                     </section>
                 </section>
             </section>
 
             <section class="single-property-middle d-flex flex-wrap">
-
-                <div class="single-property-middle-left d-flex flex-wrap col-lg-8 col-sm-12 p-3">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <for loop="let price of this.property.prices">
-                                    <td>{{price.type}} Price</td>
-                                    <th>
-                                        {{this.ifCurrencyInDollar ? Number(price.priceInDollar).toLocaleString() : Number(price.price).toLocaleString()}}
-                                        {{this.cache.get("currency")}}
-                                    </th>
-                                </for>
-                                <td>ID</td>
-                                <th [html]="this.property.id"></th>
-                            </tr>
-                            <tr>
-                                <td>Type</td>
-                                <th [html]="this.property.type"></th>
-                                <td>City</td>
-                                <th [html]="this.property.city"></th>
-                            </tr>
-                            <tr>
-                                <for loop="let room of this.property.rooms">
-                                    <td [html]="room.name"></td>
-                                    <th [html]="room.value"></th>
-                                </for>
-                            </tr>
-                            <tr>
-                                <td>Address</td>
-                                <th colspan="3">
-                                    {{this.property.region}} - {{this.property.city}}                                
-                                </th>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="single-property-middle-left d-flex flex-wrap col-md-8 col-sm-12 p-3">
+                    <div class="row property-attributes">
+                        <for loop="let price of this.property.prices">
+                            <div class="col-6 col-sm-3 colored">
+                                {{price.type}} Price
+                            </div>
+                            <div class="col-6 col-sm-3">
+                                {{ currencyConverter(price.price, price.currency).format() }}
+                                {{ window.currentCurrency.code }}
+                            </div>
+                        </for>
+                        <div class="col-6 col-sm-3 colored">ID</div>
+                        <div class="col-6 col-sm-3" [html]="this.property.old_id"></div>
+                        <div class="col-6 col-sm-3 colored">Type</div>
+                        <div class="col-6 col-sm-3" [html]="this.property.type"></div>
+                        <div class="col-6 col-sm-3 colored">City</div>
+                        <div class="col-6 col-sm-3" [html]="this.property.city"></div>
+                        <for loop="let room of this.property.rooms">                        
+                            <div class="col-6 col-sm-3 colored" [html]="room.name"></div>
+                            <div class="col-6 col-sm-3" [html]="room.value"></div>
+                        </for>
+                        <div class="col-6 col-sm-3 colored">Area</div>
+                        <div class="col-6 col-sm-3" [html]="this.property.area || 'N/a'"></div>
+                        <div class="col-6 col-sm-3 colored">Address</div>
+                        <div class="col-6 col-sm-3" [html]="this.property.region + ' - ' + this.property.city"></div>
+                    </div>
                     <section class="property-desc">
-                        <h3 (click)="this.showDesc = !this.showDesc">
+                        <h3 (click)="this.showDesc = !this.showDesc" class="m-t-1">
                             About the property
                         </h3>
-                        <p></p>
-                        <article>
+                        <article >
                             {{ this.property.description }}
-                        </article>
+                        </article >
                     </section>
+    
                 </div>
 
-                <div class="single-property-middle-right col-lg-4 col-sm-12">
+                <div *if="this.property.address" class="property-map col-md-4 col-sm-12">
                     <!-- <div id="map"></div> -->
+                    <google-map [lat]="this.location.lat" [lng]="this.location.lng" zoom="17"></google-map>
                 </div>
             </section>
 
-            <section *if="! Is.empty(this.property.similar_properties)" class="single-property-footer text-center p-6">
-                <h2 class="bold text-transform-uppercase"> Similar Properties </h2>
+            <section *if="! Is.empty(this.property.similar_properties)" class="single-property-footer text-center">
+                <h2 class="bold text-transform-uppercase p-t-2"> Similar Properties </h2>
                 <div class="properties-container d-flex justify-content-center align-items-center flex-wrap">
                     <article *for="let smProperty of this.property.similar_properties.slice(0, 3)"
                         class="property-item col-lg-4 col-md-6 col-sm-12 mb-3">
@@ -90,13 +99,5 @@
 
     <section *if="!this.property" class="d-flex justify-content-center align-items-center">
         <p class="not-found">Not Found Property !</p>
-    </section>
-
-    <section *if="this.property" class="property-actions d-md-none d-flex text-center btn-group">
-        <a *if="this.property.whatsapp_mobile"
-            href="{{('whatsapp://send?phone=+' + this.property.whatsapp_mobile + '&text=I would like to get more information about this property you posted in homes-egypt.com, https://homes-egypt/properties/' + this.property.old_id+ '/' + this.property.name.split(' ').join('-'))}}"
-            class="bg-success w-100 text-white rounded-left"> <i class="fab fa-whatsapp"></i> Whatsapp </articl>
-        <a *if="this.property.whatsapp_mobile" href="tel:{{this.property.whatsapp_mobile}}"
-            class="bg-primary w-100 text-white rounded-right"> <i class="fa fa-phone-alt"></i> Call</a>
     </section>
 </layout>

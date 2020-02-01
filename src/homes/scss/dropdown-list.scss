@@ -8,18 +8,36 @@
         padding: 1.5rem 1rem 1.88rem !important;
         background: transparent !important;
         border: none;
-        border-bottom: 2px solid $mainColor;
+        border-bottom: none !important;
         cursor: text !important;
+        position: relative;
+
+        &:after {
+            position: absolute;
+            content: '';
+            height: 2px;
+            background: $mainColor;
+            width: 100%;
+            left: 0;
+            top: 115%;
+        }
 
         span {
             color: $mainColor;
         }
-        i {
+
+        .icon {
             color: $mainColor;   
         }
     }
 
-    i {
+    .main-icon {
+        margin-#{$right}: 0.5rem;
+        border-right: 1px solid #ccc;
+        padding-right: 0.5rem;
+    }
+
+    .arrow {
         position: absolute;
         right: 2px;
         bottom: 0.5rem;

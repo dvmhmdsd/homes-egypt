@@ -1,11 +1,12 @@
-.info-button {
-    padding: 0.5rem 1rem;
+#advertise-property-modal {
+  .info-button {
+    padding: 1rem;
     width: 100%;
     display: inline-block;
     background-color: grey;
     color: #fff;
     margin: 1rem;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     text-transform: uppercase;
     text-align: left;
@@ -23,68 +24,121 @@
     }
   }
 
+  .done-btn {
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0.5rem 2rem;
+  }
+
   .property-form {
     border: 1px solid #eee;
     padding: 1.5rem;
+    
+    @include responsive((
+        1024: (
+            padding-left: 0,
+            padding-right: 0,
+        )
+    ), max);
+
+    .dropdown-list {
+      label {
+        font-size: 1.2rem;
+      }
+
+      .heading {
+        box-shadow: none;
+      }
+    }
+
     form {
-      display: flex;
+      position: relative;
       overflow: hidden;
     }
+
     .form-group {
       margin-bottom: 0;
     }
-    label {
-      color: $mainColor;
-      width: 100%;
-      input {
-        margin-top: 1rem;
-      display: inline-block;
+
+    .form-control {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
     }
-  }
-  .image-input {
-    button.btn-icon {
-      i {
-        color: #fff;
-        background-color: grey;
-        padding: 10px;
-        border-radius: 50%;
+
+    .image-input {
+      button.btn-icon {
+        i {
+          color: #fff;
+          background-color: grey;
+          padding: 10px;
+          border-radius: 50%;
+        }
       }
     }
-  }
 
-  .input-group-text {
-    background-color: $mainColor;
-    color: #fff;
-  }
-            .border-bottom {
-              border: none;
-              border-bottom: 2px solid $mainColor !important;
-            }
+    .input-group-text {
+      background-color: $mainColor;
+      color: #fff;
+    }
+
+    .border-bottom {
+      border: none;
+      border-bottom: 2px solid $mainColor !important;
+    }
 
     .adv-action-btn {
       color: #fff;
-      padding: 4px 14px;
+      padding: 5px 17px;
       border-radius: 4px;
-      font-size: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
 
       &.next {
         background-color: dodgerblue;
       }
 
       &.prev {
-        background-color: firebrick;
+        background-color: #ff5959;
       }
 
       &.finish {
-        background-color: forestgreen;
+        background-color: #12d66a;
       }
     }
   }
 
+  .form-group > 
+  label {
+    font-size: 1.2rem;
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+    color: $mainColor;
+    font-weight: bold;
+  }
+
   .step-1,
   .step-2 {
+    transition: all 0.5s ease-in-out;
+
+    .row {
+      width: 100%;
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  .error-msg {    
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .input-group {
     position: relative;
-    transition: all 0.2s;
+
+    .error-msg {
+      position: absolute;
+      bottom: -2rem;
+    }
   }
 
   .step-1.active-step {
@@ -92,14 +146,16 @@
   }
 
   .step-2.active-step {
-    left: -728px;
-
+    left: 0;
   }
 
   .step-one-inactive {
-    left: -748px;
+    left: -100%;
+    position: absolute; 
   }
 
   .step-two-inactive {
     left: 778px;
+    position: absolute; 
   }
+}

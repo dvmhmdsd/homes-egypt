@@ -11,7 +11,10 @@
   // once the application is ready, execute the given callback to
   // the event before the router scanner starts.
   events.on("app.ready", async app => {
-    let settingsService = DI.resolve("SettingsService");
+    let router = DI.resolve('router'),
+    settingsService = DI.resolve("SettingsService");
+
+    let currency = router.queryString.get('currency');
 
     // app.hold(
     //   `
@@ -21,13 +24,21 @@
     //   `
     // );
 
-    await settingsService.live.cached('list');
-    await settingsService.live.cached('cities');
+    window.settings =  await settingsService.live.cached('list');
 
     // app.resume();
 
-    // add currency to cache on load the app
-    if (!cache.get("currency")) cache.set("currency", "EGP");
+    if (currency) {
+      settingsService.updateCurrency(currency);
+    }
+
+    settingsService.currentCurrency().then(currency => {
+      window.currentCurrency = currency;
+    });
+
+    settingsService.live.cached('cities');
+
+    app.resume();
   });
 })();
 
@@ -50,3 +61,23 @@
 //   // The marker
 //   var marker = new google.maps.Marker({position, map: map});
 // }
+
+
+function currencyConverter(value, currencyCode = null) {  
+  let { currencies } = window.settings;
+
+  if (!currencyCode) {
+    let currentCurrency = window.currentCurrency;
+    currencyCode = currentCurrency.code;
+  }
+
+  let convertedCurrency = currencies.find(currency => currency.code == currencyCode);
+  // current currency
+
+  value = Number(value);
+
+  // conversion equation: price * current currency value / given currency value
+  return Math.floor(
+    value * Number(window.currentCurrency.value) / Number(convertedCurrency.value),
+  );
+}

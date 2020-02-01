@@ -4,30 +4,38 @@
     <!-- left side list -->
     <ul class="mr-auto list-unstyled d-flex">
       <li class="info-item">
-        <a href="tel:{{this.info.phone}}"><i class="fas fa-phone-alt"></i> {{this.info.phone}}</a>
+        <a href="tel:{{this.info.phone}}">
+          <fa icon="phone-alt"></fa>
+          <span [html]="this.info.phone"></span>
+        </a>
       </li>
 
       <li class="info-item">
         <a href="mailto:{{this.info.email}}">
-          <i class="fas fa-envelope"></i> {{this.info.email}}</a>
+          <fa icon="envelope"></fa>
+          <span [html]="this.info.email"></span>
+        </a>
       </li>
     </ul>
     <!-- left side list -->
 
     <!-- right side list -->
-    <ul class="ml-auto list-unstyled">
-      <li class="dropdown info-item">
+    <ul class="ml-auto list-unstyled currency-item">
+      <li *if="window.currentCurrency" class="dropdown info-item">
         <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          Currency ({{ this.currentCurrency }})
+          <fa icon="money-bill-wave mr-2"></fa>
+          Currency ({{ window.currentCurrency.code }})
         </button>
         <!-- drop list -->
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <li class="dropdown-item" *for="let currency of this.currencies">
-            <button (click)="this.setCurrency(currency.code)">
-              {{ currency.code }}
-            </button>
-          </li>
+          <for loop="let currency of this.currencies">
+            <li *if="window.currentCurrency.code != currency.code" class="dropdown-item">
+              <button (click)="this.setCurrency(currency)">
+                {{ currency.code }}
+              </button>
+            </li>
+          </for>
         </ul>
         <!-- drop list -->
       </li>
@@ -56,65 +64,29 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" [class]="{active: this.currentRoute == '/' && ! ['rent', 'sale'].includes(this.queryStringSaleType)}" href="/">Home</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/?sale_type=sale">sale</a>
+          <a class="nav-link"[class]="{active: this.queryStringSaleType == 'sale'}" href="/?sale_type=sale">Sale</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/?sale_type=rent">rent</a>
+          <a class="nav-link" [class]="{active: this.queryStringSaleType == 'rent'}" href="/?sale_type=rent">Rent</a>
         </li>
 
         <li class="nav-item">
-          <a data-toggle="modal" data-target="#contactModal" class="nav-link">
-            contact
-          </a>
+          <button class="nav-link" (click)="this.contactFormIsOpened = true">
+            Contact Us
+          </button>
         </li>
       </ul>
 
       <!-- advertisement application -->
-      <button class="header-adv btn-action ml-auto" data-target="#advertiseModal" data-toggle="modal">advertise
-        property</button>
+      <button class="header-adv btn-action ml-auto" (click)="this.advertisePropertyFormIsOpened = true">Advertise property</button>
     </div>
   </div>
 </nav>
 
-<!-- modals (popups) -->
-<!-- contact form dialog -->
-<div class="contact modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="contactModalLabel">Contact us</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <i class="fa fa-times"></i>
-        </button>
-      </div>
-      <div class="modal-body">
-        <contact-form></contact-form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- advertise form dialog -->
-<div class="advertise modal fade" id="advertiseModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="advertiseModalLabel">Advertise your property</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <i class="fa fa-times"></i>
-        </button>
-      </div>
-      <div class="modal-body">
-        <advertise-property [types]="this.types"></advertise-property>
-      </div>
-    </div>
-  </div>
-</div>
+<contact-form *if="this.contactFormIsOpened" (close)="this.contactFormIsOpened = false"></contact-form>
+<advertise-property *if="this.advertisePropertyFormIsOpened" (close)="this.advertisePropertyFormIsOpened = false" [types]="this.types"></advertise-property>

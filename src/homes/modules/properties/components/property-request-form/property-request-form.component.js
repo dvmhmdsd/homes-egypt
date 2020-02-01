@@ -3,10 +3,10 @@ class PropertyRequestForm {
      * Constructor
      * Put your required dependencies in the constructor parameters list  
      */
-    constructor(settingsService, formSubmitService) {
+    constructor(settingsService, propertiesService) {
         this.settings = settingsService;
 
-        this.formSubmit = formSubmitService;
+        this.propertiesService = propertiesService;
     }
 
     /**
@@ -14,8 +14,13 @@ class PropertyRequestForm {
      * This method is triggered before rendering the component
      */
     init() {
+        this.isLoading = false;
+
+        this.isSent = false;
+
         this.info = {};
         this.property = this.prop('property');
+
         this.settings.info(info => {
             this.info = info;
         });
@@ -26,17 +31,13 @@ class PropertyRequestForm {
      * 
      * @param {DOMElement} $el
      */
-    send($el) {
-        let formData = $($el).serializeArray();
-        let data = {};
-        // convert form data to object
-        formData.forEach(item => {
-            data[item.name] = item.value
-        });
+    async send(form) {
+        this.isLoading = true;
+        await this.propertiesService.request(form);
 
-        this.formSubmit.sendData("/property", data).then(res => {
-            echo(res)
-        })
+        this.isLoading = false;
+        
+        this.isSent = true;
     }
 
     /**

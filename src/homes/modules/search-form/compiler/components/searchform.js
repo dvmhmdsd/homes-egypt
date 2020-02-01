@@ -8,7 +8,7 @@ module.exports = {
     contentToString: false,
     parseContent: true,
     handler: SearchformComponent,
-    isUnique: false,
+    isUnique: true,
     component: 'Searchform',
     htmlFile: __dirname + '/../../searchform.component.html',
 };

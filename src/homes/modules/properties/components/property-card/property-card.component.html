@@ -10,13 +10,8 @@
                 {{ this.property.region }}
             </p>
 
-            <p class="property-type absolute-position">
+            <p class="property-type absolute-position text-uppercase">
                 {{ this.property.saleType }}
-            </p>
-
-            <p class="property-price absolute-position">
-                {{ this.cache.get("currency") == "USD" ? Number(this.property.priceInDollar).toLocaleString() : Number(this.property.price).toLocaleString()}}
-                {{this.cache.get("currency")}}
             </p>
 
             <p class="property-img-numbers absolute-position" title="Number of images">
@@ -26,28 +21,44 @@
         </section>
     </header>
 
-    <main class="property-body">
-        <a href="/properties/{{ this.property.old_id }}/{{seo(this.property.name)}}">
+    <section class="property-body">
+        <a class="d-block" href="/property/{{ this.property.old_id }}/{{seo(this.property.name)}}">
             <h3 class="property-name">{{ this.property.name }}</h3>
         </a>
 
-        <div class="property-numbers d-flex justify-content-between">
-            <div class="property-rooms">
-                <span class="property-beds" title="Bed rooms">
-                    <i class="fa fa-bed"></i> {{ this.property.bed_rooms }}
-                </span>
-                <span class="property-bath" title="Bath rooms">
-                    <i class="fa fa-bath"></i> {{ this.property.bath_rooms }}
-                </span>
+        <div class="property-numbers d-sm-flex justify-content-between">
+            <div class="detail" tooltip title="Bed rooms">
+                <fa icon="bed"></fa>
+                <strong [html]="this.property.bed_rooms"></strong>
             </div>
-
-            <p class="property-id">#{{ this.property.id }}</p>
+            <div class="detail" tooltip title="Bath rooms">
+                <fa icon="bath"></fa>
+                <strong [html]="this.property.bath_rooms"></strong>
+            </div>
+            <div *if="! Is.empty(this.property.area)" class="detail" tooltip title="Property Area">
+                <fa icon="warehouse"></fa>
+                <strong [html]="Number(this.property.area)"></strong>
+            </div>
+            <div class="detail" tooltip title="Property Id">
+                <fa icon="hashtag"></fa>
+                <strong [html]="this.property.old_id"></strong>
+            </div> 
         </div>
-    </main>
+        <p class="property-price">
+            {{ currencyConverter(this.property.price, this.property.currency).format() }}        
+            {{ window.currentCurrency.code }}    
+        </p>
+
+    </section>
     <footer class="property-footer d-md-none d-flex text-center btn-group">
-        <a href="{{this.property.whatsapp_mobile ? ('whatsapp://send?phone=+' + this.property.whatsapp_mobile + '&text=I would like to get more information about this property you posted in homes-egypt.com, https://homes-egypt/properties/' + this.property.old_id+ '/' + this.property.name.split(' ').join('-')) : ''}}"
-            class="bg-success w-100 text-white rounded-left"> <i class="fab fa-whatsapp"></i> Whatsapp </a>
-        <a href="tel:{{this.property.whatsapp_mobile}}" class="bg-primary w-100 text-white rounded-right"> <i
-                class="fa fa-phone-alt"></i> Call</a>
+        <a href="{{this.property.whatsapp_mobile ? ('whatsapp://send?phone=2' + this.property.whatsapp_mobile.ltrim('2') + '&text=I would like to get more information about this property you posted in homes-egypt.com, https://homes-egypt/property/' + this.property.old_id+ '/' + this.property.name.split(' ').join('-')) : ''}}"
+            class="bg-success w-100 text-white rounded-left"> 
+            <fa fab="whatsapp"></fa>  
+            <div>Whatsapp</div>
+        </a>
+        <a href="tel:{{this.property.whatsapp_mobile}}" class="bg-primary w-100 text-white rounded-right"> 
+                <fa icon="phone-alt"></fa>
+                <div>Call</div>
+            </a>
     </footer>
 </div>

@@ -3,10 +3,10 @@ class AdvertiseProperty {
      * Constructor
      * Put your required dependencies in the constructor parameters list  
      */
-    constructor(http, formSubmitService, settingsService) {
+    constructor(http, propertiesService, settingsService) {
         this.http = http;
 
-        this.formSubmit = formSubmitService;
+        this.propertiesService = propertiesService;
         this.settingsService = settingsService;
 
         this.cities = [];
@@ -17,15 +17,22 @@ class AdvertiseProperty {
      * This method is triggered before rendering the component
      */
     async init() {
-        this.imageInputs = [""];
+        this.isLoading = false;
+        this.success = false;
+        this.imageInputs = [''];
 
-        // view step1 of the advertisement application
-        this.step = "step-1";
+        this.data = {};
+        this.errors = {};
 
-        // types of the property - comes from header section
-        this.propertyTypes = this.inputs.getProp("types", []);
+        this.cities = [];
 
         this.regions = [];
+
+        // view step1 of the advertisement application
+        this.step = 1;
+
+        // types of the property - comes from header section
+        this.propertyTypes = this.prop("types", []);
 
         this.saleTypes = [
             { text: 'Rent', value: 'rent' },
@@ -36,17 +43,38 @@ class AdvertiseProperty {
             return {
                 text: String(number),
                 value: number,
-            };  
+            };
         }) || [];
 
+        this.currencies = [];
+
+        this.settingsService.cached('list').then(async response => {
+            let currentCurrency = await this.settingsService.currentCurrency();
+
+            this.currencies = response.currencies.map(currency => {
+                if (currency.code == currentCurrency.code) {
+                    this.currentCurrency = currency.id;
+                }
+
+                return {
+                    text: currency.code,
+                    value: currency.id,
+                }
+            });
+        });
         this.citiesResponse = await this.settingsService.cached('cities');
 
         this.cities = this.citiesResponse.map(city => {
             return {
                 text: city.city,
-                value: city.city
+                value: city.city_id
             }
-        }) || [];
+        });
+    }
+
+    isNextBtnShouldBeDisabled() {
+        return this.isLoading || this.hasErrors() || 
+                ! this.data.username || ! this.data.email || ! this.data.phone;            
     }
 
     /**
@@ -55,24 +83,28 @@ class AdvertiseProperty {
      * 
      */
     getRegion(val) {
-        let city = this.citiesResponse.find((cityObj) => {
-            return cityObj.city == val;
+        let city = this.citiesResponse.find(city => {
+            return city.city_id == val;
         });
-        
-        this.regions = city.regions;
+
+        this.regions = city.regions.map(region => {
+            return {
+                text: region.name,
+                value: region.id,
+            };
+        });
     }
 
     /**
-     * Watch the step property if it's changed -> change the button class
+     * Check if form has errors
+     * @returns boolean 
      */
-    watchStep() {
-        if (this.step == "step-1") {
-            this.stepOneBtn.classList.add("btn-active");
-            this.stepTwoBtn.classList.remove("btn-active");
-        } else if (this.step == "step-2") {
-            this.stepOneBtn.classList.remove("btn-active");
-            this.stepTwoBtn.classList.add("btn-active");
-        }
+    hasErrors() {
+        for (let key in this.errors) {
+            if (! Is.empty(this.errors[key])) return true;
+        } 
+        
+        return false;
     }
 
     /**
@@ -80,14 +112,17 @@ class AdvertiseProperty {
      * 
      * @param {DOMElement} $el 
      */
-    send($el) {
-        this.formSubmit("https://homes-egypt.com/add-property/submit", $el);
+    async submit(form) {
+        this.isLoading = true;
+        await this.propertiesService.advertiseProperty(form);
+
+        this.isLoading = false;
+        this.success = true;
     }
 
     /**
      * The component is ready to do any action after being rendered in dom
      */
     ready() {
-        this.watchStep();
     }
 }
