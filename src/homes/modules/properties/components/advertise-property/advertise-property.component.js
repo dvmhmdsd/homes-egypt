@@ -77,6 +77,11 @@ class AdvertiseProperty {
                 ! this.data.username || ! this.data.email || ! this.data.phone;            
     }
 
+    isSubmitBtnShouldBeDisabled() {
+        return this.isLoading || this.hasErrors() || 
+                ! this.data.username || ! this.data.email || ! this.data.phone;            
+    }
+
     /**
      * Get the regions of the corresponding city
      * 
