@@ -147,11 +147,6 @@ class Searchform {
       return this.searchForm.sale_type == 'commercial' ?
         ['7', '8'].includes(type.id) :
         !['7', '8'].includes(type.id);
-    }).map(type => {
-      return {
-        text: type.name,
-        value: type.id,
-      };
     });
   }
 
@@ -160,8 +155,12 @@ class Searchform {
    */
   resetSearch() {
     this.searchForm = Object.clone(this.defaultSearch);
+  
     this.smallerCompound = false;
     this.smallerType = false;
+
+    // navigate to default url
+    this.router.navigateTo('/');
   }
 
   /**
@@ -214,10 +213,12 @@ class Searchform {
       return i.value;
     });
 
-    queryString.push({
-      name: 'sale_type',
-      value: this.searchForm.sale_type,
-    });
+    if (this.searchForm.sale_type) {
+      queryString.push({
+        name: 'sale_type',
+        value: this.searchForm.sale_type,
+      });
+    }
 
     setTimeout(() => {
       this.router.navigateTo(`/?${$.param(queryString)}`);
