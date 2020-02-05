@@ -17,6 +17,10 @@ class Searchform {
     // show the corresponding form
     this.defaultSearch = {
       currency: '',
+      minArea: '',
+      maxArea: '',
+      minPrice: '',
+      maxPrice: '',
       compound: null,
       sale_type: "", // "rent" / "sale" / "commercial" / new-homes
       regions: [],
