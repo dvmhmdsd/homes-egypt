@@ -16,15 +16,17 @@
 
     let currency = router.queryString.get('currency');
 
-    app.hold(
-      `
-      <div class="loader-container d-flex justify-content-center align-items-center">
-        <div class="loader"></div>
-    </div>
-      `
-    );
+    // app.hold(
+    //   `
+    //   <div class="loader-container d-flex justify-content-center align-items-center">
+    //     <div class="loader"></div>
+    //   </div>
+    //   `
+    // );
 
     window.settings =  await settingsService.live.cached('list');
+
+    // app.resume();
 
     if (currency) {
       settingsService.updateCurrency(currency);

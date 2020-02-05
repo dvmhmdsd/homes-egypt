@@ -36,7 +36,7 @@ class PropertyRequestForm {
         await this.propertiesService.request(form);
 
         this.isLoading = false;
-
+        
         this.isSent = true;
     }
 
