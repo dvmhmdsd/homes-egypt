@@ -39,6 +39,11 @@ class GoogleMap {
         });
         
         var marker = new google.maps.Marker({position: this.location, map: this.map});
+    }
 
+    ready() {
+        if (GoogleMap.loaded) {
+            this.onLoad();
+        }
     }
 }
