@@ -62,7 +62,8 @@ class AdvertiseProperty {
                 }
             });
         });
-        this.citiesResponse = await this.settingsService.cached('cities');
+
+        this.citiesResponse = await this.settingsService.live.cached('cities');
 
         this.cities = this.citiesResponse.map(city => {
             return {

@@ -12,7 +12,7 @@
   // the event before the router scanner starts.
   events.on("app.ready", async app => {
     let router = DI.resolve('router'),
-    settingsService = DI.resolve("SettingsService");
+      settingsService = DI.resolve("SettingsService");
 
     let currency = router.queryString.get('currency');
 
@@ -24,7 +24,7 @@
     //   `
     // );
 
-    window.settings =  await settingsService.live.cached('list');
+    window.settings = await settingsService.live.cached('list');
 
     // app.resume();
 
@@ -35,8 +35,6 @@
     settingsService.currentCurrency().then(currency => {
       window.currentCurrency = currency;
     });
-
-    settingsService.live.cached('cities');
 
     app.resume();
   });
@@ -63,7 +61,16 @@
 // }
 
 
-function currencyConverter(value, currencyCode = null) {  
+/**
+ * Convert the given value from the given currency to current currency
+ * 
+ * @param {object} property 
+ */
+function currencyConverter(property) {
+  // the price value is given in USD 
+  return Math.floor(
+    Number(property.priceInDollar) / Number(window.currentCurrency.value),
+  ).format();
   let { currencies } = window.settings;
 
   if (!currencyCode) {
@@ -74,10 +81,36 @@ function currencyConverter(value, currencyCode = null) {
   let convertedCurrency = currencies.find(currency => currency.code == currencyCode);
   // current currency
 
-  value = Number(value);
-
   // conversion equation: price * current currency value / given currency value
   return Math.floor(
     value * Number(window.currentCurrency.value) / Number(convertedCurrency.value),
   );
+  echo(convertedCurrency.value)
+  return Math.floor(
+    1 / Number(convertedCurrency.value) * value,
+  );
 }
+
+
+function setting(key) {
+  return window.settings.settings[key] || null;
+}
+
+
+detectDevceType();
+
+function detectDevceType() {
+  let windowSize = document.body.clientWidth;
+  if (windowSize < 1024) {
+    document.body.classList.add('mobile');
+    document.body.classList.remove('desktop');
+    window.isMobile = true;
+  } else {
+    document.body.classList.add('desktop');
+    document.body.classList.remove('mobile');
+
+    window.isMobile = false;
+  }
+}
+
+window.addEventListener('resize', detectDevceType);

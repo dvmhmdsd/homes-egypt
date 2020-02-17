@@ -12,6 +12,8 @@ class PropertiesList {
 
         this.propertiesService = propertiesService;
         this.properties = null;
+
+        this.displayedPropertiesList = 12;
     }
 
     /**
@@ -24,6 +26,10 @@ class PropertiesList {
         this.lastPage = false;
         this.properties = [];
         this.page = this.router.queryString.get('page', 1);
+
+        this.featuredProperties = [];
+        this.featuredProperties = [];
+
         // get properties on load
         this.loadProperties();
     }
@@ -42,12 +48,16 @@ class PropertiesList {
      */
     async loadProperties(page = null) {
         if (!Is.empty(this.loadedPropertiesInBackground)) {
-            this.properties = this.properties.concat(this.loadedPropertiesInBackground.splice(0, 36));
+            this.properties = this.properties.concat(this.loadedPropertiesInBackground.splice(0, this.displayedPropertiesList));
         } else {
             this.loading = true;
         }
 
         let query = this.router.queryString.all();
+
+        if (Is.empty(query)) {
+            query.home = true;
+        }
 
         if (page) {
             query.page = page;
@@ -55,13 +65,26 @@ class PropertiesList {
 
         let response = await this.propertiesService.list(query);
 
-        this.properties = this.properties.concat(response.properties);
+        if (! Is.empty(response.featuredProperties)) {
+            this.featuredProperties = response.featuredProperties;
+
+            this.featuredPropertiesIds = collect(this.featuredProperties).pluck('id').toArray();
+        }
+
+        this.properties = this.properties.concat(response.properties.slice(0, this.displayedPropertiesList));
+
+        this.loadedPropertiesInBackground = this.loadedPropertiesInBackground.concat(response.properties.slice(this.displayedPropertiesList, 36 - this.displayedPropertiesList));
 
         if (Is.empty(response.properties) || response.properties.length < 36) {
-            this.lastPage = true;
+            this.lastPage = true;            
         } else {
             this.loadHiddenProperties(query);
         }
+
+        this.properties = this.properties.map(property => {
+            property.featured = this.featuredProperties.includes(property.id);
+            return property;
+        });
         
         this.loading = false;
     }

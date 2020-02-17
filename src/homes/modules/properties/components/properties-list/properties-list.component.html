@@ -2,23 +2,38 @@
     <searchForm (search)="this.properties = e"></searchForm>
 
     <section class="properties">
-        <h2 class="properties-heading text-center">Properties</h2>
-      
+        <div *if="! Is.empty(this.featuredProperties)" class="container">
+            <!-- grid of properties -->
+            <div class="text-center">
+                <h2 class="properties-heading text-center">
+                    Featured Properties
+                </h2>
+            </div>
+            <div *if="! Is.empty(this.featuredProperties)" class="properties-grid d-flex flex-wrap">
+                <div *for="let property of this.featuredProperties" class="property-item col-lg-4 col-md-4 col-sm-6">
+                    <property-card [star]="true" [property]="property"></property-card>                    
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <h2 class="properties-heading">Properties</h2>
+        </div>
         <loading *if="this.loading"></loading>
 
         <div *if="! Is.empty(this.properties)" class="container">
             <!-- grid of properties -->
             <div *if="! Is.empty(this.properties)" class="properties-grid d-flex flex-wrap">
-                <div *for="let property of this.properties" class="property-item col-lg-4 col-md-4 col-sm-6 col-12">
-                    <property-card [property]="property"></property-card>
+                <div *for="let property of this.properties" class="property-item col-lg-4 col-md-4 col-sm-6">
+                    <property-card [star]="property.featured" [property]="property"></property-card>
                 </div>
 
-                <div *if="! this.lastPage" class="w-100 d-block text-center">
+                <div *if="! this.lastPage" class="w-100 d-block text-center m-b-2">
                     <button class="btn-action view-properties-btn" (click)="this.viewMore()"> View More </button>
                 </div>
             </div>
         </div>
-        <div *elseif="! this.loading && Is.empty(this.properties)" class="no-response d-flex justify-content-center align-items-center">
+        <div *elseif="! this.loading && Is.empty(this.properties)"
+            class="no-response d-flex justify-content-center align-items-center">
             <h2 class="colored bold">No properties</h2>
         </div>
     </section>

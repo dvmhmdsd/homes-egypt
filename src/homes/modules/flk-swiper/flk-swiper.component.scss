@@ -1,0 +1,17 @@
+.flk-swiper {
+    // Picasso is ready to draw :)
+    .swiper-prev,
+    .swiper-next {
+        position: absolute;
+        top: 40%;
+        z-index: 100;
+        color: #FFF;
+        padding: 0.2rem;
+        font-size: 1rem;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .swiper-next {
+        right: 0;
+    }
+}

@@ -3,14 +3,56 @@
         color: $mainColor;
         font-size: 3rem;
         font-weight: bold;
-        margin-bottom: 6rem;
+        margin-bottom: 2rem;
+        position: relative;
+        display: inline-block;
 
         @include responsive((
             1024: (
                 padding-top: 2rem,
                 margin-bottom: 1rem,
+                font-size: 2rem,
             )
         ), max);
+
+        &.properties-heading {
+            @include responsive((
+                1024: (
+                    font-size: 1.4rem,
+                )
+            ), max);    
+
+            &::before,
+            &::after {
+                @include responsive((
+                    1024: (
+                        top: 75%,
+                        width: 3rem,
+                    )
+                ), max);        
+            }
+        }
+        
+
+        &:before {
+            content: '';
+            width: 20rem;
+            height: 4px;
+            background: $mainColor;
+            position: absolute;
+            right: 105%;
+            top: 50%;
+        }
+
+        &:after {
+            content: '';
+            width: 20rem;
+            height: 4px;
+            background: $mainColor;
+            position: absolute;
+            left: 105%;
+            top: 50%;
+        }
     }
 
     .property-item {

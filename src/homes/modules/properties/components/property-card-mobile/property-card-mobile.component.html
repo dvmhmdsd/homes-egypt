@@ -1,0 +1,63 @@
+<div class="property-card">
+    <section class="images">
+        <!-- <flk-slider [bullets]="false" 
+                    alt="{{this.property.name}}'s images" 
+                    [slides]="this.property.imagesList">
+        </flk-slider> -->
+        <flk-swiper [images]="this.property.imagesList" [alt]="this.property.name"></flk-swiper>
+        
+        <div class="sticky-meta property-location">
+            {{ this.property.region }}
+        </div>
+
+        <div class="sticky-meta property-type">
+            {{ this.property.saleType }}
+        </div>
+
+    </section>
+    <section class="details">
+        <div class="property-price">
+            {{ currencyConverter(this.property) }}
+            {{ window.currentCurrency.code }}
+        </div>
+        
+        <fa *if="this.importantProperty" icon="star featred-property"></fa>
+           
+        <a class="property-name" [href]="propertyUrl(this.property)" [html]="this.property.name.readMoreChars(60)"></a>
+
+        <div class="meta">
+            <div class="detail" tooltip title="Bed rooms">
+                <fa icon="bed"></fa>
+                <strong [html]="this.property.bed_rooms"></strong>
+            </div>
+            <div class="detail" tooltip title="Bath rooms">
+                <fa icon="bath"></fa>
+                <strong [html]="this.property.bath_rooms"></strong>
+            </div>
+            <div *if="! Is.empty(this.property.area)" class="detail" tooltip title="Property Area">
+                <fa icon="warehouse"></fa>
+                <strong [html]="Number(this.property.area)"></strong>
+            </div>
+            <div class="detail" tooltip title="Property Id">
+                <fa icon="hashtag"></fa>
+                <strong [html]="this.property.old_id"></strong>
+            </div>
+        </div>
+    </section>
+    <div class="clearfix"></div>
+    <footer class="property-footer m-t-1 text-center d-flex btn-group">
+        <a href="{{this.property.whatsapp_mobile ? ('whatsapp://send?phone=' + this.phoneNumber + '&text=I would like to get more information about this property you posted in homes-egypt.com, https://homes-egypt/property/' + this.property.old_id+ '/' + this.property.name.split(' ').join('-')) : ''}}"
+            class="green-text btn whatsapp-btn py-1">
+            <fa fab="whatsapp"></fa>
+            <span>Whatsapp</span>
+        </a>
+        <a href="tel:{{this.phoneNumber}}" class="btn call-btn py-1">
+            <fa icon="phone-alt"></fa>
+            <span>Call</span>
+        </a>
+        <a [href]="propertyUrl(this.property)" class="btn view-btn py-1">
+            <fa icon="eye"></fa>
+            <span>View</span>
+        </a>
+    </footer>
+</div>
