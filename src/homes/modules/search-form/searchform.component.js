@@ -173,7 +173,7 @@ class Searchform {
     this.smallerType = false;
 
     // navigate to default url
-    // this.router.navigateTo('/');
+    this.router.navigateTo('/');
   }
 
   /**
