@@ -5,16 +5,16 @@
         "images"
     ],
     "packages": [
-        "@flk/facebook-page-preview"
+        "@flk/facebook-page-preview",
+        "@flk/swiper"
     ],
     "externals": {
         "css": {
             "common": [
-                "https://fonts.googleapis.com/css?family=Exo&display=swap"
+                "https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
             ]
         },
-        "js": [
-        ]
+        "js": []
     },
     "modules": [
         "shared",

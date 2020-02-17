@@ -9,31 +9,37 @@
 @import "modal";
 @import 'dropdown-list';
 
-@if $direction==ltr {
+@if $direction == ltr {
   body {
     font-size: $mainFontSize;
     font-family: $fontFamily;
-
-    .btn-action {
-      color: $mainColor;
-      border: 1px solid $mainColor;
-      border-radius: 10px;
-      text-transform: uppercase;
-      transition: all 0.4s ease-in-out;
-
-      &.active,
-      &:hover {
-        background: $mainColor !important;
-        color: #FFF !important;
-      }
-    }
   }
 }
-
 @else {
   //
 }
 
+body {
+  @include responsive((
+    1024: (
+      overflow: hidden,
+    )
+  ), max);
+}
+
+.btn-action {
+  color: $mainColor;
+  border: 1px solid $mainColor;
+  border-radius: 10px;
+  text-transform: uppercase;
+  transition: all 0.4s ease-in-out;
+
+  &.active,
+  &:hover {
+    background: $mainColor !important;
+    color: #FFF !important;
+  }
+}
 button {
   &:focus {
     outline: none !important;

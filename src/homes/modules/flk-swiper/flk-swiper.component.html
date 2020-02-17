@@ -1,0 +1,18 @@
+<section *as="container" class="swiper-container">
+    <div class="swiper-wrapper">
+        <for loop="let image of this.imagesList">
+            <a *if="image.link" class="swiper-slide" [href]="image.link" class="slide">
+                <img [src]="image.image" [alt]="this.imageAlt" />
+            </a>
+            <img *else [src]="image.image" class="swiper-slide" [alt]="image.alt || this.alt" />
+        </for>
+    </div>
+    <!-- If we need navigation buttons -->
+    <div class="swiper-prev">
+        <fa icon="angle-left"></fa>
+    </div>
+    <div class="swiper-next">
+        <fa icon="angle-right"></fa>
+    </div>
+    </div>
+</section>

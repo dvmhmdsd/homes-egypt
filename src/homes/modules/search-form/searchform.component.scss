@@ -1,20 +1,30 @@
-$search-inputs-font-size: 1.2rem;
+$search-inputs-font-size: 1rem;
 
 .searchbox {
   background: #fff url("../images/ourwork8.jpg") no-repeat center center fixed;
   background-size: cover;
-  padding: 1rem;
+  padding: 1rem 0;
+
+  @include responsive((
+    1024: (
+      padding: 1rem,
+    )
+  ));
+
+  .search-container {
+    
+  @include responsive((
+    1024: (
+      padding: 0,
+    )
+  ), max);
+  }
   // overflow: hidden;
 
   .input-wrapper {
     // margin-top: 0.55rem;
   }
 
-  .compound-wrapper.smaller {
-    .heading {      
-      font-size: 0.65rem !important;
-    }
-  }
 
   .types-panel {
     margin-bottom: 1.5rem;
@@ -29,11 +39,34 @@ $search-inputs-font-size: 1.2rem;
       margin-bottom: 0.5rem;
       transition: all 0.3s ease-in-out;
 
+      &:first-child {
+        @include responsive((
+          1024: (
+            margin-left: 3rem !important,
+          ),
+          ), max);    
+      }
+
+      &:nth-child(2) {
+        @include responsive((
+          1024: (
+            margin-left: 4.6rem !important,
+          ),
+          ), max);    
+      }
+      
+      &:nth-child(4) {
+        @include responsive((
+          1024: (
+            margin-right: 0rem !important,
+          ),
+          ), max);    
+      }
       &.type-active,
       &:hover {
-        background-color: #fff;
-        color: $mainColor;
-        border: 1px solid #fff;
+        background-color: #fff !important;
+        color: $mainColor !important;
+        border: 1px solid #fff !important;
       }
 
       &.type-active {
@@ -58,6 +91,7 @@ $search-inputs-font-size: 1.2rem;
   .dropdown-list {
     .items-list {
       margin-top: 0.1rem;
+      min-width: 200px; 
     }
     .list-item {
       label {
@@ -84,22 +118,28 @@ $search-inputs-font-size: 1.2rem;
   }
 
   .type-wrapper {
+    .heading span {
+      font-size: 0.9rem;
+    }
     &.smaller {
       .heading span {
-        font-size: 1rem;
+        font-size: 0.8rem;
       }
     }
   }
 
   .search-form {
     background-color: rgba($color: #fff, $alpha: 0.9);
-    width: 90%;
+    width: 70%;
     padding: 0.5rem 2rem;
     margin: auto;
 
-    @include responsive((1024: (width: 100%,
+    @include responsive((1024: (
+          width: 98%,
           padding-left: 0,
           padding-right: 0,
+          margin-left: auto,
+          margin-right: auto,
         )), max);
 
     .regions {
@@ -121,6 +161,9 @@ $search-inputs-font-size: 1.2rem;
       // input.form-control {
       //   padding-top: 1.8rem;
       // }
+      &.input-wrapper {
+        margin-top: 0.65rem;
+      }
       .form-control {
         display: inline-block;
         padding: 0 1rem;
@@ -194,6 +237,25 @@ $search-inputs-font-size: 1.2rem;
             }
           }
         }
+      }
+    }
+  }
+}
+
+.desktop {
+  .compound-wrapper {
+    .heading {      
+      font-size: 0.8rem !important;
+    }
+    &.smaller {
+      .heading {      
+        font-size: 0.5rem !important;
+      }
+    }
+    
+    &.much-smaller {
+      .heading {      
+        font-size: 0.5rem !important;
       }
     }
   }

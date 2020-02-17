@@ -1,8 +1,9 @@
-<div class="property-item-container">
+<property-card-mobile *if="window.isMobile"></property-card-mobile>
+<div *else class="property-item-container">
     <header class="property-header">
         <section class="property-img">
-            <flk-slider height="300px" [bullets]="false" alt="{{this.property.name}}'s images"
-                [slides]="this.property.imagesList"></flk-slider>
+            <flk-swiper [bullets]="false" alt="{{this.property.name}}'s images" [images]="this.property.imagesList">
+            </flk-swiper>
         </section>
 
         <section class="property-metadata">
@@ -14,16 +15,27 @@
                 {{ this.property.saleType }}
             </p>
 
-            <p class="property-img-numbers absolute-position" title="Number of images">
+            <p class="property-img-numbers absolute-position" tooltip title="Number of images">
                 <fa icon="camera"></fa>
                 {{ this.property.totalImages }}
+            </p>
+            <p class="property-price absolute-position">
+                {{ currencyConverter(this.property) }}
+                {{ window.currentCurrency.code }}
             </p>
         </section>
     </header>
 
     <section class="property-body">
-        <a class="d-block" href="/property/{{ this.property.old_id }}/{{seo(this.property.name)}}">
-            <h3 class="property-name">{{ this.property.name }}</h3>
+        <a class="d-block" [href]="propertyUrl(this.property)">
+            <h3 class="property-name">
+                {{ this.property.name }}
+
+                <div *if="this.importantProperty" class="featred-property">
+                    <fa icon="star"></fa>
+                    Featured
+                </div>
+            </h3>
         </a>
 
         <div class="property-numbers d-sm-flex justify-content-between">
@@ -42,23 +54,7 @@
             <div class="detail" tooltip title="Property Id">
                 <fa icon="hashtag"></fa>
                 <strong [html]="this.property.old_id"></strong>
-            </div> 
+            </div>
         </div>
-        <p class="property-price">
-            {{ currencyConverter(this.property.price, this.property.currency).format() }}        
-            {{ window.currentCurrency.code }}    
-        </p>
-
     </section>
-    <footer class="property-footer d-md-none d-flex text-center btn-group">
-        <a href="{{this.property.whatsapp_mobile ? ('whatsapp://send?phone=2' + this.property.whatsapp_mobile.ltrim('2') + '&text=I would like to get more information about this property you posted in homes-egypt.com, https://homes-egypt/property/' + this.property.old_id+ '/' + this.property.name.split(' ').join('-')) : ''}}"
-            class="bg-success w-100 text-white rounded-left"> 
-            <fa fab="whatsapp"></fa>  
-            <div>Whatsapp</div>
-        </a>
-        <a href="tel:{{this.property.whatsapp_mobile}}" class="bg-primary w-100 text-white rounded-right"> 
-                <fa icon="phone-alt"></fa>
-                <div>Call</div>
-            </a>
-    </footer>
 </div>

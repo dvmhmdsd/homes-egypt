@@ -1,4 +1,7 @@
 #singleProperty-page {
+  .bigger {
+    min-height: 300px;
+  }
   table {
     td, th {
       font-weight: bold;
@@ -53,7 +56,7 @@
           border: 3px solid #eee;
           @include responsive((
             0: (
-              // height: 20rem,
+              height: 20rem,
             ),
             1024: (
               height: 36rem,
@@ -66,6 +69,15 @@
 
   .single-property-middle {
     .single-property-middle-left {
+
+      @include responsive((
+        0: (
+          padding: 1rem,
+        ),
+        1024: (
+          padding: 2.5rem
+        )
+      ));
       .property-data-item {
         color: grey;
         border-bottom: 1px solid #eee;
@@ -114,15 +126,27 @@
 
   .property-attributes {
     div {
-      padding: 1rem;
       border-bottom: 1px solid #eee;
       font-weight: bold;
+      @include responsive((
+        0: (
+          padding: 0.5rem 1rem
+        ),
+        1024: (
+          padding: 1rem          
+        )
+      ));
     }
   }
 
   .property-map {
     padding: 1rem;
     height: 400px;
+  }
+
+  .whatsapp-link {
+    font-size: 0.9rem;
+    padding-top: 0.6rem;
   }
 }
 

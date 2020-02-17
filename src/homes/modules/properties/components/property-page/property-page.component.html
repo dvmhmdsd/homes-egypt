@@ -1,6 +1,7 @@
 <layout>
     <loading *if="this.loading"></loading>
-    <section *if="this.property" class="single-property">
+    <div *if="this.loading" class="bigger"></div>
+    <section *else class="single-property">
         <div class="containers">
             <section class="single-property-preface flex-wrap d-flex p-y-2">
                 <section class="single-property-preface-left col-md-7">
@@ -10,11 +11,17 @@
                     </section>
 
                     <section *if="! Is.empty(this.property)" class="property-actions d-md-none d-flex text-center btn-group">
-                        <a 
-                            href="{{('whatsapp://send?phone=2' + this.callNumber + '&text=I would like to get more information about this property you posted in homes-egypt.com, https://homes-egypt/property/' + this.property.old_id + ' \n property id: ' + this.property.old_id + ' \n Propterty Type: ' + this.property.type + ' \n Price ' + currencyConverter(this.property.prices[0].price, this.property.prices[0].currency).format()) + ' ' + window.currentCurrency.code}}"
-                            class="bg-success w-100 text-white rounded-left"> <i class="fab fa-whatsapp"></i> Whatsapp </articl>
                         <a  
-                            href="tel:{{this.callNumber}}"
+                            href="mailto:{{setting('site.email')}}"
+                            class="bg-danger w-100 text-white"> 
+                            <i class="fa fa-envelope"></i>
+                            Mail 
+                        </a>        
+                        <a 
+                            href="{{('whatsapp://send?phone=' + this.phoneNumber + '&text=I would like to get more information about this property you posted in homes-egypt.com, https://homes-egypt/property/' + this.property.old_id + ' \n property id: ' + this.property.old_id + ' \n Propterty Type: ' + this.property.type + ' \n Price ' + currencyConverter(this.property.prices[0].price, this.property.prices[0].currency).format()) + ' ' + window.currentCurrency.code}}"
+                            class="bg-success whatsapp-link w-100 text-white rounded-left"> <i class="fab fa-whatsapp"></i> Whatsapp </articl>
+                        <a  
+                            href="tel:{{this.phoneNumber}}"
                             class="bg-primary w-100 text-white rounded-right"> <i class="fa fa-phone-alt"></i> Call</a>        
                     </section>
 
@@ -26,9 +33,10 @@
                     ></social-media-sharing>                        
                     </div>
 
+                    <div class="clearfix"></div>
                     <section *if="! Is.empty(this.property.images)" class="property-img">
-                        <flk-slider [slides]="this.property.images"
-                            alt="{{this.property.name}}'s previews" title="{{this.property.name}}">
+                        <flk-swiper [images]="this.property.images"
+                            alt="{{this.property.name}}'s previews">
                         </flk-slider>
                     </section>
                 </section>
@@ -41,19 +49,19 @@
             </section>
 
             <section class="single-property-middle d-flex flex-wrap">
-                <div class="single-property-middle-left d-flex flex-wrap col-md-8 col-sm-12 p-3">
+                <div class="single-property-middle-left d-flex flex-wrap col-md-8 col-sm-12">
                     <div class="row property-attributes">
                         <for loop="let price of this.property.prices">
                             <div class="col-6 col-sm-3 colored">
                                 {{price.type}} Price
                             </div>
                             <div class="col-6 col-sm-3">
-                                {{ currencyConverter(price.price, price.currency).format() }}
+                                {{ currencyConverter(price) }}
                                 {{ window.currentCurrency.code }}
                             </div>
                         </for>
                         <div class="col-6 col-sm-3 colored">ID</div>
-                        <div class="col-6 col-sm-3" [html]="this.property.old_id"></div>
+                        <div class="col-3 col-sm-3" [html]="this.property.old_id"></div>
                         <div class="col-6 col-sm-3 colored">Type</div>
                         <div class="col-6 col-sm-3" [html]="this.property.type"></div>
                         <div class="col-6 col-sm-3 colored">City</div>
@@ -62,8 +70,8 @@
                             <div class="col-6 col-sm-3 colored" [html]="room.name"></div>
                             <div class="col-6 col-sm-3" [html]="room.value"></div>
                         </for>
-                        <div class="col-6 col-sm-3 colored">Area</div>
-                        <div class="col-6 col-sm-3" [html]="this.property.area || 'N/a'"></div>
+                        <div *if="this.property.area" class="col-6 col-sm-3 colored">Area</div>
+                        <div *if="this.property.area" class="col-6 col-sm-3" [html]="this.property.area || 'N/a'"></div>
                         <div class="col-6 col-sm-3 colored">Address</div>
                         <div class="col-6 col-sm-3" [html]="this.property.region + ' - ' + this.property.city"></div>
                     </div>
@@ -87,8 +95,8 @@
             <section *if="! Is.empty(this.property.similar_properties)" class="single-property-footer text-center">
                 <h2 class="bold text-transform-uppercase p-t-2"> Similar Properties </h2>
                 <div class="properties-container d-flex justify-content-center align-items-center flex-wrap">
-                    <article *for="let smProperty of this.property.similar_properties.slice(0, 3)"
-                        class="property-item col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <article *for="let smProperty of this.property.similar_properties.slice(0, 4)"
+                        class="property-item col-lg-3 col-md-6 col-sm-12 mb-3">
                         <property-card [property]="smProperty"></property-card>
                     </article>
                 </div>

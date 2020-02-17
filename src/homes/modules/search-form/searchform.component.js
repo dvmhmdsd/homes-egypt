@@ -19,20 +19,23 @@ class Searchform {
       currency: '',
       minArea: '',
       maxArea: '',
+      minBeds: '',
+      maxBeds: '',
       minPrice: '',
       maxPrice: '',
-      compound: null,
+      compound_id: null,
       sale_type: "", // "rent" / "sale" / "commercial" / new-homes
       regions: [],
       compounds: [],
+      type: '',
       currencies: [],
       chosenRegions: [],
       propertyTypes: [],
       typesAvailable: [
-        { label: "for rent", value: "rent" },
+        { label: "Rent", value: "rent" },
         { label: "sale", value: "sale" },
-        { label: "commercial", value: "commercial" },
-        { label: "new homes", value: "new-homes" }
+        { label: "Commercial", value: "commercial" },
+        { label: "New Homes", value: "new-homes" }
       ],
     };
 
@@ -47,6 +50,8 @@ class Searchform {
   async init() {
     this.areaSizes = [];
 
+    this.compoundList = [];
+
     for (let size = 50; size <= 4000; size += 50) {
       this.areaSizes.push({
         text: size.format() + ' meter',
@@ -54,7 +59,7 @@ class Searchform {
       });
     }
 
-    this.regionsPlaceholder = 'Select Region';
+    this.regionsPlaceholder = 'Select Location';
     this.searchForm = Object.clone(this.defaultSearch);
     this.regionsList = [];
     this.currencies = [];
@@ -92,6 +97,8 @@ class Searchform {
 
     if (!Is.empty(this.searchForm.regions)) {
       this.searchForm.chosenRegions = response.regions.filter(region => this.searchForm.regions.includes(region.id));
+
+      this.collectCompounds();
     }
 
     // add featuredRegions to cache to use in other places
@@ -106,11 +113,13 @@ class Searchform {
     });
 
     this.smallerCompound = false;
+    this.muchSmallerCompound = false;
     this.smallerType = false;
-    let currentCompound = response.compounds.find(compound => compound.id == Number(this.searchForm.compound));
+    let currentCompound = response.compounds.find(compound => compound.id == Number(this.searchForm.compound_id));
 
     if (currentCompound) {
       this.smallerCompound = currentCompound.name.includes(' ');
+      this.muchSmallerCompound = currentCompound.name.repeatsOf(' ') >= 2;
     }
 
     let currentType = response.propertyTypes.find(type => type.id == Number(this.searchForm.type));
@@ -164,7 +173,7 @@ class Searchform {
     this.smallerType = false;
 
     // navigate to default url
-    this.router.navigateTo('/');
+    // this.router.navigateTo('/');
   }
 
   /**
@@ -177,7 +186,7 @@ class Searchform {
 
     if (!region) return;
 
-    this.regionsPlaceholder = 'Select More Regions';
+    this.regionsPlaceholder = 'Select More Locations';
 
     this.searchForm.region = Random.id();
 
@@ -186,8 +195,21 @@ class Searchform {
     }
 
     Array.pushOnce(this.searchForm.chosenRegions, region);
+
+    this.collectCompounds();
   }
 
+  collectCompounds() {
+    let selectedRegionsIds = collect(this.searchForm.chosenRegions).pluck('id').toArray();
+    
+    this.compoundList = this.settings.compounds.filter(compound => selectedRegionsIds.includes(compound.region_id));    
+
+    if (this.searchForm.compound_id && ! this.compoundList.find(compound => compound.id == this.searchForm.compound_id)) {
+      this.muchSmallerCompound = this.smallerCompound = false;
+      this.searchForm.compound_id = null;
+      
+    }
+  }
 
   /**
    * Remove chosen region from chosenRegions list
@@ -200,10 +222,11 @@ class Searchform {
     this.searchForm.chosenRegions.splice(index, 1);
 
     if (this.searchForm.chosenRegions.length == 0) {
-      this.regionsPlaceholder = 'Select Region';
+      this.regionsPlaceholder = 'Select Location';
       this.searchForm.region = null;
     }
 
+    this.collectCompounds();
     this.detectChanges();
   }
 
