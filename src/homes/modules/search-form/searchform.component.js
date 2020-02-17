@@ -212,7 +212,7 @@ class Searchform {
     let queryString = $($el).serializeArray().filter(function (i) {
       return i.value;
     });
-
+    
     if (this.searchForm.sale_type) {
       queryString.push({
         name: 'sale_type',
