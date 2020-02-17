@@ -110,7 +110,7 @@
                                 id="type" placeholder="Property Type" name="property_type_id"></flk-dropdown-list>
                         </div>
                         <div class="form-group input-group col-sm-6">
-                            <form-input type="text" placeholder="Property Area" name="area" id="area"
+                            <form-input type="number" placeholder="Property Area" name="area" id="area"
                                 class="form-control" required="true" min="0"></form-input>
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">Meter</span>
@@ -146,10 +146,10 @@
                     </div>
 
                     <div class="text-right w-100">
-                        <button type="button" [disabled]="this.isSubmitBtnShouldBeDisabled()" class="adv-action-btn prev"
+                        <button type="button" class="adv-action-btn prev"
                             (click)="this.step = 1;">
                             Previous </button>
-                        <button [disabled]="this.isLoading" class="m-l-3 adv-action-btn finish"> Finish </button>
+                        <button [disabled]="this.isLoading || this.isSubmitBtnShouldBeDisabled()" class="m-l-3 adv-action-btn finish"> Finish </button>
                     </div>
                 </div>
             </form>
