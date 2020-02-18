@@ -76,6 +76,67 @@ class Searchform {
     });
   }
 
+  async setPrices() {
+    let pricesList = [];
+    const {code} = await this.settingsService.currentCurrency()
+
+    if (code == "EGP") {
+      let price = 100000;
+      while (price < 40000000) {
+        pricesList.push({
+          text: price.toLocaleString(),
+          value: price
+        });
+
+        if (price < 3000000) {
+          price += 100000;
+        } else if (price < 5000000) {
+          price += 250000;
+        } else if (price < 6000000) {
+          price += 500000;
+        } else if (price < 10000000) {
+          price += 1000000;
+        } else if (price < 20000000) {
+          price += 5000000;
+        } else {
+          break;
+        }
+      }
+
+      pricesList.push({
+        text: "40,000,000",
+        value: 40000000
+      });
+    } else if (code == "USD" || code == "Euro") {
+      let price = 100;
+      while (price < 20000) {
+        pricesList.push({
+          text: price.toLocaleString(),
+          value: price
+        });
+
+        if (price < 2000) {
+          price += 100;
+        } else if (price < 5000) {
+          price += 250;
+        } else if (price < 10000) {
+          price += 500;
+        } else if (price < 20000) {
+          price += 1000;
+        } else {
+          break;
+        }
+      }
+
+      pricesList.push({
+        text: "20,000",
+        value: 20000
+      });
+    }
+    
+    return pricesList;
+  }
+
   setupSettings(response) {
     this.settings = response;
     this.setPropertyTypes();
@@ -126,7 +187,7 @@ class Searchform {
 
     if (currentType) {
       this.smallerType = currentType.name.includes(' ');
-    } 
+    }
 
     this.currencies = response.currencies.map(currency => {
       return {
@@ -168,7 +229,7 @@ class Searchform {
    */
   resetSearch() {
     this.searchForm = Object.clone(this.defaultSearch);
-  
+
     this.smallerCompound = false;
     this.smallerType = false;
 
@@ -201,13 +262,13 @@ class Searchform {
 
   collectCompounds() {
     let selectedRegionsIds = collect(this.searchForm.chosenRegions).pluck('id').toArray();
-    
-    this.compoundList = this.settings.compounds.filter(compound => selectedRegionsIds.includes(compound.region_id));    
 
-    if (this.searchForm.compound_id && ! this.compoundList.find(compound => compound.id == this.searchForm.compound_id)) {
+    this.compoundList = this.settings.compounds.filter(compound => selectedRegionsIds.includes(compound.region_id));
+
+    if (this.searchForm.compound_id && !this.compoundList.find(compound => compound.id == this.searchForm.compound_id)) {
       this.muchSmallerCompound = this.smallerCompound = false;
       this.searchForm.compound_id = null;
-      
+
     }
   }
 
@@ -239,7 +300,7 @@ class Searchform {
     let queryString = $($el).serializeArray().filter(function (i) {
       return i.value;
     });
-    
+
     if (this.searchForm.sale_type) {
       queryString.push({
         name: 'sale_type',
