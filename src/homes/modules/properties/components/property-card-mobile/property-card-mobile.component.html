@@ -46,7 +46,9 @@
     </section>
     <div class="clearfix"></div>
     <footer class="property-footer m-t-1 text-center d-flex btn-group">
-        <a href="{{this.property.whatsapp_mobile ? ('whatsapp://send?phone=' + this.phoneNumber + '&text=I would like to get more information about this property you posted in homes-egypt.com, https://homes-egypt/property/' + this.property.old_id+ '/' + this.property.name.split(' ').join('-')) : ''}}"
+        <a 
+        
+        href="{{('whatsapp://send?phone=' + this.phoneNumber + '&text=I would like to get more information about this property https://homes-egypt/property/' + this.property.old_id + ' \n property id: ' + this.property.old_id + ' \n Propterty Type: ' + this.property.type + ' \n Price ' + currencyConverter(this.property)) + ' ' + window.currentCurrency.code}}"
             class="green-text btn whatsapp-btn py-1">
             <fa fab="whatsapp"></fa>
             <span>Whatsapp</span>

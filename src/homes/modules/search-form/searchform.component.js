@@ -52,7 +52,7 @@ class Searchform {
 
     this.compoundList = [];
 
-    for (let size = 50; size <= 4000; size += 50) {
+    for (let size = 20; size <= 4000; size += 10) {
       this.areaSizes.push({
         text: size.format() + ' meter',
         value: size,
@@ -206,9 +206,11 @@ class Searchform {
 
     if (this.searchForm.compound_id && ! this.compoundList.find(compound => compound.id == this.searchForm.compound_id)) {
       this.muchSmallerCompound = this.smallerCompound = false;
-      this.searchForm.compound_id = null;
-      
+      this.searchForm.compound_id = null;      
     }
+
+    // order by alphabetically
+    this.compoundList = collect(this.compoundList).sortBy('name').toArray();
   }
 
   /**

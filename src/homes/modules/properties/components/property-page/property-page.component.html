@@ -12,17 +12,17 @@
 
                     <section *if="! Is.empty(this.property)" class="property-actions d-md-none d-flex text-center btn-group">
                         <a  
+                            href="tel:{{this.phoneNumber}}"
+                            class="bg-primary w-100 text-white rounded-right"> <i class="fa fa-phone-alt"></i> Call</a>        
+                        <a 
+                            href="{{('whatsapp://send?phone=' + this.phoneNumber + '&text=I would like to get more information about this property https://homes-egypt/property/' + this.property.old_id + ' %0 property id: ' + this.property.old_id + ' %0 Propterty Type: ' + this.property.type + ' %0 Price ' + currencyConverter(this.property.prices[0])) + ' ' + window.currentCurrency.code}}"
+                            class="bg-success whatsapp-link w-100 text-white rounded-left"> <i class="fab fa-whatsapp"></i> Whatsapp </articl>
+                        <a  
                             href="mailto:{{setting('site.email')}}"
                             class="bg-danger w-100 text-white"> 
                             <i class="fa fa-envelope"></i>
                             Mail 
                         </a>        
-                        <a 
-                            href="{{('whatsapp://send?phone=' + this.phoneNumber + '&text=I would like to get more information about this property you posted in homes-egypt.com, https://homes-egypt/property/' + this.property.old_id + ' \n property id: ' + this.property.old_id + ' \n Propterty Type: ' + this.property.type + ' \n Price ' + currencyConverter(this.property.prices[0].price, this.property.prices[0].currency).format()) + ' ' + window.currentCurrency.code}}"
-                            class="bg-success whatsapp-link w-100 text-white rounded-left"> <i class="fab fa-whatsapp"></i> Whatsapp </articl>
-                        <a  
-                            href="tel:{{this.phoneNumber}}"
-                            class="bg-primary w-100 text-white rounded-right"> <i class="fa fa-phone-alt"></i> Call</a>        
                     </section>
 
                     <div class="d-block d-sm-none">

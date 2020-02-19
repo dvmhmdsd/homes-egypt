@@ -96,21 +96,3 @@ function setting(key) {
   return window.settings.settings[key] || null;
 }
 
-
-detectDevceType();
-
-function detectDevceType() {
-  let windowSize = document.body.clientWidth;
-  if (windowSize < 1024) {
-    document.body.classList.add('mobile');
-    document.body.classList.remove('desktop');
-    window.isMobile = true;
-  } else {
-    document.body.classList.add('desktop');
-    document.body.classList.remove('mobile');
-
-    window.isMobile = false;
-  }
-}
-
-window.addEventListener('resize', detectDevceType);

@@ -1,24 +1,26 @@
-- Contact Us
-- Property Request 
-- Advertise Property
-- Sale Type in Advertise Property
-- Similar Properties only one 
-- Search Minimum And Maximum Price With Currency 
-- Reset Button some not working
-- Minimum And Maximum Price And Beds OK
+# Updates
+Ranged Price In EGP 
+Like Property Finder in sale and rent
 
-// Done
-- commercial has only retail and office types 
-- Whatsapp message add property link, id, price and type 
-- Add social share  
-- Change footer copyrights
-- Google maps for Properties
-- Smaller proeprty images in details 
-- Add min and max area size 
+Ranged Price In USD | Euro
+100 => 2,000 => 100 increase
+2,250 => 5,000 => 250 increase
+5,500 => 10,000 => 500 increase
+11,000 => 30,000 => 1,000 increase
+35,000 => 100,000 => 5,000 increase
+200,000 => 1,000,000 => 100,000 increase
+1,500,000 => 5,000,000 => 500,000 increase
+ 
+# Select one or more compounds and add it below the selected regions below
 
-// to do
-- Make search smaller 
-- Compounds Search List commercial only will be buildings instead of compounds
-- Minimum and Maximum price will be based on sale type and currency    
-- Change region placeholder to "Add More locations" when user add region or more 
-- Add question mark icon on mobile to display contact 
+# Display default price with default currency if no currency selected 
+
+# Commercial change min and max beds to area and it will be searchable 
+
+# In Mobile, Make the image in property card take the full height and remove view button 
+
+# The Rent and Sale will be for resedintial and (new homes | Commercial will display both rent or sale together) c
+
+# Add mobile number to region that will be used for mobile whatsapp instead of each property message
+
+# Whatsapp message must display each separated line    
