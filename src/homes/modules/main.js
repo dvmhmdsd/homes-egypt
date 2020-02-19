@@ -38,9 +38,9 @@
 
       settingsService.currentCurrency().then(currency => {
         window.currentCurrency = currency;
+        app.resume();
       });
 
-      app.resume();
     });
   });
 })();

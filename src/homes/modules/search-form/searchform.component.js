@@ -88,21 +88,19 @@ class Searchform {
     };
 
     if (code == "EGP") {
-      let price = 100000;
-      while (price < 40000000) {
+      let price = 5000;
+      while (price < 300000) {
         addPrice(price);
 
-        if (price < 3000000) {
-          price += 100000;
-        } else if (price < 5000000) {
-          price += 250000;
-        } else if (price < 6000000) {
-          price += 500000;
-        } else if (price < 10000000) {
-          price += 1000000;
-        } else if (price < 20000000) {
-          price += 5000000;
-        } else {
+        if (price < 20000) {
+          price += 1000;
+        } else if (price < 50000) {
+          price += 2500;
+        } else if (price < 100000) {
+          price += 5000;
+        } else if (price < 300000) {
+          price += 50000;
+        }  else {
           break;
         }
       }
