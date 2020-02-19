@@ -81,13 +81,20 @@ class Searchform {
     const code = window.currentCurrency.code;
 
     const addPrice = price => {
-      pricesList.push({
-        text: price.format() + ' ' + code,
-        value: price,
-      });
+      if (code !== "Default") {
+        pricesList.push({
+          text: price.format() + ' ' + code,
+          value: price,
+        });
+      } else {
+        pricesList.push({
+          text: price.format() + ' ' + "EGP",
+          value: price,
+        });
+      }
     };
 
-    if (code == "EGP") {
+    if (code == "EGP" || code == "Default") {
       let price = 5000;
       while (price < 300000) {
         addPrice(price);
@@ -100,7 +107,7 @@ class Searchform {
           price += 5000;
         } else if (price < 300000) {
           price += 50000;
-        }  else {
+        } else {
           break;
         }
       }

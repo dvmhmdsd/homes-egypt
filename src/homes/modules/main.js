@@ -72,10 +72,15 @@
  * @param {object} property 
  */
 function currencyConverter(property) {
+  echo(property.currency)
+  if (window.currentCurrency.code == "Default" || !window.currentCurrency.code) {
+    return `${property.price.format()} ${property.currency}`;
+  }
+
   // the price value is given in USD 
   return Math.floor(
     Number(property.priceInDollar) / Number(window.currentCurrency.value),
-  ).format();
+  ).format() + " " + window.currentCurrency.code;
   let { currencies } = window.settings;
 
   if (!currencyCode) {
