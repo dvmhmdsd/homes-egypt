@@ -16,27 +16,32 @@
 
     let currency = router.queryString.get('currency');
 
-    // app.hold(
-    //   `
-    //   <div class="loader-container d-flex justify-content-center align-items-center">
-    //     <div class="loader"></div>
-    //   </div>
-    //   `
-    // );
+    app.hold(
+      `
+      <div class="loader-container d-flex justify-content-center align-items-center">
+        <div class="loader"></div>
+      </div>
+      `
+    );
 
-    window.settings = await settingsService.live.cached('list');
+    settingsService.live.cached('list').then(response => {
+      window.settings = response;
 
-    // app.resume();
+      window.settings.currencies.unshift({
+        value: 'default',
+        code: 'Default',
+      });
 
-    if (currency) {
-      settingsService.updateCurrency(currency);
-    }
+      if (currency) {
+        settingsService.updateCurrency(currency);
+      }
 
-    settingsService.currentCurrency().then(currency => {
-      window.currentCurrency = currency;
+      settingsService.currentCurrency().then(currency => {
+        window.currentCurrency = currency;
+      });
+
+      app.resume();
     });
-
-    app.resume();
   });
 })();
 

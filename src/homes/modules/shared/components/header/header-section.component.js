@@ -22,16 +22,14 @@ class Header {
     this.currentRoute = this.router.route();
     this.queryStringSaleType = this.router.queryString.get('sale_type');
 
-    this.settingsService.cached("list").then(response => {
-      this.types = response.propertyTypes;
+    let response = window.settings;
 
-      this.info = {
-        email: response.settings["site.email"],
-        phone: response.settings["site.phone"].slice(3)
-      };
+    this.types = response.propertyTypes;
 
-      this.currencies = response.currencies;
-    });
+    this.info = {
+      email: response.settings["site.email"],
+      phone: response.settings["site.phone"].slice(3)
+    };
   }
 
   /**

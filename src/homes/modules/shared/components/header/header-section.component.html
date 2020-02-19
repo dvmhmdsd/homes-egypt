@@ -29,7 +29,7 @@
         </button>
         <!-- drop list -->
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <for loop="let currency of this.currencies">
+          <for loop="let currency of window.settings.currencies">
             <li *if="window.currentCurrency.code != currency.code" class="dropdown-item">
               <button (click)="this.setCurrency(currency)">
                 {{ currency.code }}
