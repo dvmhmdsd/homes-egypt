@@ -12,57 +12,32 @@
     <!-- Search forms -->
     <section class="search-form">
       <ul class="regions list-unstyled d-sm-flex d-none justify-content-center flex-wrap">
-        <li class="region-item" *for="let region of this.featuredRegions"
-          (click)="this.chooseRegion(region)">
+        <li class="region-item" *for="let region of this.featuredRegions" (click)="this.chooseRegion(region)">
           {{ region.name }}
         </li>
       </ul>
 
       <!-- rent / sale form-->
       <form (submit)="this.getProperties($el)" class="d-flex flex-wrap">
-        <div class="form-group col-sm-6 col-12 d-flex">          
-          <flk-dropdown-list 
-            icon="map-marker-alt"
-            [items]="this.regionsList" 
-            [value]="this.searchForm.region"
-            id="regions" 
-            [none]="true"
-            title="Select Property Location"
-            (select)="this.chooseRegion(e.value);" 
-            placeholder="{{ this.regionsPlaceholder }}"
-          ></flk-dropdown-list>
+        <div class="form-group col-sm-6 col-12 d-flex">
+          <flk-dropdown-list icon="map-marker-alt" [items]="this.regionsList" [value]="this.searchForm.region"
+            id="regions" [none]="true" title="Select Property Location" (select)="this.chooseRegion(e.value);"
+            placeholder="{{ this.regionsPlaceholder }}"></flk-dropdown-list>
         </div>
 
-        <div *if="! Is.empty(this.compoundList)" class="form-group col-sm-3 col-12 d-flex compound-wrapper" [class]="{smaller: this.smallerCompound, 'much-smaller': this.muchSmallerCompound}">          
-          <flk-dropdown-list
-            *if="this.compounds" 
-            icon="city"
-            [items]="this.compoundList"
-            [value]="this.searchForm.compound_id"
-            name="compound_id" 
-            [searchable]="false"
-            id="compound"
+        <div *if="! Is.empty(this.compoundList)" class="form-group col-sm-3 col-12 d-flex compound-wrapper"
+          [class]="{smaller: this.smallerCompound, 'much-smaller': this.muchSmallerCompound}">
+          <flk-dropdown-list *if="this.compounds" icon="city" [items]="this.compoundList"
+            [value]="this.searchForm.compound_id" name="compound_id" [searchable]="false" id="compound"
             (select)="this.searchForm.compound_id = e.value; this.smallerCompound = e.text.includes(' '); this.muchSmallerCompound = e.text.repeatsOf(' ') >= 2;"
-            [none]="true"
-            placeholder="Compound"
-            title="Select Compound"  
-          ></flk-dropdown-list>
+            [none]="true" placeholder="Compound" title="Select Compound"></flk-dropdown-list>
         </div>
 
-        <div class="form-group col-sm-3 col-12 d-flex type-wrapper" [class]="{smaller: this.smallerType}">          
-          <flk-dropdown-list
-            *if="this.propertyTypes" 
-            icon="home"
-            [items]="this.propertyTypes"
-            [value]="this.searchForm.type"
-            name="type" 
-            [searchable]="false"
-            id="type"
-            (select)="this.searchForm.type = e.value; this.smallerType = e.text.includes(' ')"
-            [none]="true"
-            placeholder="Type"
-            title="Property Type"  
-          ></flk-dropdown-list>
+        <div class="form-group col-sm-3 col-12 d-flex type-wrapper" [class]="{smaller: this.smallerType}">
+          <flk-dropdown-list *if="this.propertyTypes" icon="home" [items]="this.propertyTypes"
+            [value]="this.searchForm.type" name="type" [searchable]="false" id="type"
+            (select)="this.searchForm.type = e.value; this.smallerType = e.text.includes(' ')" [none]="true"
+            placeholder="Type" title="Property Type"></flk-dropdown-list>
         </div>
 
         <div class="form-group col-md-3 col-6 input-wrapper">
@@ -71,22 +46,15 @@
         </div>
 
         <div class="form-group col-md-3 col-6 d-flex">
-          <flk-dropdown-list 
-            icon="bed"
-            [items]="this.numbersArray" 
-            [searchable]="false" 
-            id="minBed" 
-            [none]="true"
-            [value]="this.searchForm.min_beds"
-            name="min_beds"
-            placeholder="Min Beds" 
-            title="Minimum Number of beds"
-          ></flk-dropdown-list>
+          <flk-dropdown-list icon="bed" [items]="this.numbersArray" [searchable]="false" id="minBed" [none]="true"
+            [value]="this.searchForm.min_beds" name="min_beds" placeholder="Min Beds" title="Minimum Number of beds">
+          </flk-dropdown-list>
         </div>
 
         <div class="form-group col-md-3 col-6 d-flex">
-          <flk-dropdown-list icon="bed"[value]="this.searchForm.max_beds" [none]="true" [items]="this.numbersArray" [searchable]="false" id="maxBed" name="max_beds"
-            placeholder="Max Beds" title="Maximum Number of beds"></flk-dropdown-list>
+          <flk-dropdown-list icon="bed" [value]="this.searchForm.max_beds" [none]="true" [items]="this.numbersArray"
+            [searchable]="false" id="maxBed" name="max_beds" placeholder="Max Beds" title="Maximum Number of beds">
+          </flk-dropdown-list>
         </div>
 
         <!-- <div class="form-group col-md-3 col-xs-12 d-flex">
@@ -115,18 +83,17 @@
         </div> -->
 
         <div class="form-group col-md-3 col-6 input-wrapper">
-          <form-input type="number" placeholder="Min price" [value]="this.searchForm.min_price" (input)="this.searchForm.min_price = Number($el.value) < 0 ? 0 : this.searchForm.min_price" min="0" name="min_price" class="form-control" title="Minimum price">
-          </form-input>
+          <flk-dropdown-list name="min_price" placeholder="Min price" [value]="this.searchForm.min_price" [items]="this.setPrices()" [searchable]="true"></flk-dropdown-list>
         </div>
 
         <div class="form-group col-md-3 col-6 input-wrapper">
-          <form-input type="number" placeholder="Max price" [value]="this.searchForm.max_price" (input)="this.searchForm.max_price = Number($el.value) < 0 ? 0 : this.searchForm.max_price" min="0" name="max_price" class="form-control" title="Maximum price">
-          </form-input>
+          <flk-dropdown-list name="max_price" placeholder="Max price" [value]="this.searchForm.max_price" [items]="this.setPrices()" [searchable]="true"></flk-dropdown-list>
         </div>
 
         <div class="form-group col-md-3 col-6">
-          <flk-dropdown-list name="currency" icon="money-bill-wave" (select)="this.settingsService.updateCurrency(e.value); this.detectChanges()" placeholder="Currency" [value]="window.currentCurrency.code"
-            [items]="this.currencies" [searchable]="false"></flk-dropdown-list>
+          <flk-dropdown-list name="currency" icon="money-bill-wave"
+            (select)="this.settingsService.updateCurrency(e.value); this.detectChanges()" placeholder="Currency"
+            [value]="window.currentCurrency.code" [items]="this.currencies" [searchable]="false"></flk-dropdown-list>
         </div>
 
         <div *if="! Is.empty(this.searchForm.chosenRegions)" class="form-group col-12">

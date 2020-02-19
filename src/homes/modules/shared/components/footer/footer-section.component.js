@@ -2,7 +2,7 @@ class Footer {
     /**
      * Constructor
      */
-    constructor(cache, settingsService) {
+    constructor(cache, settingsService, router) {
         this.cache = cache;
 
         this.featuredRegions;
@@ -10,12 +10,16 @@ class Footer {
         this.settingsService = settingsService;
 
         this.info = {};
+
+        this.router = router;
     }
 
     /**
      * {@inheritdoc}
      */
     init() {
+        this.qs = this.router.queryString.QueryString;
+        
         this.facebookUrl = 'https://m.facebook.com/Homes.egypt/';
         this.settingsService.cached('list').then(response => {
             if (response.settings['social.facebook']) {

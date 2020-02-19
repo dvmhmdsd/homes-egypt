@@ -15,17 +15,17 @@
                 </a>
               </li>
               <li class="column-link-item">
-                <a href="/?sale_type=rent">
+                <a href="/?sale_type=rent&{{this.qs}}">
                   Renting
                 </a>
               </li>
               <li class="column-link-item">
-                <a href="/?sale_type=commercial">
+                <a href="/?sale_type=commercial&{{this.qs}}">
                   Commercial
                 </a>
               </li>
               <li class="column-link-item">
-                <a href="/?sale_type=sale">
+                <a href="/?sale_type=sale&{{this.qs}}">
                   Buying
                 </a>
               </li>
@@ -37,7 +37,7 @@
     
             <ul class="column-links list-unstyled text-left">
               <li *for="let region of this.featuredRegions" class="column-link-item">
-                <a href="/?regions[]={{region.id}}">
+                <a href="/?regions[]={{region.id}}&sale_type=rent">
                   Properties for rent in {{region.name}}
                 </a>
               </li>
