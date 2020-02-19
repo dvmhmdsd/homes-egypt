@@ -15,7 +15,7 @@
                             href="tel:{{this.phoneNumber}}"
                             class="bg-primary w-100 text-white rounded-right"> <i class="fa fa-phone-alt"></i> Call</a>        
                         <a 
-                            href="{{('whatsapp://send?phone=' + this.phoneNumber + '&text=I would like to get more information about this property https://homes-egypt/property/' + this.property.old_id + ' %0 property id: ' + this.property.old_id + ' %0 Propterty Type: ' + this.property.type + ' %0 Price ' + currencyConverter(this.property.prices[0])) + ' ' + window.currentCurrency.code}}"
+                            href="{{('whatsapp://send?phone=' + this.phoneNumber + '&text=I would like to get more information about this property https://homes-egypt/property/' + this.property.old_id + ' %0 property id: ' + this.property.old_id + ' %0 Propterty Type: ' + this.property.type + ' %0 Price ' + currencyConverter(this.property.prices[0]))}}"
                             class="bg-success whatsapp-link w-100 text-white rounded-left"> <i class="fab fa-whatsapp"></i> Whatsapp </articl>
                         <a  
                             href="mailto:{{setting('site.email')}}"
@@ -57,7 +57,6 @@
                             </div>
                             <div class="col-6 col-sm-3">
                                 {{ currencyConverter(price) }}
-                                {{ window.currentCurrency.code }}
                             </div>
                         </for>
                         <div class="col-6 col-sm-3 colored">ID</div>

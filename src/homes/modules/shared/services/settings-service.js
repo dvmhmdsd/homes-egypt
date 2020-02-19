@@ -21,8 +21,11 @@ class SettingsService extends Endpoint.Service {
 
     let currencyCode = this.router.queryString.get('currency');
 
-    if (! currencyCode) {
-      currencyCode = 'EGP';
+    if (!currencyCode) {
+      return {
+        value: 'default',
+        code: 'Default',
+      }
     }
 
     let { currencies } = await this.cached('list');
@@ -38,7 +41,7 @@ class SettingsService extends Endpoint.Service {
     if (Is.string(currency)) {
       currency = this.getCurrencyByCode(currency);
     }
-    
+
     window.currentCurrency = currency;
     this.cache.set('currency', currency);
   }

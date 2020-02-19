@@ -38,9 +38,9 @@
 
       settingsService.currentCurrency().then(currency => {
         window.currentCurrency = currency;
+        app.resume();
       });
 
-      app.resume();
     });
   });
 })();
@@ -72,10 +72,14 @@
  * @param {object} property 
  */
 function currencyConverter(property) {
+  if (window.currentCurrency.code == "Default" || !window.currentCurrency.code) {
+    return `${property.price.format()} ${property.currency}`;
+  }
+
   // the price value is given in USD 
   return Math.floor(
     Number(property.priceInDollar) / Number(window.currentCurrency.value),
-  ).format();
+  ).format() + " " + window.currentCurrency.code;
   let { currencies } = window.settings;
 
   if (!currencyCode) {

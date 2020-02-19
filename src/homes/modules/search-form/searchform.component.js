@@ -24,12 +24,14 @@ class Searchform {
       minPrice: '',
       maxPrice: '',
       compound_id: null,
+      compound: null,
       sale_type: "", // "rent" / "sale" / "commercial" / new-homes
       regions: [],
       compounds: [],
       type: '',
       currencies: [],
       chosenRegions: [],
+      chosenCompounds: [],
       propertyTypes: [],
       typesAvailable: [
         { label: "Rent", value: "rent" },
@@ -40,7 +42,6 @@ class Searchform {
     };
 
     this.featuredRegions = [];
-    // properties will be passed to the home page
   }
 
   /**
@@ -81,27 +82,32 @@ class Searchform {
     const code = window.currentCurrency.code;
 
     const addPrice = price => {
-      pricesList.push({
-        text: price.format() + ' ' + code,
-        value: price,
-      });
+      if (code !== "Default") {
+        pricesList.push({
+          text: price.format() + ' ' + code,
+          value: price,
+        });
+      } else {
+        pricesList.push({
+          text: price.format() + ' ' + "EGP",
+          value: price,
+        });
+      }
     };
 
-    if (code == "EGP") {
-      let price = 100000;
-      while (price < 40000000) {
+    if (code == "EGP" || code == "Default") {
+      let price = 5000;
+      while (price < 300000) {
         addPrice(price);
 
-        if (price < 3000000) {
-          price += 100000;
-        } else if (price < 5000000) {
-          price += 250000;
-        } else if (price < 6000000) {
-          price += 500000;
-        } else if (price < 10000000) {
-          price += 1000000;
-        } else if (price < 20000000) {
-          price += 5000000;
+        if (price < 20000) {
+          price += 1000;
+        } else if (price < 50000) {
+          price += 2500;
+        } else if (price < 100000) {
+          price += 5000;
+        } else if (price < 300000) {
+          price += 50000;
         } else {
           break;
         }
@@ -255,6 +261,15 @@ class Searchform {
     this.collectCompounds();
   }
 
+  chooseCompound(compound) {
+    if (Is.numeric(compound)) {
+      compound = this.compoundList.find(compoundItem => String(compoundItem.id) == String(compound));
+    }
+    this.searchForm.compound = compound;
+
+    Array.pushOnce(this.searchForm.chosenCompounds, compound);
+  }
+
   collectCompounds() {
     let selectedRegionsIds = collect(this.searchForm.chosenRegions).pluck('id').toArray();
 
@@ -269,10 +284,15 @@ class Searchform {
     this.compoundList = collect(this.compoundList).sortBy('name').toArray();
   }
 
+  removeChosenCompound(index) {
+    this.searchForm.chosenCompounds.splice(index, 1);
+
+    this.detectChanges();
+  }
+
   /**
    * Remove chosen region from chosenRegions list
    *
-   * @param {DOMElement} $el
    * @param {Number} index
    */
   removeChosenRegion(index) {
