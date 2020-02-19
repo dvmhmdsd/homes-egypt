@@ -24,12 +24,14 @@ class Searchform {
       minPrice: '',
       maxPrice: '',
       compound_id: null,
+      compound: null,
       sale_type: "", // "rent" / "sale" / "commercial" / new-homes
       regions: [],
       compounds: [],
       type: '',
       currencies: [],
       chosenRegions: [],
+      chosenCompounds: [],
       propertyTypes: [],
       typesAvailable: [
         { label: "Rent", value: "rent" },
@@ -40,7 +42,6 @@ class Searchform {
     };
 
     this.featuredRegions = [];
-    // properties will be passed to the home page
   }
 
   /**
@@ -260,6 +261,15 @@ class Searchform {
     this.collectCompounds();
   }
 
+  chooseCompound(compound) {
+    if (Is.numeric(compound)) {
+      compound = this.compoundList.find(compoundItem => String(compoundItem.id) == String(compound));
+    }
+    this.searchForm.compound = compound;
+
+    Array.pushOnce(this.searchForm.chosenCompounds, compound);
+  }
+
   collectCompounds() {
     let selectedRegionsIds = collect(this.searchForm.chosenRegions).pluck('id').toArray();
 
@@ -274,10 +284,15 @@ class Searchform {
     this.compoundList = collect(this.compoundList).sortBy('name').toArray();
   }
 
+  removeChosenCompound(index) {
+    this.searchForm.chosenCompounds.splice(index, 1);
+
+    this.detectChanges();
+  }
+
   /**
    * Remove chosen region from chosenRegions list
    *
-   * @param {DOMElement} $el
    * @param {Number} index
    */
   removeChosenRegion(index) {

@@ -25,11 +25,11 @@
             placeholder="{{ this.regionsPlaceholder }}"></flk-dropdown-list>
         </div>
 
-        <div *if="! Is.empty(this.compoundList)" class="form-group col-sm-3 col-12 d-flex compound-wrapper"
-          [class]="{smaller: this.smallerCompound, 'much-smaller': this.muchSmallerCompound}">
+        <div *if="! Is.empty(this.compoundList)" class="form-group col-sm-6 col-12 d-flex compound-wrapper"
+          class="much-smaller">
           <flk-dropdown-list *if="this.compounds" icon="city" [items]="this.compoundList"
-            [value]="this.searchForm.compound_id" name="compound_id" [searchable]="false" id="compound"
-            (select)="this.searchForm.compound_id = e.value; this.smallerCompound = e.text.includes(' '); this.muchSmallerCompound = e.text.repeatsOf(' ') >= 2;"
+            [value]="this.searchForm.compound" id="compound" title="Select a Compound"
+            (select)="this.chooseCompound(e.value); this.smallerCompound = e.text.includes(' '); this.muchSmallerCompound = e.text.repeatsOf(' ') >= 2;"
             [none]="true" placeholder="Compound" title="Select Compound"></flk-dropdown-list>
         </div>
 
@@ -102,6 +102,16 @@
               <span [html]="region.name"></span>
               <fa icon="times" (click)="this.removeChosenRegion(index)"></fa>
               <input type="hidden" name="regions[]" [value]="region.id" />
+            </li>
+          </ul>
+        </div>
+
+        <div *if="! Is.empty(this.searchForm.chosenCompounds)" class="form-group col-12">
+          <ul class="list-unstyled row chosen-regions">
+            <li *for="let compound, index of this.searchForm.chosenCompounds" class="chosen-region-item">
+              <span [html]="compound.name"></span>
+              <fa icon="times" (click)="this.removeChosenCompound(index)"></fa>
+              <input type="hidden" name="compounds[]" [value]="compound.id" />
             </li>
           </ul>
         </div>

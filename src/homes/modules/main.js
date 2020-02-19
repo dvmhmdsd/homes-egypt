@@ -72,7 +72,6 @@
  * @param {object} property 
  */
 function currencyConverter(property) {
-  echo(property.currency)
   if (window.currentCurrency.code == "Default" || !window.currentCurrency.code) {
     return `${property.price.format()} ${property.currency}`;
   }
