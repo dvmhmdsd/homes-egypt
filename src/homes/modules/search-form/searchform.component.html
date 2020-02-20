@@ -92,8 +92,8 @@
 
         <div class="form-group col-md-3 col-6">
           <flk-dropdown-list name="currency" icon="money-bill-wave"
-            (select)="this.settingsService.updateCurrency(e.value); this.detectChanges()" placeholder="Currency"
-            [value]="window.currentCurrency.code" [items]="this.currencies" [searchable]="false"></flk-dropdown-list>
+            (select)="this.settingsService.updateCurrency(e.value); this.detectChanges()" placeholder="Currency" [value]="window.currentCurrency.code == 'Default' ? 'EGP' : window.currentCurrency.code"
+             [items]="this.currencies" [searchable]="false"></flk-dropdown-list>
         </div>
 
         <div *if="! Is.empty(this.searchForm.chosenRegions)" class="form-group col-12">
