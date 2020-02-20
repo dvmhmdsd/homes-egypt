@@ -17,15 +17,15 @@ class Searchform {
     // show the corresponding form
     this.defaultSearch = {
       currency: '',
-      minArea: '',
-      maxArea: '',
+      min_area: '',
+      max_area: '',
       minBeds: '',
       maxBeds: '',
       minPrice: '',
       maxPrice: '',
       compound_id: null,
       compound: null,
-      sale_type: "", // "rent" / "sale" / "commercial" / new-homes
+      sale_type: "", // "rent" / "sale" / "commercial" / "new-homes"
       regions: [],
       compounds: [],
       type: '',
@@ -60,6 +60,9 @@ class Searchform {
       });
     }
 
+    this.smallerMinArea = false;
+    this.smallerMaxArea = false;
+
     this.regionsPlaceholder = 'Select Location';
     this.searchForm = Object.clone(this.defaultSearch);
     this.regionsList = [];
@@ -75,6 +78,30 @@ class Searchform {
     this.settingsService.cached('list').then(response => {
       this.setupSettings(response);
     });
+  }
+
+  setAreas() {
+    let areasList = [];
+    const addArea = area => {
+      areasList.push({
+        text: area.format() + " square meter",
+        value: area
+      });
+    }
+
+    let area = 50;
+    while (area < 4000) {
+      addArea(area);
+      if (area < 600) {
+        area += 50;
+      } else if (area < 1700) {
+        area += 100;
+      } else if (area < 4000) {
+        area += 200;
+      }
+    }
+
+    return areasList;
   }
 
   setPrices() {
