@@ -348,12 +348,18 @@ class Searchform {
   }
 
   chooseCompound(compound) {
+    this.searchForm.compound = null;
+
+    if (!compound) return;
+
+    this.searchForm.compound = Random.id();
+
     if (Is.numeric(compound)) {
       compound = this.compoundList.find(compoundItem => String(compoundItem.id) == String(compound));
     }
-    this.searchForm.compound = compound;
 
     Array.pushOnce(this.searchForm.chosenCompounds, compound);
+
   }
 
   collectCompounds() {

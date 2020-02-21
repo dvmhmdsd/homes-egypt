@@ -28,7 +28,7 @@
         <div *if="! Is.empty(this.compoundList)" class="form-group col-sm-6 col-12 d-flex compound-wrapper"
           class="much-smaller">
           <flk-dropdown-list *if="this.compounds" icon="city" [items]="this.compoundList"
-            [value]="this.searchForm.compound" id="compound" title="Select a Compound"
+            [value]="this.searchForm.compound" id="compounds" title="Select a Compound"
             (select)="this.chooseCompound(e.value); this.smallerCompound = e.text.includes(' '); this.muchSmallerCompound = e.text.repeatsOf(' ') >= 2;"
             [none]="true" placeholder="Compound" title="Select Compound"></flk-dropdown-list>
         </div>
