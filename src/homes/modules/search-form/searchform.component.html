@@ -47,13 +47,13 @@
 
         <if condition="this.searchForm.sale_type == 'commercial' || this.searchForm.sale_type == 'new-homes'">
           <div class="form-group col-md-3 col-6 d-flex" [class]="{'smaller' : this.smallerMinArea}">
-            <flk-dropdown-list (select)="this.searchForm.min_area = e.value; this.smallerMinArea = e.text.includes(' ')" [items]="this.setAreas()" id="minArea" [value]="this.searchForm.min_area"
+            <flk-dropdown-list (select)="this.searchForm.min_area = e.value; this.cache.set('minArea', e.text); this.smallerMinArea = e.text.includes(' ')" [items]="this.setAreas()" id="minArea" [value]="this.searchForm.min_area"
               name="min_area" placeholder="Min Area" title="Minimum Area">
             </flk-dropdown-list>
           </div>
 
           <div class="form-group col-md-3 col-6 d-flex" [class]="{'smaller' : this.smallerMaxArea}">
-            <flk-dropdown-list (select)="this.searchForm.max_area = e.value; this.smallerMaxArea = e.text.includes(' ')"  [items]="this.setAreas()" id="maxArea" [value]="this.searchForm.max_area"
+            <flk-dropdown-list (select)="this.searchForm.max_area = e.value; this.cache.set('maxArea', e.text); this.searchForm.maxArea = e.text; this.smallerMaxArea = e.text.includes(' ')"  [items]="this.setAreas()" id="maxArea" [value]="this.searchForm.max_area"
               name="max_area" placeholder="Max Area" title="Maximum Area">
             </flk-dropdown-list>
           </div>

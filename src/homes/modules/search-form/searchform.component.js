@@ -20,6 +20,8 @@ class Searchform {
     this.defaultSearch = {
       currency: '',
       min_area: '',
+      minArea: '',
+      maxArea: '',
       max_area: '',
       minBeds: '',
       maxBeds: '',
@@ -66,9 +68,6 @@ class Searchform {
       this.searchForm.min_price = null;
       this.searchForm.max_price = null;
     })
-
-    this.smallerMinArea = false;
-    this.smallerMaxArea = false;
 
     this.regionsPlaceholder = 'Select Location';
     this.searchForm = Object.clone(this.defaultSearch);
@@ -263,6 +262,19 @@ class Searchform {
     this.smallerCompound = false;
     this.muchSmallerCompound = false;
     this.smallerType = false;
+    this.smallerMinArea = false;
+    this.smallerMaxArea = false;
+    
+    let currentMinArea = this.cache.get("minArea")
+    let currentMaxArea = this.cache.get("maxArea")
+    if(currentMinArea && this.searchForm.min_area) {
+      this.smallerMinArea = currentMinArea.includes(' ');
+    }
+
+    if(currentMaxArea && this.searchForm.max_area) {
+      this.smallerMaxArea = currentMaxArea.includes(' ');
+    }
+
     let currentCompound = response.compounds.find(compound => compound.id == Number(this.searchForm.compound_id));
 
     if (currentCompound) {
@@ -271,6 +283,7 @@ class Searchform {
     }
 
     let currentType = response.propertyTypes.find(type => type.id == Number(this.searchForm.type));
+    
 
     if (currentType) {
       this.smallerType = currentType.name.includes(' ');
