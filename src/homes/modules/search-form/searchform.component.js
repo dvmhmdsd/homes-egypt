@@ -130,8 +130,8 @@ class Searchform {
       }
     };
 
+    let type = this.searchForm.sale_type;
     if (code == "EGP" || code == "Default") {
-      let type = this.searchForm.sale_type;
       if (type == 'rent') {
         let price = 5000;
         while (price < 300000) {
@@ -174,24 +174,47 @@ class Searchform {
         addPrice(40000000);
       }
     } else if (code == "USD" || code == "Euro") {
-      let price = 10000;
-      while (price < 3000000) {
-        addPrice(price);
+      if (type == 'rent') {
+        let price = 100;
+        while (price < 500000) {
+          addPrice(price);
 
-        if (price < 2000) {
-          price += 100;
-        } else if (price < 5000) {
-          price += 250;
-        } else if (price < 10000) {
-          price += 500;
-        } else if (price < 20000) {
-          price += 1000;
-        } else {
-          break;
+          if (price < 2000) {
+            price += 100;
+          } else if (price < 5000) {
+            price += 250;
+          } else if (price < 10000) {
+            price += 500;
+          } else if (price < 30000) {
+            price += 1000;
+          } else if (price < 100000) {
+            price += 5000;
+          } else if (price < 500000) {
+            price += 50000;
+          } else {
+            break;
+          }
+        }
+      } else {
+        let price = 10000;
+        while (price < 3000000) {
+          addPrice(price);
+
+          if (price < 30000) {
+            price += 1000;
+          } else if (price < 100000) {
+            price += 5000;
+          } else if (price < 1000000) {
+            price += 100000;
+          } else if (price < 3000000) {
+            price += 500000;
+          } else {
+            break;
+          }
         }
       }
 
-      addPrice(20000);
+      addPrice(3000000);
     }
 
     return pricesList;

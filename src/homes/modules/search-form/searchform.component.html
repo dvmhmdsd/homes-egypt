@@ -116,24 +116,26 @@
             [items]="this.currencies" [searchable]="false"></flk-dropdown-list>
         </div>
 
-        <div *if="! Is.empty(this.searchForm.chosenRegions)" class="form-group col-12">
-          <ul class="list-unstyled row chosen-regions">
-            <li *for="let region, index of this.searchForm.chosenRegions" class="chosen-region-item">
-              <span [html]="region.name"></span>
-              <fa icon="times" (click)="this.removeChosenRegion(index)"></fa>
-              <input type="hidden" name="regions[]" [value]="region.id" />
-            </li>
-          </ul>
-        </div>
-
-        <div *if="! Is.empty(this.searchForm.chosenCompounds)" class="form-group col-12">
-          <ul class="list-unstyled row chosen-regions">
-            <li *for="let compound, index of this.searchForm.chosenCompounds" class="chosen-region-item">
-              <span [html]="compound.name"></span>
-              <fa icon="times" (click)="this.removeChosenCompound(index)"></fa>
-              <input type="hidden" name="compounds[]" [value]="compound.id" />
-            </li>
-          </ul>
+        <div class="col-12">
+          <div *if="! Is.empty(this.searchForm.chosenRegions)" class="form-group d-inline-block mr-3">
+            <ul class="list-unstyled row chosen-regions">
+              <li *for="let region, index of this.searchForm.chosenRegions" class="chosen-region-item">
+                <span [html]="region.name"></span>
+                <fa icon="times" (click)="this.removeChosenRegion(index)"></fa>
+                <input type="hidden" name="regions[]" [value]="region.id" />
+              </li>
+            </ul>
+          </div>
+  
+          <div *if="! Is.empty(this.searchForm.chosenCompounds)" class="form-group d-inline-block mx-2">
+            <ul class="list-unstyled row chosen-regions">
+              <li *for="let compound, index of this.searchForm.chosenCompounds" class="chosen-region-item">
+                <span [html]="compound.name"></span>
+                <fa icon="times" (click)="this.removeChosenCompound(index)"></fa>
+                <input type="hidden" name="compounds[]" [value]="compound.id" />
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div class="form-group col-12 text-right form-actions">
