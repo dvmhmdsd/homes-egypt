@@ -245,6 +245,10 @@ class Searchform {
       this.collectCompounds();
     }
 
+    if (!Is.empty(this.searchForm.compounds)) {
+      this.searchForm.chosenCompounds = response.compounds.filter(compound => this.searchForm.compounds.includes(compound.id));
+    }
+
     // add featuredRegions to cache to use in other places
     this.cache.set("featuredRegions", this.featuredRegions);
 
