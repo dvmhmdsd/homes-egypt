@@ -10,7 +10,7 @@
                 </h2>
             </div>
             <div *if="! Is.empty(this.featuredProperties)" class="properties-grid d-flex flex-wrap">
-                <div *for="let property of this.featuredProperties" class="property-item col-lg-4 col-md-4 col-sm-6">
+                <div *for="let property of this.featuredProperties" class="property-item col-lg-4">
                     <property-card [star]="true" [property]="property"></property-card>                    
                 </div>
             </div>
@@ -23,7 +23,7 @@
         <div *if="! Is.empty(this.properties)" class="container">
             <!-- grid of properties -->
             <div *if="! Is.empty(this.properties)" class="properties-grid d-flex flex-wrap">
-                <div *for="let property of this.properties" class="property-item col-lg-4 col-md-4 col-sm-6">
+                <div *for="let property of this.properties" class="property-item col-lg-4">
                     <property-card [star]="property.featured" [property]="property"></property-card>
                 </div>
 

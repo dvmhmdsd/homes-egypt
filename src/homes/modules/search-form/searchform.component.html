@@ -45,17 +45,34 @@
             title="Property ID"></form-input>
         </div>
 
-        <div class="form-group col-md-3 col-6 d-flex">
-          <flk-dropdown-list icon="bed" [items]="this.numbersArray" [searchable]="false" id="minBed" [none]="true"
-            [value]="this.searchForm.min_beds" name="min_beds" placeholder="Min Beds" title="Minimum Number of beds">
-          </flk-dropdown-list>
-        </div>
+        <if condition="this.searchForm.sale_type == 'commercial' || this.searchForm.sale_type == 'new-homes'">
+          <div class="form-group col-md-3 col-6 d-flex" [class]="{'smaller' : this.smallerMinArea}">
+            <flk-dropdown-list (select)="this.searchForm.min_area = e.value; this.smallerMinArea = e.text.includes(' ')" [items]="this.setAreas()" id="minArea" [value]="this.searchForm.min_area"
+              name="min_area" placeholder="Min Area" title="Minimum Area">
+            </flk-dropdown-list>
+          </div>
 
-        <div class="form-group col-md-3 col-6 d-flex">
-          <flk-dropdown-list icon="bed" [value]="this.searchForm.max_beds" [none]="true" [items]="this.numbersArray"
-            [searchable]="false" id="maxBed" name="max_beds" placeholder="Max Beds" title="Maximum Number of beds">
-          </flk-dropdown-list>
-        </div>
+          <div class="form-group col-md-3 col-6 d-flex" [class]="{'smaller' : this.smallerMaxArea}">
+            <flk-dropdown-list (select)="this.searchForm.max_area = e.value; this.smallerMaxArea = e.text.includes(' ')"  [items]="this.setAreas()" id="maxArea" [value]="this.searchForm.max_area"
+              name="max_area" placeholder="Max Area" title="Maximum Area">
+            </flk-dropdown-list>
+          </div>
+        </if>
+
+        <else>
+          <div class="form-group col-md-3 col-6 d-flex">
+            <flk-dropdown-list icon="bed" [items]="this.numbersArray" [searchable]="false" id="minBed" [none]="true"
+              [value]="this.searchForm.min_beds" name="min_beds" placeholder="Min Beds" title="Minimum Number of beds">
+            </flk-dropdown-list>
+          </div>
+
+          <div class="form-group col-md-3 col-6 d-flex">
+            <flk-dropdown-list icon="bed" [value]="this.searchForm.max_beds" [none]="true" [items]="this.numbersArray"
+              [searchable]="false" id="maxBed" name="max_beds" placeholder="Max Beds" title="Maximum Number of beds">
+            </flk-dropdown-list>
+          </div>
+        </else>
+
 
         <!-- <div class="form-group col-md-3 col-xs-12 d-flex">
           <flk-dropdown-list 
@@ -83,17 +100,20 @@
         </div> -->
 
         <div class="form-group col-md-3 col-6 input-wrapper">
-          <flk-dropdown-list name="min_price" placeholder="Min price" [value]="this.searchForm.min_price" [items]="this.setPrices()" [searchable]="true"></flk-dropdown-list>
+          <flk-dropdown-list name="min_price" placeholder="Min price" [value]="this.searchForm.min_price"
+            [items]="this.setPrices()" [searchable]="true"></flk-dropdown-list>
         </div>
 
         <div class="form-group col-md-3 col-6 input-wrapper">
-          <flk-dropdown-list name="max_price" placeholder="Max price" [value]="this.searchForm.max_price" [items]="this.setPrices()" [searchable]="true"></flk-dropdown-list>
+          <flk-dropdown-list name="max_price" placeholder="Max price" [value]="this.searchForm.max_price"
+            [items]="this.setPrices()" [searchable]="true"></flk-dropdown-list>
         </div>
 
         <div class="form-group col-md-3 col-6">
           <flk-dropdown-list name="currency" icon="money-bill-wave"
             (select)="this.settingsService.updateCurrency(e.value); this.detectChanges()" placeholder="Currency"
-            [value]="window.currentCurrency.code" [items]="window.settings.currencies" [searchable]="false"></flk-dropdown-list>
+            [value]="window.currentCurrency.code == 'Default' ? 'EGP' : window.currentCurrency.code"
+            [items]="this.currencies" [searchable]="false"></flk-dropdown-list>
         </div>
 
         <div *if="! Is.empty(this.searchForm.chosenRegions)" class="form-group col-12">

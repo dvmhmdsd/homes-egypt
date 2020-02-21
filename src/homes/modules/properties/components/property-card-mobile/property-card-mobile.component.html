@@ -42,23 +42,19 @@
                 <strong [html]="this.property.old_id"></strong>
             </div>
         </div>
+        <footer class="property-footer m-t-1 text-center d-flex btn-group">
+            <a 
+            
+            href="{{('whatsapp://send?phone=' + this.phoneNumber + '&text=I would like to get more information about this property https://homes-egypt/property/' + this.property.old_id + ' \n property id: ' + this.property.old_id + ' \n Propterty Type: ' + this.property.type + ' \n Price ' + currencyConverter(this.property)) + ' ' + window.currentCurrency.code}}"
+                class="green-text btn whatsapp-btn py-1">
+                <fa fab="whatsapp"></fa>
+                <span>Whatsapp</span>
+            </a>
+            <a href="tel:{{this.phoneNumber}}" class="btn call-btn py-1">
+                <fa icon="phone-alt"></fa>
+                <span>Call</span>
+            </a>
+        </footer>
     </section>
     <div class="clearfix"></div>
-    <footer class="property-footer m-t-1 text-center d-flex btn-group">
-        <a 
-        
-        href="{{('whatsapp://send?phone=' + this.phoneNumber + '&text=I would like to get more information about this property https://homes-egypt/property/' + this.property.old_id + ' \n property id: ' + this.property.old_id + ' \n Propterty Type: ' + this.property.type + ' \n Price ' + currencyConverter(this.property)) + ' ' + window.currentCurrency.code}}"
-            class="green-text btn whatsapp-btn py-1">
-            <fa fab="whatsapp"></fa>
-            <span>Whatsapp</span>
-        </a>
-        <a href="tel:{{this.phoneNumber}}" class="btn call-btn py-1">
-            <fa icon="phone-alt"></fa>
-            <span>Call</span>
-        </a>
-        <a [href]="propertyUrl(this.property)" class="btn view-btn py-1">
-            <fa icon="eye"></fa>
-            <span>View</span>
-        </a>
-    </footer>
 </div>
