@@ -3,12 +3,14 @@ class Searchform {
    * Constructor
    * Put your required dependencies in the constructor parameters list
    */
-  constructor(cache, settingsService, router, propertiesService) {
+  constructor(cache, settingsService, router, propertiesService, events) {
     this.loadingSearch;
 
     this.router = router;
 
     this.cache = cache;
+
+    this.events = events;
 
     this.settingsService = settingsService;
 
@@ -59,6 +61,11 @@ class Searchform {
         value: size,
       });
     }
+
+    this.events.on("currency.change", () => {
+      this.searchForm.min_price = null;
+      this.searchForm.max_price = null;
+    })
 
     this.smallerMinArea = false;
     this.smallerMaxArea = false;

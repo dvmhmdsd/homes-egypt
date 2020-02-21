@@ -100,12 +100,12 @@
         </div> -->
 
         <div class="form-group col-md-3 col-6 input-wrapper">
-          <flk-dropdown-list name="min_price" [none]="true" (select)="window.minPrice = e.value" placeholder="Min price" [value]="window.minPrice"
+          <flk-dropdown-list name="min_price" [none]="true" (select)="window.minPrice = e.value" placeholder="Min price" [value]="this.searchForm.min_price"
             [items]="this.setPrices()" [searchable]="true"></flk-dropdown-list>
         </div>
 
         <div class="form-group col-md-3 col-6 input-wrapper">
-          <flk-dropdown-list name="max_price" [none]="true" (select)="window.maxPrice = e.value" placeholder="Max price" [value]="window.maxPrice"
+          <flk-dropdown-list name="max_price" [none]="true" (select)="window.maxPrice = e.value" placeholder="Max price" [value]="this.searchForm.max_price"
             [items]="this.setPrices()" [searchable]="true"></flk-dropdown-list>
         </div>
 
