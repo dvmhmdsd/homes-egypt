@@ -65,6 +65,7 @@ class Searchform {
 
     this.regionsPlaceholder = 'Select Location';
     this.searchForm = Object.clone(this.defaultSearch);
+
     this.regionsList = [];
     this.currencies = [];
     this.propertyTypes = [];
@@ -123,27 +124,51 @@ class Searchform {
     };
 
     if (code == "EGP" || code == "Default") {
-      let price = 5000;
-      while (price < 300000) {
-        addPrice(price);
+      let type = this.searchForm.sale_type;
+      if (type == 'rent') {
+        let price = 5000;
+        while (price < 300000) {
+          addPrice(price);
 
-        if (price < 20000) {
-          price += 1000;
-        } else if (price < 50000) {
-          price += 2500;
-        } else if (price < 100000) {
-          price += 5000;
-        } else if (price < 300000) {
-          price += 50000;
-        } else {
-          break;
+          if (price < 20000) {
+            price += 1000;
+          } else if (price < 50000) {
+            price += 2500;
+          } else if (price < 100000) {
+            price += 5000;
+          } else if (price < 300000) {
+            price += 50000;
+          } else {
+            break;
+          }
         }
-      }
 
-      addPrice(40000000);
+        addPrice(300000);
+      } else {
+        let price = 100000;
+        while (price < 40000000) {
+          addPrice(price);
+
+          if (price < 3000000) {
+            price += 100000;
+          } else if (price < 4500000) {
+            price += 250000;
+          } else if (price < 6000000) {
+            price += 500000;
+          } else if (price < 10000000) {
+            price += 1000000;
+          } else if (price < 20000000) {
+            price += 5000000;
+          } else {
+            break;
+          }
+        }
+
+        addPrice(40000000);
+      }
     } else if (code == "USD" || code == "Euro") {
-      let price = 100;
-      while (price < 20000) {
+      let price = 10000;
+      while (price < 3000000) {
         addPrice(price);
 
         if (price < 2000) {

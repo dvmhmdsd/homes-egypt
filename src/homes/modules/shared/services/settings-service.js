@@ -44,6 +44,10 @@ class SettingsService extends Endpoint.Service {
 
     window.currentCurrency = currency;
     this.cache.set('currency', currency);
+
+    // reset price
+    window.minPrice = null;
+    window.maxPrice = null;
   }
 
   cities() {
