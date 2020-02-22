@@ -24,7 +24,7 @@ class PropertyCard {
             }
         });
 
-        this.phoneNumber = this.propertyPhoneNumber();
+        this.property.phoneNumber = this.phoneNumber = this.propertyPhoneNumber();
     }
 
     /**
