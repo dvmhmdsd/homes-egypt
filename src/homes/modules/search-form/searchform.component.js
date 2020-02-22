@@ -3,12 +3,14 @@ class Searchform {
    * Constructor
    * Put your required dependencies in the constructor parameters list
    */
-  constructor(cache, settingsService, router, propertiesService) {
+  constructor(cache, settingsService, router, propertiesService, events) {
     this.loadingSearch;
 
     this.router = router;
 
     this.cache = cache;
+
+    this.events = events;
 
     this.settingsService = settingsService;
 
@@ -18,6 +20,8 @@ class Searchform {
     this.defaultSearch = {
       currency: '',
       min_area: '',
+      minArea: '',
+      maxArea: '',
       max_area: '',
       minBeds: '',
       maxBeds: '',
@@ -60,11 +64,14 @@ class Searchform {
       });
     }
 
-    this.smallerMinArea = false;
-    this.smallerMaxArea = false;
+    this.events.on("currency.change", () => {
+      this.searchForm.min_price = null;
+      this.searchForm.max_price = null;
+    })
 
     this.regionsPlaceholder = 'Select Location';
     this.searchForm = Object.clone(this.defaultSearch);
+
     this.regionsList = [];
     this.currencies = [];
     this.propertyTypes = [];
@@ -122,44 +129,91 @@ class Searchform {
       }
     };
 
+    let type = this.searchForm.sale_type;
     if (code == "EGP" || code == "Default") {
-      let price = 5000;
-      while (price < 300000) {
-        addPrice(price);
+      if (type == 'rent') {
+        let price = 5000;
+        while (price < 300000) {
+          addPrice(price);
 
-        if (price < 20000) {
-          price += 1000;
-        } else if (price < 50000) {
-          price += 2500;
-        } else if (price < 100000) {
-          price += 5000;
-        } else if (price < 300000) {
-          price += 50000;
-        } else {
-          break;
+          if (price < 20000) {
+            price += 1000;
+          } else if (price < 50000) {
+            price += 2500;
+          } else if (price < 100000) {
+            price += 5000;
+          } else if (price < 300000) {
+            price += 50000;
+          } else {
+            break;
+          }
         }
-      }
 
-      addPrice(40000000);
+        addPrice(300000);
+      } else {
+        let price = 100000;
+        while (price < 40000000) {
+          addPrice(price);
+
+          if (price < 3000000) {
+            price += 100000;
+          } else if (price < 4500000) {
+            price += 250000;
+          } else if (price < 6000000) {
+            price += 500000;
+          } else if (price < 10000000) {
+            price += 1000000;
+          } else if (price < 20000000) {
+            price += 5000000;
+          } else {
+            break;
+          }
+        }
+
+        addPrice(40000000);
+      }
     } else if (code == "USD" || code == "Euro") {
-      let price = 100;
-      while (price < 20000) {
-        addPrice(price);
+      if (type == 'rent') {
+        let price = 100;
+        while (price < 500000) {
+          addPrice(price);
 
-        if (price < 2000) {
-          price += 100;
-        } else if (price < 5000) {
-          price += 250;
-        } else if (price < 10000) {
-          price += 500;
-        } else if (price < 20000) {
-          price += 1000;
-        } else {
-          break;
+          if (price < 2000) {
+            price += 100;
+          } else if (price < 5000) {
+            price += 250;
+          } else if (price < 10000) {
+            price += 500;
+          } else if (price < 30000) {
+            price += 1000;
+          } else if (price < 100000) {
+            price += 5000;
+          } else if (price < 500000) {
+            price += 50000;
+          } else {
+            break;
+          }
+        }
+      } else {
+        let price = 10000;
+        while (price < 3000000) {
+          addPrice(price);
+
+          if (price < 30000) {
+            price += 1000;
+          } else if (price < 100000) {
+            price += 5000;
+          } else if (price < 1000000) {
+            price += 100000;
+          } else if (price < 3000000) {
+            price += 500000;
+          } else {
+            break;
+          }
         }
       }
 
-      addPrice(20000);
+      addPrice(3000000);
     }
 
     return pricesList;
@@ -190,6 +244,10 @@ class Searchform {
       this.collectCompounds();
     }
 
+    if (!Is.empty(this.searchForm.compounds)) {
+      this.searchForm.chosenCompounds = response.compounds.filter(compound => this.searchForm.compounds.includes(compound.id));
+    }
+
     // add featuredRegions to cache to use in other places
     this.cache.set("featuredRegions", this.featuredRegions);
 
@@ -204,6 +262,19 @@ class Searchform {
     this.smallerCompound = false;
     this.muchSmallerCompound = false;
     this.smallerType = false;
+    this.smallerMinArea = false;
+    this.smallerMaxArea = false;
+    
+    let currentMinArea = this.cache.get("minArea")
+    let currentMaxArea = this.cache.get("maxArea")
+    if(currentMinArea && this.searchForm.min_area) {
+      this.smallerMinArea = currentMinArea.includes(' ');
+    }
+
+    if(currentMaxArea && this.searchForm.max_area) {
+      this.smallerMaxArea = currentMaxArea.includes(' ');
+    }
+
     let currentCompound = response.compounds.find(compound => compound.id == Number(this.searchForm.compound_id));
 
     if (currentCompound) {
@@ -212,6 +283,7 @@ class Searchform {
     }
 
     let currentType = response.propertyTypes.find(type => type.id == Number(this.searchForm.type));
+    
 
     if (currentType) {
       this.smallerType = currentType.name.includes(' ');
@@ -289,12 +361,18 @@ class Searchform {
   }
 
   chooseCompound(compound) {
+    this.searchForm.compound = null;
+
+    if (!compound) return;
+
+    this.searchForm.compound = Random.id();
+
     if (Is.numeric(compound)) {
       compound = this.compoundList.find(compoundItem => String(compoundItem.id) == String(compound));
     }
-    this.searchForm.compound = compound;
 
     Array.pushOnce(this.searchForm.chosenCompounds, compound);
+
   }
 
   collectCompounds() {

@@ -1,7 +1,9 @@
 class SettingsService extends Endpoint.Service {
-  constructor(router) {
+  constructor(router, events) {
     super();
     this.router = router;
+
+    this.events = events;
   }
 
   /**
@@ -44,6 +46,8 @@ class SettingsService extends Endpoint.Service {
 
     window.currentCurrency = currency;
     this.cache.set('currency', currency);
+
+    this.events.trigger("currency.change", currency);
   }
 
   cities() {
