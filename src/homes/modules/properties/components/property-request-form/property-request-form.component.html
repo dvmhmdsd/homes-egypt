@@ -8,7 +8,7 @@
     <h3>Send Request</h3>
     <h4 *if="this.isSent" class="text-success bold text-center m-y-1">Your request has been sent successfully!</h4>
     <form *else (submit)="this.send($el)" class="d-flex flex-wrap">
-        <input type="hidden" name="id" [value]="this.property.id">
+        <input type="hidden" name="id" [value]="this.property.old_id">
         <div class="form-group col-6">
             <form-input type="text" name="name" required class="form-control" placeholder="Your name">
             </form-input>

@@ -29,7 +29,7 @@ class Searchform {
       maxPrice: '',
       compound_id: null,
       compound: null,
-      sale_type: "", // "rent" / "sale" / "commercial" / "new-homes"
+      sale_type: "rent", // "rent" / "sale" / "commercial" / "new-homes"
       regions: [],
       compounds: [],
       type: '',
