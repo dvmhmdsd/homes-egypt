@@ -55,7 +55,7 @@ class PropertyPage {
         this.loading = false;
 
         this.ifCurrencyInDollar = this.cache.get("currency") == "USD";
-        this.phoneNumber = this.propertyPhoneNumber();
+        this.property.phoneNumber = this.phoneNumber = this.propertyPhoneNumber();
 
         this.meta.setTitle(this.property.name)
                   .setDescription(this.property.short_description || this.property.description)

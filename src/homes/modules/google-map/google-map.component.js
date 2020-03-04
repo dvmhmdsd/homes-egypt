@@ -8,10 +8,9 @@ class GoogleMap {
             let apiKey = Config.get('google.apiKey', 'AIzaSyBwBRUTy0JfTgAnaWKkF4B9jHCpnzkPWF8&');
             // http.script(`https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=${this.onLoad}`)
             http.script(`https://maps.googleapis.com/maps/api/js?key=${apiKey}`, e => {
+                GoogleMap.loaded = true;
                 this.onLoad();
             });
-
-            GoogleMap.loaded = true;
         }
     }
 
@@ -47,3 +46,5 @@ class GoogleMap {
         }
     }
 }
+
+GoogleMap.loaded = false;

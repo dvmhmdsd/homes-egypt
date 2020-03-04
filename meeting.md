@@ -1,3 +1,17 @@
+# New
+- Dropdown not closed on clicked on firefox
+- featured properties can not select too many items
+- Add more compounds when selecting more than one compound
+- phone number on fire fox advertise property
+- Contract Us page show success message
+- optimize performance
+- Disable new homes properties
+- Commercial price like rent price rate
+- Compounds Text will be Administrative buildings in commercial section  
+- ground floor type style needs adjustment
+- Property update loading does not stop 
+- Properties backend compounds and sale type should not show rent properties  
+
 # Updates
 Ranged Price In EGP 
 Like Property Finder in sale and rent
