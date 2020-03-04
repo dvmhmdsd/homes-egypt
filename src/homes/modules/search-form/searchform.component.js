@@ -70,6 +70,7 @@ class Searchform {
     })
 
     this.regionsPlaceholder = 'Select Location';
+    this.compoundsPlaceholder = 'Select Compound';
     this.searchForm = Object.clone(this.defaultSearch);
 
     this.regionsList = [];
@@ -364,6 +365,8 @@ class Searchform {
     this.searchForm.compound = null;
 
     if (!compound) return;
+
+    this.compoundsPlaceholder = "Select More Compounds";
 
     this.searchForm.compound = Random.id();
 
